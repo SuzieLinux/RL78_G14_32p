@@ -16,7 +16,7 @@
                 <debug>1</debug>
                 <option>
                     <name>GenDeviceSelect</name>
-                    <state>R5F104BG RL78 - R5F104BG</state>
+                    <state>UnspecifiedRL78_2	RL78 core S3 - Unspecified</state>
                 </option>
                 <option>
                     <name>GenCodeModel</name>
@@ -44,7 +44,7 @@
                 </option>
                 <option>
                     <name>GenNearConstSize</name>
-                    <state>0xFBEFF</state>
+                    <state>0xF9EFF</state>
                 </option>
                 <option>
                     <name>GenDoubleSize</name>
@@ -743,7 +743,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>$TOOLKIT_DIR$\config\lnkr5f104bg.icf</state>
+                    <state>$TOOLKIT_DIR$\config\lnkrl78_s3.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
@@ -2102,6 +2102,12 @@
     </file>
     <file>
         <name>$PROJ_DIR$\src\ports\r_cg_port_user.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\src\base\r_cg_rtc.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\src\base\r_cg_rtc_user.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\src\serial\r_cg_serial.c</name>

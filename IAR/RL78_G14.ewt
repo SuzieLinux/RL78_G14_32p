@@ -2582,6 +2582,12 @@
         <name>$PROJ_DIR$\src\ports\r_cg_port_user.c</name>
     </file>
     <file>
+        <name>$PROJ_DIR$\src\base\r_cg_rtc.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\src\base\r_cg_rtc_user.c</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\src\serial\r_cg_serial.c</name>
     </file>
     <file>
