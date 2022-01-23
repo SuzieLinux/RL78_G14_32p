@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file implements device driver for CGC module.
-* Creation Date: 1/16/2022
+* Creation Date: 1/22/2022
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -67,7 +67,7 @@ void R_CGC_Create(void)
     
     /* Set fMAIN */
     MCM0 = 0U;
-    OSMC = _00_CGC_RTC_CLK_NO;
+    OSMC = _10_CGC_RTC_CLK_FIL;
     /* Set fIH */
     HIOSTOP = 0U;
 }
