@@ -2558,45 +2558,45 @@
         </settings>
     </configuration>
     <file>
-        <name>$PROJ_DIR$\applilet3_src\r_cg_adc.c</name>
+        <name>$PROJ_DIR$\src\adc\r_cg_adc.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\applilet3_src\r_cg_adc_user.c</name>
+        <name>$PROJ_DIR$\src\adc\r_cg_adc_user.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\applilet3_src\r_cg_cgc.c</name>
+        <name>$PROJ_DIR$\src\base\r_cg_cgc.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\applilet3_src\r_cg_cgc_user.c</name>
+        <name>$PROJ_DIR$\src\base\r_cg_cgc_user.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\applilet3_src\r_cg_intc.c</name>
+        <name>$PROJ_DIR$\src\intc\r_cg_intc.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\applilet3_src\r_cg_intc_user.c</name>
+        <name>$PROJ_DIR$\src\intc\r_cg_intc_user.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\applilet3_src\r_cg_port.c</name>
+        <name>$PROJ_DIR$\src\ports\r_cg_port.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\applilet3_src\r_cg_port_user.c</name>
+        <name>$PROJ_DIR$\src\ports\r_cg_port_user.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\applilet3_src\r_cg_serial.c</name>
+        <name>$PROJ_DIR$\src\serial\r_cg_serial.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\applilet3_src\r_cg_serial_user.c</name>
+        <name>$PROJ_DIR$\src\serial\r_cg_serial_user.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\applilet3_src\r_cg_timer.c</name>
+        <name>$PROJ_DIR$\src\timers\r_cg_timer.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\applilet3_src\r_cg_timer_user.c</name>
+        <name>$PROJ_DIR$\src\timers\r_cg_timer_user.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\applilet3_src\r_main.c</name>
+        <name>$PROJ_DIR$\src\base\r_main.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\applilet3_src\r_systeminit.c</name>
+        <name>$PROJ_DIR$\src\base\r_systeminit.c</name>
     </file>
 </project>
