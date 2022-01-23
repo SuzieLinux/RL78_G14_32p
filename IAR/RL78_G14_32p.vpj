@@ -62,6 +62,8 @@
             <F N="src/intc/r_cg_intc_user.c"/>
             <F N="src/ports/r_cg_port.c"/>
             <F N="src/ports/r_cg_port_user.c"/>
+            <F N="src/base/r_cg_rtc.c"/>
+            <F N="src/base/r_cg_rtc_user.c"/>
             <F N="src/serial/r_cg_serial.c"/>
             <F N="src/serial/r_cg_serial_user.c"/>
             <F N="src/timers/r_cg_timer.c"/>
@@ -78,6 +80,7 @@
             <F N="src/intc/r_cg_intc.h"/>
             <F N="src/base/r_cg_macrodriver.h"/>
             <F N="src/ports/r_cg_port.h"/>
+            <F N="src/base/r_cg_rtc.h"/>
             <F N="src/serial/r_cg_serial.h"/>
             <F N="src/timers/r_cg_timer.h"/>
             <F N="src/base/r_cg_userdefine.h"/>
