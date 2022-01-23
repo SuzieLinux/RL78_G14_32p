@@ -16,7 +16,7 @@
                 <debug>1</debug>
                 <option>
                     <name>GenDeviceSelect</name>
-                    <state>R5F104BG	RL78 - R5F104BG</state>
+                    <state>R5F104BG RL78 - R5F104BG</state>
                 </option>
                 <option>
                     <name>GenCodeModel</name>
@@ -378,12 +378,12 @@
                 </option>
                 <option>
                     <name>CCIncludePath2</name>
-                    <state>C:\Users\miche\Documents\RL78_G14_32p\IAR\src\adc</state>
-                    <state>C:\Users\miche\Documents\RL78_G14_32p\IAR\src\base</state>
-                    <state>C:\Users\miche\Documents\RL78_G14_32p\IAR\src\intc</state>
-                    <state>C:\Users\miche\Documents\RL78_G14_32p\IAR\src\ports</state>
-                    <state>C:\Users\miche\Documents\RL78_G14_32p\IAR\src\serial</state>
-                    <state>C:\Users\miche\Documents\RL78_G14_32p\IAR\src\timers</state>
+                    <state>$PROJ_DIR$\src\adc</state>
+                    <state>$PROJ_DIR$\src\base</state>
+                    <state>$PROJ_DIR$\src\intc</state>
+                    <state>$PROJ_DIR$\src\ports</state>
+                    <state>$PROJ_DIR$\src\serial</state>
+                    <state>$PROJ_DIR$\src\timers</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
