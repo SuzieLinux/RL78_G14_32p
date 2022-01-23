@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 1/16/2022
+* Creation Date: 1/22/2022
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -75,15 +75,29 @@ void R_TAU0_Create(void)
     /* Set INTTM00 low priority */
     TMPR100 = 1U;
     TMPR000 = 1U;
+    /* Set INTTM02 low priority */
+    TMPR102 = 1U;
+    TMPR002 = 1U;
     /* Set INTTM03 low priority */
     TMPR103 = 1U;
     TMPR003 = 1U;
+    /* Set INTTM01 low priority */
+    TMPR101 = 1U;
+    TMPR001 = 1U;
     /* Channel 0 is used as master channel for PWM output function */
     TMR00 = _0000_TAU_CLOCK_SELECT_CKM0 | _0000_TAU_CLOCK_MODE_CKS | _0000_TAU_COMBINATION_MASTER |
             _0000_TAU_TRIGGER_SOFTWARE | _0001_TAU_MODE_PWM_MASTER;
     TDR00 = _0C7F_TAU_TDR00_VALUE;
     TO0 &= ~_0001_TAU_CH0_OUTPUT_VALUE_1;
     TOE0 &= ~_0001_TAU_CH0_OUTPUT_ENABLE;
+    /* Channel 2 is used as slave channel for PWM output function */
+    TMR02 = _0000_TAU_CLOCK_SELECT_CKM0 | _0000_TAU_CLOCK_MODE_CKS | _0000_TAU_COMBINATION_SLAVE |
+            _0400_TAU_TRIGGER_MASTER_INT | _0009_TAU_MODE_PWM_SLAVE;
+    TDR02 = _0640_TAU_TDR02_VALUE;
+    TOM0 |= _0004_TAU_CH2_OUTPUT_COMBIN;
+    TOL0 &= ~_0004_TAU_CH2_OUTPUT_LEVEL_L;
+    TO0 &= ~_0004_TAU_CH2_OUTPUT_VALUE_1;
+    TOE0 |= _0004_TAU_CH2_OUTPUT_ENABLE;
     /* Channel 3 is used as slave channel for PWM output function */
     TMR03 = _0000_TAU_CLOCK_SELECT_CKM0 | _0000_TAU_CLOCK_MODE_CKS | _0000_TAU_COMBINATION_SLAVE |
             _0400_TAU_TRIGGER_MASTER_INT | _0009_TAU_MODE_PWM_SLAVE;
@@ -92,6 +106,19 @@ void R_TAU0_Create(void)
     TOL0 &= ~_0008_TAU_CH3_OUTPUT_LEVEL_L;
     TO0 &= ~_0008_TAU_CH3_OUTPUT_VALUE_1;
     TOE0 |= _0008_TAU_CH3_OUTPUT_ENABLE;
+    /* Channel 1 used as interval timer */
+    TMR01 = _0000_TAU_CLOCK_SELECT_CKM0 | _0000_TAU_CLOCK_MODE_CKS | _0000_TAU_16BITS_MODE |
+            _0000_TAU_TRIGGER_SOFTWARE | _0000_TAU_MODE_INTERVAL_TIMER | _0000_TAU_START_INT_UNUSED;
+    TDR01 = _0C7F_TAU_TDR01_VALUE;
+    TOM0 &= ~_0002_TAU_CH1_OUTPUT_COMBIN;
+    TOL0 &= ~_0002_TAU_CH1_OUTPUT_LEVEL_L;
+    TO0 &= ~_0002_TAU_CH1_OUTPUT_VALUE_1;
+    TOE0 &= ~_0002_TAU_CH1_OUTPUT_ENABLE;
+    /* Set TO02 pin */
+    POM1 &= 0x7FU;
+    PMC1 &= 0x7FU;
+    P1 &= 0x7FU;
+    PM1 &= 0x7FU;
     /* Set TO03 pin */
     P3 &= 0xFDU;
     PM3 &= 0xFDU;
@@ -107,10 +134,12 @@ void R_TAU0_Channel0_Start(void)
 {
     TMIF00 = 0U;    /* clear INTTM00 interrupt flag */
     TMMK00 = 0U;    /* enable INTTM00 interrupt */
+    TMIF02 = 0U;    /* clear INTTM02 interrupt flag */
+    TMMK02 = 0U;    /* enable INTTM02 interrupt */
     TMIF03 = 0U;    /* clear INTTM03 interrupt flag */
     TMMK03 = 0U;    /* enable INTTM03 interrupt */
-    TOE0 |= _0008_TAU_CH3_OUTPUT_ENABLE;
-    TS0 |= _0001_TAU_CH0_START_TRG_ON | _0008_TAU_CH3_START_TRG_ON;
+    TOE0 |= _0004_TAU_CH2_OUTPUT_ENABLE | _0008_TAU_CH3_OUTPUT_ENABLE;
+    TS0 |= _0001_TAU_CH0_START_TRG_ON | _0004_TAU_CH2_START_TRG_ON | _0008_TAU_CH3_START_TRG_ON;
 }
 
 /***********************************************************************************************************************
@@ -121,14 +150,90 @@ void R_TAU0_Channel0_Start(void)
 ***********************************************************************************************************************/
 void R_TAU0_Channel0_Stop(void)
 {
-    TT0 |= _0001_TAU_CH0_STOP_TRG_ON | _0008_TAU_CH3_STOP_TRG_ON;
-    TOE0 &= ~_0008_TAU_CH3_OUTPUT_ENABLE;
+    TT0 |= _0001_TAU_CH0_STOP_TRG_ON | _0004_TAU_CH2_STOP_TRG_ON | _0008_TAU_CH3_STOP_TRG_ON;
+    TOE0 &= ~_0004_TAU_CH2_OUTPUT_ENABLE & ~_0008_TAU_CH3_OUTPUT_ENABLE;
     /* Mask channel 0 interrupt */
     TMMK00 = 1U;    /* disable INTTM00 interrupt */
     TMIF00 = 0U;    /* clear INTTM00 interrupt flag */
+    /* Mask channel 2 interrupt */
+    TMMK02 = 1U;    /* disable INTTM02 interrupt */
+    TMIF02 = 0U;    /* clear INTTM02 interrupt flag */
     /* Mask channel 3 interrupt */
     TMMK03 = 1U;    /* disable INTTM03 interrupt */
     TMIF03 = 0U;    /* clear INTTM03 interrupt flag */
+}
+
+/***********************************************************************************************************************
+* Function Name: R_TAU0_Channel1_Start
+* Description  : This function starts TAU0 channel 1 counter.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_TAU0_Channel1_Start(void)
+{
+    TMIF01 = 0U;    /* clear INTTM01 interrupt flag */
+    TMMK01 = 0U;    /* enable INTTM01 interrupt */
+    TS0 |= _0002_TAU_CH1_START_TRG_ON;
+}
+
+/***********************************************************************************************************************
+* Function Name: R_TAU0_Channel1_Stop
+* Description  : This function stops TAU0 channel 1 counter.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_TAU0_Channel1_Stop(void)
+{
+    TT0 |= _0002_TAU_CH1_STOP_TRG_ON;
+    /* Mask channel 1 interrupt */
+    TMMK01 = 1U;    /* disable INTTM01 interrupt */
+    TMIF01 = 0U;    /* clear INTTM01 interrupt flag */
+}
+
+/***********************************************************************************************************************
+* Function Name: R_TMR_RJ0_Create
+* Description  : This function initializes the TMRJ0 module.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_TMR_RJ0_Create(void)
+{
+    TRJ0EN = 1U;    /* enable input clock supply */
+    TRJCR0 &= (uint8_t)~_01_TMRJ_COUNT_START;    /* disable TMRJ0 operation */
+    TRJMK0 = 1U;    /* disable INTTRJ0 interrupt */
+    TRJIF0 = 0U;    /* clear INTTRJ0 interrupt flag */
+    /* Set INTTRJ0 low priority */
+    TRJPR10 = 1U;
+    TRJPR00 = 1U;
+    TRJMR0 = _00_TMRJ_MODE_TIMER | _00_TMRJ_COUNT_SOURCE_FCLK;
+    TRJIOC0 = _00_TMRJ_TRJIOC_INITIAL_VALUE;
+    TRJ0 = _0C7F_TMRJ_TRJ0_VALUE;
+}
+
+/***********************************************************************************************************************
+* Function Name: R_TMR_RJ0_Start
+* Description  : This function starts TMRJ0 counter.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_TMR_RJ0_Start(void)
+{
+    TRJIF0 = 0U;    /* clear INTTRJ0 interrupt flag */
+    TRJMK0 = 0U;    /* enable INTTRJ0 interrupt */
+    TRJCR0 |= _01_TMRJ_COUNT_START;    /* enable TMRJ operation */
+}
+
+/***********************************************************************************************************************
+* Function Name: R_TMR_RJ0_Stop
+* Description  : This function stops TMRJ0 counter.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_TMR_RJ0_Stop(void)
+{
+    TRJCR0 &= (uint8_t)~_01_TMRJ_COUNT_START;    /* disable TMRJ operation */
+    TRJMK0 = 1U;    /* disable INTTRJ0 interrupt */
+    TRJIF0 = 0U;    /* clear INTTRJ0 interrupt flag */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

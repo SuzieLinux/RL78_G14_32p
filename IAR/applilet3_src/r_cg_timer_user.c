@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 1/16/2022
+* Creation Date: 1/22/2022
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -55,6 +55,32 @@ __interrupt static void r_tau0_channel0_interrupt(void)
 }
 
 /***********************************************************************************************************************
+* Function Name: r_tau0_channel1_interrupt
+* Description  : This function is INTTM01 interrupt service routine.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+#pragma vector = INTTM01_vect
+__interrupt static void r_tau0_channel1_interrupt(void)
+{
+    /* Start user code. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_tau0_channel2_interrupt
+* Description  : This function is INTTM02 interrupt service routine.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+#pragma vector = INTTM02_vect
+__interrupt static void r_tau0_channel2_interrupt(void)
+{
+    /* Start user code. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
 * Function Name: r_tau0_channel3_interrupt
 * Description  : This function is INTTM03 interrupt service routine.
 * Arguments    : None
@@ -62,6 +88,19 @@ __interrupt static void r_tau0_channel0_interrupt(void)
 ***********************************************************************************************************************/
 #pragma vector = INTTM03_vect
 __interrupt static void r_tau0_channel3_interrupt(void)
+{
+    /* Start user code. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_tmr_rj0_interrupt
+* Description  : This function is INTTRJ0 interrupt service routine.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+#pragma vector = INTTRJ0_vect
+__interrupt static void r_tmr_rj0_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */

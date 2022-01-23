@@ -12,11 +12,11 @@
 
 "--near_const_size" 
 
-"35.749" 
+"27.749" 
 
 "-p" 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\rl78\config\debugger\ior5f104bg.ddf" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\rl78\config\debugger\iorl78_s3.ddf" 
 
 "--double=32" 
 

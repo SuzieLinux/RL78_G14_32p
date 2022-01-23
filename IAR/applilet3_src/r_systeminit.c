@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file implements system initializing function.
-* Creation Date: 1/16/2022
+* Creation Date: 1/22/2022
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -36,6 +36,7 @@ Includes
 #include "r_cg_serial.h"
 #include "r_cg_adc.h"
 #include "r_cg_timer.h"
+#include "r_cg_rtc.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -71,7 +72,9 @@ void R_Systeminit(void)
     R_IICA0_Create();
     R_ADC_Create();
     R_TAU0_Create();
+    R_RTC_Create();
     R_INTC_Create();
+    R_TMR_RJ0_Create();
     IAWCTL = 0x00U;
     /* Start data flash control */
     DFLEN = 1U;

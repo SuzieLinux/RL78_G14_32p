@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file implements device driver for ADC module.
-* Creation Date: 1/16/2022
+* Creation Date: 1/22/2022
 ***********************************************************************************************************************/
 
 #ifndef ADC_H
