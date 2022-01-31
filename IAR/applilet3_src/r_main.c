@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file implements main function.
-* Creation Date: 1/22/2022
+* Creation Date: 1/31/2022
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -34,7 +34,6 @@ Includes
 #include "r_cg_port.h"
 #include "r_cg_intc.h"
 #include "r_cg_serial.h"
-#include "r_cg_adc.h"
 #include "r_cg_timer.h"
 #include "r_cg_rtc.h"
 /* Start user code for include. Do not edit comment generated here */
@@ -55,7 +54,7 @@ __root const uint8_t opbyte1 = 0xFFU;
 #pragma location = "OPTBYTE"
 __root const uint8_t opbyte2 = 0xF8U;
 #pragma location = "OPTBYTE"
-__root const uint8_t opbyte3 = 0x04U;
+__root const uint8_t opbyte3 = 0x85U;
 
 /* Set security ID */
 #pragma location = "SECUID"

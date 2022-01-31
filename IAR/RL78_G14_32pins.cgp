@@ -73,10 +73,10 @@
       </Effect>
     </VDDValue>
     <VDD Name="VDD" Text="false" Comment="used" />
-    <AD_ADPC_USEDPIN Name="AD_ADPC_USEDPIN" Text="ANI0,ANI1," />
-    <ADC_ADS_VALUE Name="ADC_ADS_VALUE" Text="ANI0," />
+    <AD_ADPC_USEDPIN Name="AD_ADPC_USEDPIN" Text="" />
+    <ADC_ADS_VALUE Name="ADC_ADS_VALUE" Text="" />
     <ADPC_DA_PIN Name="ADPC_DA_PIN" Text="" />
-    <ADPC_AD Name="ADPC_AD" Value="1" />
+    <ADPC_AD Name="ADPC_AD" Value="-1" />
     <ADPC_DA Name="ADPC_DA" Value="0" />
     <IIC00 Name="IIC00" Text="false" Comment="unused" Trigger="IIC00">
       <Effect>
@@ -98,7 +98,7 @@
         <PORT Forcible="" />
       </Effect>
     </IIC11>
-    <IIC20 Name="IIC20" Text="true" Comment="unused" Trigger="IIC20">
+    <IIC20 Name="IIC20" Text="false" Comment="unused" Trigger="IIC20">
       <Effect>
         <PORT Forcible="" />
       </Effect>
@@ -159,9 +159,9 @@
     </DataFlashDTC>
     <OnChipDebugTrace Name="GTrace" Text="1" />
     <OnChipDebugOptionBytes Name="GO" Text="1" />
-    <OnChipDebugOptionBytesValue Name="GOValue" Text="04" />
-    <StartAddressOfOnChipDebugOptionBytes Name="GOStart" Text="1FF00" />
-    <SizeOfOnChipDebugOptionBytesArea Name="GOSizeValue" Text="256" />
+    <OnChipDebugOptionBytesValue Name="GOValue" Text="85" />
+    <StartAddressOfOnChipDebugOptionBytes Name="GOStart" Text="1FE00" />
+    <SizeOfOnChipDebugOptionBytesArea Name="GOSizeValue" Text="512" />
     <UserOptionBytes Name="GB" Text="1" />
     <UserOptionBytesValue Name="GBValue" Text="EFFFF8" />
     <RAMStartAddress Chip="R5F104AG,R5F104BG,R5F104CG,R5F104EG,R5F104FG,R5F104GG,R5F104HG,R5F104JG,R5F104LG,R5F104MG,R5F104NG,R5F104PG" Name="RAMStartAddress" Fixed="" Text="000FBF00" />
@@ -194,18 +194,18 @@
     <RESET_pin Name="RESET_pin" Text="true" />
     <UseFDL Name="UseFDL" Text="no" />
     <DataFlash Name="DataFlash" Text="0" />
-    <OCDROM Name="OCDROM" Text="Unused" />
-    <OCDROM_Address Name="OCDROM_Address" Text="0001FF00" />
-    <OCDROM_Length Name="OCDROM_Length" Text="256" />
-    <HasRRMRam Name="HasRRMRam" Text="" />
+    <OCDROM Name="OCDROM" Text="Used" />
+    <OCDROM_Address Name="OCDROM_Address" Text="0001FE00" />
+    <OCDROM_Length Name="OCDROM_Length" Text="512" />
+    <HasRRMRam Name="HasRRMRam" Text="1FE00" />
     <PrjVersion Name="PrjVersion" Text="1.2.0.1" />
     <ProductVersion Name="ProductVersion" Text="4.08.05.01" />
     <TO02_PWM Name="TO02_PWM" Text="false" />
-    <TO03_PWM Name="TO03_PWM" Text="true" />
+    <TO03_PWM Name="TO03_PWM" Text="false" />
     <INPT0USE0 Name="INPT0USE0" Text="false" />
     <TRDINTP0LINK0 Name="TRDINTP0LINK0" Text="false" />
-    <TRDIOC1_PWM Name="TRDIOC1_PWM" Text="false" />
-    <TRDIOD1_PWM Name="TRDIOD1_PWM" Text="false" />
+    <TRDIOC1_PWM Name="TRDIOC1_PWM" Text="true" />
+    <TRDIOD1_PWM Name="TRDIOD1_PWM" Text="true" />
     <INPT0USE1 Name="INPT0USE1" Text="false" />
     <TRDINTP0LINK1 Name="TRDINTP0LINK1" Text="false" />
   </VAR>
@@ -223,39 +223,39 @@
           <P01 Name="P01/ANI16/TO00/RxD1/TRGCLKB/TRJIO0" TTL="true" AltFunc="RXD1" Point="I/O" />
         </Port0>
         <Port1 Pullup="true">
-          <P10 Name="P10/_SCK11/SCL11" Nch="true" TTL="true" AltFunc="P10" Point="I/O" />
-          <P11 Name="P11/SI11/SDA11/TRDIOC1" Nch="true" AltFunc="P11" Point="I/O" />
-          <P12 Chip="R5F104AF,R5F104AG,R5F104BF,R5F104BG,R5F104CF,R5F104CG,R5F104EF,R5F104EG,R5F104EH,R5F104FF,R5F104FG,R5F104FH,R5F104FJ,R5F104GF,R5F104GG,R5F104GH,R5F104GJ,R5F104GK,R5F104GL,R5F104JF,R5F104JG,R5F104JH,R5F104JJ,R5F104JK,R5F104JL,R5F104LF,R5F104LG,R5F104LH,R5F104LJ,R5F104LK,R5F104LL,R5F104MF,R5F104MG,R5F104MH,R5F104MJ,R5F104MK,R5F104ML,R5F104PF,R5F104PG,R5F104PH,R5F104PJ,R5F104PK,R5F104PL" Name="P12/SO11/TRDIOB1/IVREF1" DIN="true" AltFunc="P12" Point="I/O" />
+          <P10 Name="P10/_SCK11/SCL11" Nch="true" TTL="true" AltFunc="TRDIOD1_P10_0" Point="I/O" />
+          <P11 Name="P11/SI11/SDA11/TRDIOC1" Nch="true" AltFunc="TRDIOC1_P11_0" Point="I/O" />
+          <P12 Chip="R5F104AF,R5F104AG,R5F104BF,R5F104BG,R5F104CF,R5F104CG,R5F104EF,R5F104EG,R5F104EH,R5F104FF,R5F104FG,R5F104FH,R5F104FJ,R5F104GF,R5F104GG,R5F104GH,R5F104GJ,R5F104GK,R5F104GL,R5F104JF,R5F104JG,R5F104JH,R5F104JJ,R5F104JK,R5F104JL,R5F104LF,R5F104LG,R5F104LH,R5F104LJ,R5F104LK,R5F104LL,R5F104MF,R5F104MG,R5F104MH,R5F104MJ,R5F104MK,R5F104ML,R5F104PF,R5F104PG,R5F104PH,R5F104PJ,R5F104PK,R5F104PL" Name="P12/SO11/TRDIOB1/IVREF1" DIN="true" AltFunc="TRDIOB1_P12_0" Point="I/O" />
           <P13 Chip="R5F104AF,R5F104AG,R5F104BF,R5F104BG,R5F104CF,R5F104CG,R5F104EF,R5F104EG,R5F104EH,R5F104FF,R5F104FG,R5F104FH,R5F104FJ,R5F104GF,R5F104GG,R5F104GH,R5F104GJ,R5F104GK,R5F104GL,R5F104JF,R5F104JG,R5F104JH,R5F104JJ,R5F104JK,R5F104JL,R5F104LF,R5F104LG,R5F104LH,R5F104LJ,R5F104LK,R5F104LL,R5F104MF,R5F104MG,R5F104MH,R5F104MJ,R5F104MK,R5F104ML,R5F104PF,R5F104PG,R5F104PH,R5F104PJ,R5F104PK,R5F104PL" Name="P13/TXD2/SO20/TRDIOA1/IVCMP1" Nch="true" DIN="true" AltFunc="P13" Point="I/O" />
-          <P14 Name="P14/RXD2/SI20/SDA20/TRDIOD0" TTL="true" Nch="true" AltFunc="SDA20" Point="I/O" />
-          <P15 Name="P15/_SCK20/SCL20/TRDIOB0" TTL="true" Nch="true" AltFunc="SCL20" Point="I/O" />
-          <P16 Chip="R5F104AF,R5F104AG,R5F104BF,R5F104BG,R5F104CF,R5F104CG,R5F104EF,R5F104EG,R5F104EH,R5F104FF,R5F104FG,R5F104FH,R5F104FJ,R5F104GF,R5F104GG,R5F104GH,R5F104GJ,R5F104GK,R5F104GL,R5F104JF,R5F104JG,R5F104JH,R5F104JJ,R5F104JK,R5F104JL,R5F104LF,R5F104LG,R5F104LH,R5F104LJ,R5F104LK,R5F104LL,R5F104MF,R5F104MG,R5F104MH,R5F104MJ,R5F104MK,R5F104ML,R5F104PF,R5F104PG,R5F104PH,R5F104PJ,R5F104PK,R5F104PL" Name="P16/TI01/TO01/INTP5/TRDIOC0/IVREF0" DIN="true" TTL="true" AltFunc="INTP5" Point="I/O" />
+          <P14 Name="P14/RXD2/SI20/SDA20/TRDIOD0" TTL="true" Nch="true" AltFunc="TRDIOD0_P14" Point="I/O" />
+          <P15 Name="P15/_SCK20/SCL20/TRDIOB0" TTL="true" Nch="true" AltFunc="TRDIOB0_P15" Point="I/O" />
+          <P16 Chip="R5F104AF,R5F104AG,R5F104BF,R5F104BG,R5F104CF,R5F104CG,R5F104EF,R5F104EG,R5F104EH,R5F104FF,R5F104FG,R5F104FH,R5F104FJ,R5F104GF,R5F104GG,R5F104GH,R5F104GJ,R5F104GK,R5F104GL,R5F104JF,R5F104JG,R5F104JH,R5F104JJ,R5F104JK,R5F104JL,R5F104LF,R5F104LG,R5F104LH,R5F104LJ,R5F104LK,R5F104LL,R5F104MF,R5F104MG,R5F104MH,R5F104MJ,R5F104MK,R5F104ML,R5F104PF,R5F104PG,R5F104PH,R5F104PJ,R5F104PK,R5F104PL" Name="P16/TI01/TO01/INTP5/TRDIOC0/IVREF0" DIN="true" TTL="true" AltFunc="TO01" Point="I/O" />
           <P17 Chip="R5F104AF,R5F104AG,R5F104BF,R5F104BG,R5F104CF,R5F104CG,R5F104EF,R5F104EG,R5F104EH,R5F104FF,R5F104FG,R5F104FH,R5F104FJ,R5F104GF,R5F104GG,R5F104GH,R5F104GJ,R5F104GK,R5F104GL,R5F104JF,R5F104JG,R5F104JH,R5F104JJ,R5F104JK,R5F104JL,R5F104LF,R5F104LG,R5F104LH,R5F104LJ,R5F104LK,R5F104LL,R5F104MF,R5F104MG,R5F104MH,R5F104MJ,R5F104MK,R5F104ML,R5F104PF,R5F104PG,R5F104PH,R5F104PJ,R5F104PK,R5F104PL" Name="P17/TI02/TO02/TRDIOA0/TRDCLK/IVCMP0" TTL="true" Nch="true" DIN="true" AltFunc="TO02" Point="I/O" />
         </Port1>
         <Port2 ADIN="true">
-          <P20 Name="P20/ANI0/AVREFP" AltFunc="ANI0" Point="I/O" />
-          <P21 Name="P21/ANI1/AVREFM" AltFunc="ANALOG_1" Point="I/O" />
+          <P20 Name="P20/ANI0/AVREFP" AltFunc="P20" Point="I/O" />
+          <P21 Name="P21/ANI1/AVREFM" AltFunc="P21" Point="I/O" />
           <P22 Chip="R5F104AF,R5F104AG,R5F104BF,R5F104BG,R5F104CF,R5F104CG,R5F104EF,R5F104EG,R5F104EH,R5F104FF,R5F104FG,R5F104FH,R5F104FJ,R5F104GF,R5F104GG,R5F104GH,R5F104GJ,R5F104GK,R5F104GL,R5F104JF,R5F104JG,R5F104JH,R5F104JJ,R5F104JK,R5F104JL,R5F104LF,R5F104LG,R5F104LH,R5F104LJ,R5F104LK,R5F104LL,R5F104MF,R5F104MG,R5F104MH,R5F104MJ,R5F104MK,R5F104ML,R5F104PF,R5F104PG,R5F104PH,R5F104PJ,R5F104PK,R5F104PL" Name="P22/ANI2/ANO0" AltFunc="P22" Point="I/O" />
           <P23 Chip="R5F104BF,R5F104BG,R5F104CF,R5F104CG,R5F104EF,R5F104EG,R5F104EH,R5F104FF,R5F104FG,R5F104FH,R5F104FJ,R5F104GF,R5F104GG,R5F104GH,R5F104GJ,R5F104GK,R5F104GL,R5F104JF,R5F104JG,R5F104JH,R5F104JJ,R5F104JK,R5F104JL,R5F104LF,R5F104LG,R5F104LH,R5F104LJ,R5F104LK,R5F104LL,R5F104MF,R5F104MG,R5F104MH,R5F104MJ,R5F104MK,R5F104ML,R5F104PF,R5F104PG,R5F104PH,R5F104PJ,R5F104PK,R5F104PL" Name="P23/ANI3/ANO1" AltFunc="P23" Point="I/O" />
         </Port2>
         <Port3 Pullup="true">
-          <P30 Chip="RL78G14_30pin,RL78G14_32pin,RL78G14_36pin,RL78G14_40pin,RL78G14_44pin,RL78G14_48pin,RL78G14_49pin,RL78G14_52pin,RL78G14_64pin,RL78G14_80pin,RL78G14_100pin" Name="P30/INTP3/RTC1HZ/_SCK00/SCL00/TRJO0" Nch="true" TTL="true" AltFunc="SCK00" Point="I/O" />
-          <P31 Chip="RL78G14_32pin,RL78G14_36pin,RL78G14_40pin,RL78G14_44pin" Name="P31/TI03/TO03/INTP4/PCLBUZ0" AltFunc="TO03" Point="I/O" />
+          <P30 Chip="RL78G14_30pin,RL78G14_32pin,RL78G14_36pin,RL78G14_40pin,RL78G14_44pin,RL78G14_48pin,RL78G14_49pin,RL78G14_52pin,RL78G14_64pin,RL78G14_80pin,RL78G14_100pin" Name="P30/INTP3/RTC1HZ/_SCK00/SCL00/TRJO0" Nch="true" TTL="true" AltFunc="" Point="I/O" />
+          <P31 Chip="RL78G14_32pin,RL78G14_36pin,RL78G14_40pin,RL78G14_44pin" Name="P31/TI03/TO03/INTP4/PCLBUZ0" AltFunc="TI03" Point="I/O" />
         </Port3>
         <Port4 Pullup="true">
-          <P40 Name="P40/TOOL0" AltFunc="" Point="I/O" />
+          <P40 Name="P40/TOOL0" AltFunc="TOOL0" Point="I/O" />
         </Port4>
         <Port5 Pullup="true">
-          <P50 Chip="RL78G14_30pin,RL78G14_32pin,RL78G14_36pin,RL78G14_40pin,RL78G14_44pin,RL78G14_48pin,RL78G14_49pin,RL78G14_52pin,RL78G14_64pin,RL78G14_80pin,RL78G14_100pin" Name="P50/INTP1/SI00/RXD0/TOOLRXD/SDA00/TRGIOA" TTL="true" Nch="true" AltFunc="SI00" Point="I/O" />
-          <P51 Chip="RL78G14_30pin,RL78G14_32pin,RL78G14_36pin,RL78G14_40pin,RL78G14_44pin,RL78G14_48pin,RL78G14_49pin,RL78G14_52pin,RL78G14_64pin,RL78G14_80pin,RL78G14_100pin" Name="P51/INTP2/SO00/TXD0/TOOLTXD/TRGIOB" Nch="true" AltFunc="SO00" Point="I/O" />
+          <P50 Chip="RL78G14_30pin,RL78G14_32pin,RL78G14_36pin,RL78G14_40pin,RL78G14_44pin,RL78G14_48pin,RL78G14_49pin,RL78G14_52pin,RL78G14_64pin,RL78G14_80pin,RL78G14_100pin" Name="P50/INTP1/SI00/RXD0/TOOLRXD/SDA00/TRGIOA" TTL="true" Nch="true" AltFunc="RXD0" Point="I/O" />
+          <P51 Chip="RL78G14_30pin,RL78G14_32pin,RL78G14_36pin,RL78G14_40pin,RL78G14_44pin,RL78G14_48pin,RL78G14_49pin,RL78G14_52pin,RL78G14_64pin,RL78G14_80pin,RL78G14_100pin" Name="P51/INTP2/SO00/TXD0/TOOLTXD/TRGIOB" Nch="true" AltFunc="TXD0" Point="I/O" />
         </Port5>
         <Port6>
           <P60 Name="P60/SCLA0" AltFunc="SCLA0" Point="I/O" />
           <P61 Name="P61/SDAA0" AltFunc="SDAA0" Point="I/O" />
-          <P62 Chip="RL78G14_32pin,RL78G14_36pin,RL78G14_40pin,RL78G14_44pin,RL78G14_48pin,RL78G14_49pin,RL78G14_52pin,RL78G14_64pin" Name="P62/_SSI00" AltFunc="P62" Point="I/O" />
+          <P62 Chip="RL78G14_32pin,RL78G14_36pin,RL78G14_40pin,RL78G14_44pin,RL78G14_48pin,RL78G14_49pin,RL78G14_52pin,RL78G14_64pin" Name="P62/_SSI00" AltFunc="" Point="I/O" />
         </Port6>
         <Port7 Chip="RL78G14_32pin,RL78G14_36pin,RL78G14_40pin,RL78G14_44pin,RL78G14_48pin,RL78G14_49pin,RL78G14_52pin,RL78G14_64pin,RL78G14_80pin,RL78G14_100pin,RL78G14_128pin" Pullup="true">
-          <P70 Chip="RL78G14_32pin" Name="P70" AltFunc="P70" Point="I/O" />
+          <P70 Chip="RL78G14_32pin" Name="P70" AltFunc="" Point="I/O" />
         </Port7>
         <Port12>
           <P120 Chip="R5F104AF,R5F104AG,R5F104BF,R5F104BG,R5F104CF,R5F104CG,R5F104EF,R5F104EG,R5F104EH,R5F104FF,R5F104FG,R5F104FH,R5F104FJ,R5F104GF,R5F104GG,R5F104GH,R5F104GJ,R5F104GK,R5F104GL,R5F104JF,R5F104JG,R5F104JH,R5F104JJ,R5F104JK,R5F104JL,R5F104LF,R5F104LG,R5F104LH,R5F104LJ,R5F104LK,R5F104LL,R5F104MF,R5F104MG,R5F104MH,R5F104MJ,R5F104MK,R5F104ML,R5F104PF,R5F104PG,R5F104PH,R5F104PJ,R5F104PK,R5F104PL" Name="P120/ANI19/VCOUT0" DIN="true" Pullup="true" AltFunc="P120" Point="I/O" />
@@ -432,20 +432,20 @@
           <INTP2 InUse="0" ISR="r_intc2_interrupt" />
           <INTP3 InUse="0" ISR="r_intc3_interrupt" />
           <INTP4 InUse="0" ISR="r_intc4_interrupt" />
-          <INTP5 InUse="1" ISR="r_intc5_interrupt" />
+          <INTP5 InUse="0" ISR="r_intc5_interrupt" />
         </INTP>
       </INTC>
       <Serial>
         <SAU0>
-          <INTCSI00 InUse="1" ISR="r_csi00_interrupt" />
+          <INTCSI00 InUse="0" ISR="r_csi00_interrupt" />
           <INTCSI01 InUse="0" ISR="r_csi01_interrupt" />
           <INTCSI10 InUse="0" ISR="r_csi10_interrupt" />
           <INTCSI11 InUse="0" ISR="r_csi11_interrupt" />
-          <INTST0 InUse="0" ISR="r_uart0_interrupt_send" />
+          <INTST0 InUse="1" ISR="r_uart0_interrupt_send" />
           <INTST1 InUse="1" ISR="r_uart1_interrupt_send" />
           <INTSRE0 InUse="0" ISR="r_uart0_interrupt_error" />
           <INTSRE1 InUse="0" ISR="r_uart1_interrupt_error" />
-          <INTSR0 InUse="0" ISR="r_uart0_interrupt_receive" />
+          <INTSR0 InUse="1" ISR="r_uart0_interrupt_receive" />
           <INTSR1 InUse="1" ISR="r_uart1_interrupt_receive" />
           <INTIIC00 InUse="0" ISR="r_iic00_interrupt" />
           <INTIIC01 InUse="0" ISR="r_iic01_interrupt" />
@@ -463,7 +463,7 @@
           <INTSRE3 InUse="0" ISR="r_uart3_interrupt_error" />
           <INTSR2 InUse="0" ISR="r_uart2_interrupt_receive" />
           <INTSR3 InUse="0" ISR="r_uart3_interrupt_receive" />
-          <INTIIC20 InUse="1" ISR="r_iic20_interrupt" />
+          <INTIIC20 InUse="0" ISR="r_iic20_interrupt" />
           <INTIIC21 InUse="0" ISR="r_iic21_interrupt" />
           <INTIIC30 InUse="0" ISR="r_iic30_interrupt" />
           <INTIIC31 InUse="0" ISR="r_iic31_interrupt" />
@@ -475,7 +475,7 @@
         </IICA1>
       </Serial>
       <ADC>
-        <INTAD InUse="1" ISR="r_adc_interrupt" IsDMATrigger="true" />
+        <INTAD InUse="0" ISR="r_adc_interrupt" IsDMATrigger="true" />
       </ADC>
       <TAU>
         <TAU0>
@@ -511,13 +511,13 @@
           </Channel3>
         </TAU1>
         <TMRJ0>
-          <INTTRJ0 InUse="1" ISR="r_tmr_rj0_interrupt" />
+          <INTTRJ0 InUse="0" ISR="r_tmr_rj0_interrupt" />
         </TMRJ0>
         <TMRD0>
-          <INTTMRD0 InUse="0" ISR="r_tmr_rd0_interrupt" />
+          <INTTMRD0 InUse="1" ISR="r_tmr_rd0_interrupt" />
         </TMRD0>
         <TMRD1>
-          <INTTMRD1 InUse="0" ISR="r_tmr_rd1_interrupt" />
+          <INTTMRD1 InUse="1" ISR="r_tmr_rd1_interrupt" />
         </TMRD1>
         <TMRG0>
           <INTTRG InUse="0" ISR="r_tmr_rg0_interrupt" />
@@ -644,8 +644,8 @@
               <R_INTC4_Stop UserName="R_INTC4_Stop" LibName="R_INTCn_Stop" InUse="0" />
             </INTP4>
             <INTP5>
-              <R_INTC5_Start UserName="R_INTC5_Start" LibName="R_INTCn_Start" InUse="1" />
-              <R_INTC5_Stop UserName="R_INTC5_Stop" LibName="R_INTCn_Stop" InUse="1" />
+              <R_INTC5_Start UserName="R_INTC5_Start" LibName="R_INTCn_Start" InUse="0" />
+              <R_INTC5_Stop UserName="R_INTC5_Stop" LibName="R_INTCn_Stop" InUse="0" />
             </INTP5>
           </INTP>
         </r_cg_intc.c>
@@ -658,7 +658,7 @@
             <r_intc2_interrupt UserName="r_intc2_interrupt" LibName="R_INTC2_Interrupt" INTHandle="" InUse="0" />
             <r_intc3_interrupt UserName="r_intc3_interrupt" LibName="R_INTC3_Interrupt" INTHandle="" InUse="0" />
             <r_intc4_interrupt UserName="r_intc4_interrupt" INTHandle="" LibName="R_INTC4_Interrupt" InUse="0" />
-            <r_intc5_interrupt UserName="r_intc5_interrupt" LibName="R_INTC5_Interrupt" INTHandle="" InUse="1" />
+            <r_intc5_interrupt UserName="r_intc5_interrupt" LibName="R_INTC5_Interrupt" INTHandle="" InUse="0" />
           </INTP>
         </r_cg_intc_user.c>
         <r_cg_intc.h UserName="r_cg_intc.h" LibName=".h" InUse="1" />
@@ -672,11 +672,11 @@
             <R_SAU0_Set_SnoozeOn UserName="R_SAU0_Set_SnoozeOn" LibName="R_SAUn_Set_SnoozeOn" InUse="0" />
             <R_SAU0_Set_SnoozeOff UserName="R_SAU0_Set_SnoozeOff" LibName="R_SAUn_Set_SnoozeOff" InUse="0" />
             <UART0 InUse="">
-              <R_UART0_Create UserName="R_UART0_Create" LibName="R_UARTn_Create" InUse="0" InitMode="" />
-              <R_UART0_Start UserName="R_UART0_Start" LibName="R_UARTn_Start" InUse="0" />
-              <R_UART0_Stop UserName="R_UART0_Stop" LibName="R_UARTn_Stop" InUse="0" />
-              <R_UART0_Send UserName="R_UART0_Send" LibName="R_UARTn_Send" InUse="0" />
-              <R_UART0_Receive UserName="R_UART0_Receive" LibName="R_UARTn_Receive" InUse="0" />
+              <R_UART0_Create UserName="R_UART0_Create" LibName="R_UARTn_Create" InUse="1" InitMode="" />
+              <R_UART0_Start UserName="R_UART0_Start" LibName="R_UARTn_Start" InUse="1" />
+              <R_UART0_Stop UserName="R_UART0_Stop" LibName="R_UARTn_Stop" InUse="1" />
+              <R_UART0_Send UserName="R_UART0_Send" LibName="R_UARTn_Send" InUse="1" />
+              <R_UART0_Receive UserName="R_UART0_Receive" LibName="R_UARTn_Receive" InUse="1" />
             </UART0>
             <UART1 InUse="">
               <R_UART1_Create UserName="R_UART1_Create" LibName="R_UARTn_Create" InUse="1" InitMode="" />
@@ -686,12 +686,12 @@
               <R_UART1_Receive UserName="R_UART1_Receive" LibName="R_UARTn_Receive" InUse="1" />
             </UART1>
             <CSI00 Chip="RL78G14_30pin,RL78G14_32pin,RL78G14_36pin,RL78G14_40pin,RL78G14_44pin,RL78G14_48pin,RL78G14_49pin,RL78G14_52pin" PIOR1="0" InUse="">
-              <R_CSI00_Create UserName="R_CSI00_Create" LibName="R_CSIn_Create" InUse="1" InitMode="" />
-              <R_CSI00_Start UserName="R_CSI00_Start" LibName="R_CSIn_Start" InUse="1" />
-              <R_CSI00_Stop UserName="R_CSI00_Stop" LibName="R_CSIn_Stop" InUse="1" />
+              <R_CSI00_Create UserName="R_CSI00_Create" LibName="R_CSIn_Create" InUse="0" InitMode="" />
+              <R_CSI00_Start UserName="R_CSI00_Start" LibName="R_CSIn_Start" InUse="0" />
+              <R_CSI00_Stop UserName="R_CSI00_Stop" LibName="R_CSIn_Stop" InUse="0" />
               <R_CSI00_Send UserName="R_CSI00_Send" LibName="R_CSIn_Send" InUse="0" />
               <R_CSI00_Receive UserName="R_CSI00_Receive" LibName="R_CSIn_Receive" InUse="0" />
-              <R_CSI00_Send_Receive UserName="R_CSI00_Send_Receive" LibName="R_CSIn_Send_Receive" InUse="1" />
+              <R_CSI00_Send_Receive UserName="R_CSI00_Send_Receive" LibName="R_CSIn_Send_Receive" InUse="0" />
             </CSI00>
             <CSI11 InUse="">
               <R_CSI11_Create UserName="R_CSI11_Create" LibName="R_CSIn_Create" InUse="0" InitMode="" />
@@ -719,7 +719,7 @@
             </IIC11>
           </SAU0>
           <SAU1 Chip="RL78G14_30pin,RL78G14_32pin" PIOR1="0" InUse="">
-            <R_SAU1_Create UserName="R_SAU1_Create" LibName="R_SAUn_Create" InUse="1" Init="1" InitMode="" />
+            <R_SAU1_Create UserName="R_SAU1_Create" LibName="R_SAUn_Create" InUse="0" Init="1" InitMode="" />
             <R_SAU1_Set_PowerOff UserName="R_SAU1_Set_PowerOff" LibName="R_SAUn_Set_PowerOff" InUse="0" />
             <UART2 InUse="">
               <R_UART2_Create UserName="R_UART2_Create" LibName="R_UARTn_Create" InUse="0" InitMode="" />
@@ -737,12 +737,12 @@
               <R_CSI20_Send_Receive UserName="R_CSI20_Send_Receive" LibName="R_CSIn_Send_Receive" InUse="0" />
             </CSI20>
             <IIC20 InUse="">
-              <R_IIC20_Create UserName="R_IIC20_Create" LibName="R_IICn_Create" InUse="1" InitMode="" />
-              <R_IIC20_Master_Send UserName="R_IIC20_Master_Send" LibName="R_IICn_Master_Send" InUse="1" />
-              <R_IIC20_Master_Receive UserName="R_IIC20_Master_Receive" LibName="R_IICn_Master_Receive" InUse="1" />
-              <R_IIC20_Stop UserName="R_IIC20_Stop" LibName="R_IICn_Stop" InUse="1" />
-              <R_IIC20_StartCondition UserName="R_IIC20_StartCondition" LibName="R_IICn_StartCondition" InUse="1" />
-              <R_IIC20_StopCondition UserName="R_IIC20_StopCondition" LibName="R_IICn_StopCondition" InUse="1" />
+              <R_IIC20_Create UserName="R_IIC20_Create" LibName="R_IICn_Create" InUse="0" InitMode="" />
+              <R_IIC20_Master_Send UserName="R_IIC20_Master_Send" LibName="R_IICn_Master_Send" InUse="0" />
+              <R_IIC20_Master_Receive UserName="R_IIC20_Master_Receive" LibName="R_IICn_Master_Receive" InUse="0" />
+              <R_IIC20_Stop UserName="R_IIC20_Stop" LibName="R_IICn_Stop" InUse="0" />
+              <R_IIC20_StartCondition UserName="R_IIC20_StartCondition" LibName="R_IICn_StartCondition" InUse="0" />
+              <R_IIC20_StopCondition UserName="R_IIC20_StopCondition" LibName="R_IICn_StopCondition" InUse="0" />
             </IIC20>
           </SAU1>
           <IICA0 InUse="">
@@ -763,13 +763,13 @@
           <SAU0 InUse="">
             <R_SAU0_Create_UserInit UserName="R_SAU0_Create_UserInit" LibName="R_SAUn_Create_UserInit" InUse="0" />
             <UART0 InUse="">
-              <r_uart0_interrupt_receive UserName="r_uart0_interrupt_receive" INTHandle="" LibName="R_UARTn_Interrupt_Receive" InUse="0" />
+              <r_uart0_interrupt_receive UserName="r_uart0_interrupt_receive" INTHandle="" LibName="R_UARTn_Interrupt_Receive" InUse="1" />
               <r_uart0_interrupt_error UserName="r_uart0_interrupt_error" INTHandle="" LibName="R_UARTn_Interrupt_Error" InUse="0" />
-              <r_uart0_interrupt_send UserName="r_uart0_interrupt_send" INTHandle="" LibName="R_UARTn_Interrupt_Send" InUse="0" />
-              <r_uart0_callback_receiveend UserName="r_uart0_callback_receiveend" LibName="R_UARTn_Callback_ReceiveEnd" InUse="0" />
-              <r_uart0_callback_sendend UserName="r_uart0_callback_sendend" LibName="R_UARTn_Callback_SendEnd" InUse="0" />
-              <r_uart0_callback_error UserName="r_uart0_callback_error" LibName="R_UARTn_Callback_Error" InUse="0" />
-              <r_uart0_callback_softwareoverrun UserName="r_uart0_callback_softwareoverrun" LibName="R_UARTn_Callback_SoftwareOverRun" InUse="0" />
+              <r_uart0_interrupt_send UserName="r_uart0_interrupt_send" INTHandle="" LibName="R_UARTn_Interrupt_Send" InUse="1" />
+              <r_uart0_callback_receiveend UserName="r_uart0_callback_receiveend" LibName="R_UARTn_Callback_ReceiveEnd" InUse="1" />
+              <r_uart0_callback_sendend UserName="r_uart0_callback_sendend" LibName="R_UARTn_Callback_SendEnd" InUse="1" />
+              <r_uart0_callback_error UserName="r_uart0_callback_error" LibName="R_UARTn_Callback_Error" InUse="1" />
+              <r_uart0_callback_softwareoverrun UserName="r_uart0_callback_softwareoverrun" LibName="R_UARTn_Callback_SoftwareOverRun" InUse="1" />
             </UART0>
             <UART1 InUse="">
               <r_uart1_interrupt_receive UserName="r_uart1_interrupt_receive" INTHandle="" LibName="R_UARTn_Interrupt_Receive" InUse="1" />
@@ -781,10 +781,10 @@
               <r_uart1_callback_softwareoverrun UserName="r_uart1_callback_softwareoverrun" LibName="R_UARTn_Callback_SoftwareOverRun" InUse="1" />
             </UART1>
             <CSI00 Chip="RL78G14_30pin,RL78G14_32pin,RL78G14_36pin,RL78G14_40pin,RL78G14_44pin,RL78G14_48pin,RL78G14_49pin,RL78G14_52pin" PIOR1="0" InUse="">
-              <r_csi00_interrupt UserName="r_csi00_interrupt" INTHandle="" LibName="R_CSIn_Interrupt" InUse="1" />
-              <r_csi00_callback_receiveend UserName="r_csi00_callback_receiveend" LibName="R_CSIn_Callback_ReceiveEnd" InUse="1" />
-              <r_csi00_callback_error UserName="r_csi00_callback_error" LibName="R_CSIn_Callback_Error" InUse="1" />
-              <r_csi00_callback_sendend UserName="r_csi00_callback_sendend" LibName="R_CSIn_Callback_SendEnd" InUse="1" />
+              <r_csi00_interrupt UserName="r_csi00_interrupt" INTHandle="" LibName="R_CSIn_Interrupt" InUse="0" />
+              <r_csi00_callback_receiveend UserName="r_csi00_callback_receiveend" LibName="R_CSIn_Callback_ReceiveEnd" InUse="0" />
+              <r_csi00_callback_error UserName="r_csi00_callback_error" LibName="R_CSIn_Callback_Error" InUse="0" />
+              <r_csi00_callback_sendend UserName="r_csi00_callback_sendend" LibName="R_CSIn_Callback_SendEnd" InUse="0" />
             </CSI00>
             <CSI11 InUse="">
               <r_csi11_interrupt UserName="r_csi11_interrupt" INTHandle="" LibName="R_CSIn_Interrupt" InUse="0" />
@@ -823,10 +823,10 @@
               <r_csi20_callback_sendend UserName="r_csi20_callback_sendend" LibName="R_CSIn_Callback_SendEnd" InUse="0" />
             </CSI20>
             <IIC20 InUse="">
-              <r_iic20_interrupt UserName="r_iic20_interrupt" INTHandle="" LibName="R_IICn_Interrupt" InUse="1" />
-              <r_iic20_callback_master_receiveend UserName="r_iic20_callback_master_receiveend" LibName="R_IICn_Callback_Master_ReceiveEnd" InUse="1" />
-              <r_iic20_callback_master_sendend UserName="r_iic20_callback_master_sendend" LibName="R_IICn_Callback_Master_SendEnd" InUse="1" />
-              <r_iic20_callback_master_error UserName="r_iic20_callback_master_error" LibName="R_IICn_Callback_Master_Error" InUse="1" />
+              <r_iic20_interrupt UserName="r_iic20_interrupt" INTHandle="" LibName="R_IICn_Interrupt" InUse="0" />
+              <r_iic20_callback_master_receiveend UserName="r_iic20_callback_master_receiveend" LibName="R_IICn_Callback_Master_ReceiveEnd" InUse="0" />
+              <r_iic20_callback_master_sendend UserName="r_iic20_callback_master_sendend" LibName="R_IICn_Callback_Master_SendEnd" InUse="0" />
+              <r_iic20_callback_master_error UserName="r_iic20_callback_master_error" LibName="R_IICn_Callback_Master_Error" InUse="0" />
             </IIC20>
           </SAU1>
           <IICA0 InUse="">
@@ -844,14 +844,14 @@
         <r_cg_serial.h UserName="r_cg_serial.h" LibName=".h" InUse="1" />
       </Serial>
       <ADC>
-        <r_cg_adc.c UserName="r_cg_adc.c" LibName=".c" InUse="1">
+        <r_cg_adc.c UserName="r_cg_adc.c" LibName=".c" InUse="0">
           <Type R_ADC_Create="void R_ADC_Create(void)" R_ADC_Start="void R_ADC_Start(void)" R_ADC_Stop="void R_ADC_Stop(void)" R_ADC_Set_OperationOn="void R_ADC_Set_OperationOn(void)" R_ADC_Set_OperationOff="void R_ADC_Set_OperationOff(void)" R_ADC_Get_Result="void R_ADC_Get_Result(uint16_t * const buffer)" R_ADC_Get_Result_8bit="void R_ADC_Get_Result_8bit(uint8_t * const buffer)" R_ADC_Set_ADChannel="MD_STATUS R_ADC_Set_ADChannel(ad_channel_t channel)" R_ADC_Set_SnoozeOn="void R_ADC_Set_SnoozeOn(void)" R_ADC_Set_SnoozeOff="void R_ADC_Set_SnoozeOff(void)" R_ADC_Set_TestChannel="MD_STATUS R_ADC_Set_TestChannel(test_channel_t channel)" R_ADC_Set_PowerOff="void R_ADC_Set_PowerOff(void)" />
-          <R_ADC_Create UserName="R_ADC_Create" LibName="R_ADC_Create" InUse="1" Init="1" InitMode="" />
-          <R_ADC_Start UserName="R_ADC_Start" LibName="R_ADC_Start" InUse="1" />
-          <R_ADC_Stop UserName="R_ADC_Stop" LibName="R_ADC_Stop" InUse="1" />
-          <R_ADC_Set_OperationOn UserName="R_ADC_Set_OperationOn" LibName="R_ADC_Set_OperationOn" InUse="1" />
-          <R_ADC_Set_OperationOff UserName="R_ADC_Set_OperationOff" LibName="R_ADC_Set_OperationOff" InUse="1" />
-          <R_ADC_Get_Result UserName="R_ADC_Get_Result" LibName="R_ADC_Get_Result" InUse="1" />
+          <R_ADC_Create UserName="R_ADC_Create" LibName="R_ADC_Create" InUse="0" Init="1" InitMode="" />
+          <R_ADC_Start UserName="R_ADC_Start" LibName="R_ADC_Start" InUse="0" />
+          <R_ADC_Stop UserName="R_ADC_Stop" LibName="R_ADC_Stop" InUse="0" />
+          <R_ADC_Set_OperationOn UserName="R_ADC_Set_OperationOn" LibName="R_ADC_Set_OperationOn" InUse="0" />
+          <R_ADC_Set_OperationOff UserName="R_ADC_Set_OperationOff" LibName="R_ADC_Set_OperationOff" InUse="0" />
+          <R_ADC_Get_Result UserName="R_ADC_Get_Result" LibName="R_ADC_Get_Result" InUse="0" />
           <R_ADC_Get_Result_8bit UserName="R_ADC_Get_Result_8bit" LibName="R_ADC_Get_Result_8bit" InUse="0" />
           <R_ADC_Set_ADChannel UserName="R_ADC_Set_ADChannel" LibName="R_ADC_Set_ADChannel" InUse="0" />
           <R_ADC_Set_SnoozeOn UserName="R_ADC_Set_SnoozeOn" LibName="R_ADC_Set_SnoozeOn" InUse="0" />
@@ -859,12 +859,12 @@
           <R_ADC_Set_TestChannel UserName="R_ADC_Set_TestChannel" LibName="R_ADC_Set_TestChannel" InUse="0" />
           <R_ADC_Set_PowerOff UserName="R_ADC_Set_PowerOff" LibName="R_ADC_Set_PowerOff" InUse="0" />
         </r_cg_adc.c>
-        <r_cg_adc_user.c UserName="r_cg_adc_user.c" LibName="_user.c" InUse="1">
+        <r_cg_adc_user.c UserName="r_cg_adc_user.c" LibName="_user.c" InUse="0">
           <Type R_ADC_Create_UserInit="void R_ADC_Create_UserInit(void)" r_adc_interrupt="__interrupt static void r_adc_interrupt(void)" />
           <R_ADC_Create_UserInit UserName="R_ADC_Create_UserInit" LibName="R_ADC_Create_UserInit" InUse="0" />
-          <r_adc_interrupt UserName="r_adc_interrupt" INTHandle="" LibName="r_adc_interrupt" InUse="1" />
+          <r_adc_interrupt UserName="r_adc_interrupt" INTHandle="" LibName="r_adc_interrupt" InUse="0" />
         </r_cg_adc_user.c>
-        <r_cg_adc.h UserName="r_cg_adc.h" LibName=".h" InUse="1" />
+        <r_cg_adc.h UserName="r_cg_adc.h" LibName=".h" InUse="0" />
       </ADC>
       <DAC Chip="R5F104AF,R5F104AG,R5F104BF,R5F104BG,R5F104CF,R5F104CG,R5F104EF,R5F104EG,R5F104EH,R5F104FF,R5F104FG,R5F104FH,R5F104FJ,R5F104GF,R5F104GG,R5F104GH,R5F104GJ,R5F104HF,R5F104HG,R5F104HH,R5F104HJ,R5F104JF,R5F104JG,R5F104JH,R5F104JJ,R5F104LF,R5F104LG,R5F104LH,R5F104LJ,R5F104GK,R5F104GL,R5F104JK,R5F104JL,R5F104LK,R5F104LL,RL78G14_80pin,RL78G14_81pin,RL78G14_100pin" InUse="">
         <r_cg_dac.c UserName="r_cg_dac.c" LibName=".c" InUse="0">
@@ -901,10 +901,10 @@
               <R_TAU0_Channel0_Set_SoftwareTriggerOn UserName="R_TAU0_Channel0_Set_SoftwareTriggerOn" LibName="R_TAU_Channeln_Set_SoftwareTriggerOn" InUse="0" />
             </Channel0>
             <Channel1 InUse="">
-              <R_TAU0_Channel1_Start UserName="R_TAU0_Channel1_Start" LibName="R_TAU_Channeln_Start" InUse="1" />
+              <R_TAU0_Channel1_Start UserName="R_TAU0_Channel1_Start" LibName="R_TAU_Channeln_Start" InUse="0" />
               <R_TAU0_Channel1_Higher8bits_Start UserName="R_TAU0_Channel1_Higher8bits_Start" LibName="R_TAU_Channeln_Higher8bits_Start" InUse="0" />
               <R_TAU0_Channel1_Lower8bits_Start UserName="R_TAU0_Channel1_Lower8bits_Start" LibName="R_TAU_Channeln_Lower8bits_Start" InUse="0" />
-              <R_TAU0_Channel1_Stop UserName="R_TAU0_Channel1_Stop" LibName="R_TAU_Channeln_Stop" InUse="1" />
+              <R_TAU0_Channel1_Stop UserName="R_TAU0_Channel1_Stop" LibName="R_TAU_Channeln_Stop" InUse="0" />
               <R_TAU0_Channel1_Higher8bits_Stop UserName="R_TAU0_Channel1_Higher8bits_Stop" LibName="R_TAU_Channeln_Higher8bits_Stop" InUse="0" />
               <R_TAU0_Channel1_Lower8bits_Stop UserName="R_TAU0_Channel1_Lower8bits_Stop" LibName="R_TAU_Channeln_Lower8bits_Stop" InUse="0" />
               <R_TAU0_Channel1_Get_PulseWidth UserName="R_TAU0_Channel1_Get_PulseWidth" LibName="R_TAU_Channeln_Get_PulseWidth" InUse="0" />
@@ -916,26 +916,26 @@
               <R_TAU0_Channel2_Set_SoftwareTriggerOn UserName="R_TAU0_Channel2_Set_SoftwareTriggerOn" LibName="R_TAU_Channeln_Set_SoftwareTriggerOn" InUse="0" />
             </Channel2>
             <Channel3 InUse="">
-              <R_TAU0_Channel3_Start UserName="R_TAU0_Channel3_Start" LibName="R_TAU_Channeln_Start" InUse="0" />
+              <R_TAU0_Channel3_Start UserName="R_TAU0_Channel3_Start" LibName="R_TAU_Channeln_Start" InUse="1" />
               <R_TAU0_Channel3_Higher8bits_Start UserName="R_TAU0_Channel3_Higher8bits_Start" LibName="R_TAU_Channeln_Higher8bits_Start" InUse="0" />
               <R_TAU0_Channel3_Lower8bits_Start UserName="R_TAU0_Channel3_Lower8bits_Start" LibName="R_TAU_Channeln_Lower8bits_Start" InUse="0" />
-              <R_TAU0_Channel3_Stop UserName="R_TAU0_Channel3_Stop" LibName="R_TAU_Channeln_Stop" InUse="0" />
+              <R_TAU0_Channel3_Stop UserName="R_TAU0_Channel3_Stop" LibName="R_TAU_Channeln_Stop" InUse="1" />
               <R_TAU0_Channel3_Higher8bits_Stop UserName="R_TAU0_Channel3_Higher8bits_Stop" LibName="R_TAU_Channeln_Higher8bits_Stop" InUse="0" />
               <R_TAU0_Channel3_Lower8bits_Stop UserName="R_TAU0_Channel3_Lower8bits_Stop" LibName="R_TAU_Channeln_Lower8bits_Stop" InUse="0" />
-              <R_TAU0_Channel3_Get_PulseWidth UserName="R_TAU0_Channel3_Get_PulseWidth" LibName="R_TAU_Channeln_Get_PulseWidth" InUse="0" />
+              <R_TAU0_Channel3_Get_PulseWidth UserName="R_TAU0_Channel3_Get_PulseWidth" LibName="R_TAU_Channeln_Get_PulseWidth" InUse="1" />
             </Channel3>
           </TAU0>
           <TMRJ0 InUse="">
-            <R_TMR_RJ0_Create UserName="R_TMR_RJ0_Create" LibName="R_TMR_RJn_Create" InUse="1" Init="2" InitMode="" />
-            <R_TMR_RJ0_Start UserName="R_TMR_RJ0_Start" LibName="R_TMR_RJn_Start" InUse="1" />
-            <R_TMR_RJ0_Stop UserName="R_TMR_RJ0_Stop" LibName="R_TMR_RJn_Stop" InUse="1" />
+            <R_TMR_RJ0_Create UserName="R_TMR_RJ0_Create" LibName="R_TMR_RJn_Create" InUse="0" Init="2" InitMode="" />
+            <R_TMR_RJ0_Start UserName="R_TMR_RJ0_Start" LibName="R_TMR_RJn_Start" InUse="0" />
+            <R_TMR_RJ0_Stop UserName="R_TMR_RJ0_Stop" LibName="R_TMR_RJn_Stop" InUse="0" />
             <R_TMR_RJ0_Get_PulseWidth UserName="R_TMR_RJ0_Get_PulseWidth" LibName="R_TMR_RJn_Get_PulseWidth" InUse="0" />
             <R_TMR_RJ0_Set_PowerOff UserName="R_TMR_RJ0_Set_PowerOff" LibName="R_TMR_RJn_Set_PowerOff" InUse="0" />
           </TMRJ0>
           <TMRD0 InUse="">
-            <R_TMR_RD0_Create UserName="R_TMR_RD0_Create" LibName="R_TMR_RDn_Create" InUse="0" Init="2" InitMode="" />
-            <R_TMR_RD0_Start UserName="R_TMR_RD0_Start" LibName="R_TMR_RDn_Start" InUse="0" />
-            <R_TMR_RD0_Stop UserName="R_TMR_RD0_Stop" LibName="R_TMR_RDn_Stop" InUse="0" />
+            <R_TMR_RD0_Create UserName="R_TMR_RD0_Create" LibName="R_TMR_RDn_Create" InUse="1" Init="2" InitMode="" />
+            <R_TMR_RD0_Start UserName="R_TMR_RD0_Start" LibName="R_TMR_RDn_Start" InUse="1" />
+            <R_TMR_RD0_Stop UserName="R_TMR_RD0_Stop" LibName="R_TMR_RDn_Stop" InUse="1" />
             <R_TMR_RD0_Get_PulseWidth UserName="R_TMR_RD0_Get_PulseWidth" LibName="R_TMR_RDn_Get_PulseWidth" InUse="0" />
             <R_TMR_RD0_Set_PowerOff UserName="R_TMR_RD0_Set_PowerOff" LibName="R_TMR_RDn_Set_PowerOff" InUse="0" />
             <R_TMR_RD0_ForcedOutput_Start UserName="R_TMR_RD0_ForcedOutput_Start" LibName="R_TMR_RDn_ForcedOutput_Start" InUse="0" />
@@ -979,15 +979,15 @@
           </TAU0>
           <TMRJ0 InUse="">
             <R_TMR_RJ0_Create_UserInit UserName="R_TMR_RJ0_Create_UserInit" LibName="R_TMR_RJn_Create_UserInit" InUse="0" />
-            <r_tmr_rj0_interrupt UserName="r_tmr_rj0_interrupt" LibName="r_tmr_rjn_interrupt" INTHandle="" InUse="1" />
+            <r_tmr_rj0_interrupt UserName="r_tmr_rj0_interrupt" LibName="r_tmr_rjn_interrupt" INTHandle="" InUse="0" />
           </TMRJ0>
           <TMRD0 InUse="">
             <R_TMR_RD0_Create_UserInit UserName="R_TMR_RD0_Create_UserInit" LibName="R_TMR_RDn_Create_UserInit" InUse="0" />
-            <r_tmr_rd0_interrupt UserName="r_tmr_rd0_interrupt" LibName="r_tmr_rdn_interrupt" INTHandle="" InUse="0" />
+            <r_tmr_rd0_interrupt UserName="r_tmr_rd0_interrupt" LibName="r_tmr_rdn_interrupt" INTHandle="" InUse="1" />
           </TMRD0>
           <TMRD1 InUse="">
             <R_TMR_RD1_Create_UserInit UserName="R_TMR_RD1_Create_UserInit" LibName="R_TMR_RDn_Create_UserInit" InUse="0" />
-            <r_tmr_rd1_interrupt UserName="r_tmr_rd1_interrupt" LibName="r_tmr_rdn_interrupt" INTHandle="" InUse="0" />
+            <r_tmr_rd1_interrupt UserName="r_tmr_rd1_interrupt" LibName="r_tmr_rdn_interrupt" INTHandle="" InUse="1" />
           </TMRD1>
           <TMRG0 InUse="">
             <R_TMR_RG0_Create_UserInit UserName="R_TMR_RG0_Create_UserInit" LibName="R_TMR_RGn_Create_UserInit" InUse="0" />
@@ -1229,28 +1229,31 @@
     </FUNC>
     <TAG>
       <GlobleUserTag>
+        <lvi_option Name="lvi_option" Value="FF" />
         <cg_security9 Name="cg_security9" Value="00" />
         <cg_security7 Name="cg_security7" Value="00" />
         <pior1_value Name="pior1_value" Value="00" />
         <cg_security5 Name="cg_security5" Value="00" />
         <cg_crc_area Name="cg_crc_area" Value="00" />
-        <ocdstart Name="ocdstart" Value="1FF00" />
         <cg_security3 Name="cg_security3" Value="00" />
         <cg_security0 Name="cg_security0" Value="00" />
         <cg_security1 Name="cg_security1" Value="00" />
         <clock_option Name="clock_option" Value="F8" />
         <dataflash_use Name="dataflash_use" Value="" />
+        <cg_security2 Name="cg_security2" Value="00" />
         <pior_value Name="pior_value" Value="00" />
-        <cg_option Name="cg_option" Value="04" />
+        <cg_option Name="cg_option" Value="85" />
         <cg_security8 Name="cg_security8" Value="00" />
         <df_waittime Name="df_waittime" Value="13" />
-        <cg_security4 Name="cg_security4" Value="00" />
+        <ocdstart Name="ocdstart" Value="1FE00" />
         <cg_pms_value Name="cg_pms_value" Value="00" />
-        <cg_security2 Name="cg_security2" Value="00" />
+        <cg_onchip Name="cg_onchip" Value="" />
+        <cg_security4 Name="cg_security4" Value="00" />
         <cg_iawctl_value Name="cg_iawctl_value" Value="00" />
-        <lvi_option Name="lvi_option" Value="FF" />
+        <cg_ocd_ram_size Name="cg_ocd_ram_size" Value="512" />
         <wdt_option Name="wdt_option" Value="EF" />
         <cg_security6 Name="cg_security6" Value="00" />
+        <rrm Name="rrm" Value="1FE00" />
       </GlobleUserTag>
     </TAG>
   </DIR>
@@ -1271,23 +1274,23 @@
         <Channel2 Chip="RL78G14_30pin,RL78G14_32pin,RL78G14_36pin,RL78G14_40pin,RL78G14_44pin,RL78G14_48pin,RL78G14_49pin,RL78G14_52pin" UART="1" CSI="" IIC="" Channel="2" />
         <Channel3 UART="1" CSI="11" IIC="11" Channel="3" />
       </SAU0>
-      <SAU1 Accelerate="No" Chip="RL78G14_30pin,RL78G14_32pin" PIOR1="0" MacroName="SAU" Channel="1" SetFlag="True" TabEnable="True">
+      <SAU1 Accelerate="No" Chip="RL78G14_30pin,RL78G14_32pin" PIOR1="0" MacroName="SAU" Channel="1" SetFlag="False" TabEnable="True">
         <Channel0 PIOR1="0" UART="2" CSI="20" IIC="20" Channel="0" />
         <Channel1 UART="2" CSI="" IIC="" Channel="1" />
       </SAU1>
       <IICA0 Accelerate="No" MacroName="IICA" Channel="0" SetFlag="True" TabEnable="True" />
     </Serial>
-    <ADC SetFlag="True" HelpID="adc" NeedRefresh="False">
-      <ADC SetFlag="True" MacroName="ADC" />
+    <ADC SetFlag="False" HelpID="adc" NeedRefresh="False">
+      <ADC SetFlag="False" MacroName="ADC" />
     </ADC>
     <DAC Chip="R5F104AF,R5F104AG,R5F104BF,R5F104BG,R5F104CF,R5F104CG,R5F104EF,R5F104EG,R5F104EH,R5F104FF,R5F104FG,R5F104FH,R5F104FJ,R5F104GF,R5F104GG,R5F104GH,R5F104GJ,R5F104HF,R5F104HG,R5F104HH,R5F104HJ,R5F104JF,R5F104JG,R5F104JH,R5F104JJ,R5F104LF,R5F104LG,R5F104LH,R5F104LJ,R5F104GK,R5F104GL,R5F104JK,R5F104JL,R5F104LK,R5F104LL,RL78G14_80pin,RL78G14_81pin,RL78G14_100pin" HelpID="dac" SetFlag="False" NeedRefresh="False">
       <DAC SetFlag="False" MacroName="DAC" />
     </DAC>
     <TAU SetFlag="True" HelpID="timer" NeedRefresh="False">
       <TAU0 Accelerate="No" MacroName="TAU" Channel="0" ChannelNum="0,1,2,3" SetFlag="True" TabEnable="True" />
-      <TMRJ0 SetFlag="True" MacroName="TMRJ" Channel="0" TabEnable="True" />
-      <TMRD0 SetFlag="False" MacroName="TMRD" Channel="0" TabEnable="True" />
-      <TMRD1 SetFlag="False" MacroName="TMRD" Channel="1" TabEnable="True" />
+      <TMRJ0 SetFlag="False" MacroName="TMRJ" Channel="0" TabEnable="True" />
+      <TMRD0 SetFlag="True" MacroName="TMRD" Channel="0" TabEnable="True" />
+      <TMRD1 SetFlag="False" MacroName="TMRD" Channel="1" TabEnable="False" />
       <TMRG0 SetFlag="False" MacroName="TMRG" Channel="0" TabEnable="True" />
     </TAU>
     <WDT Prepared="true" SetFlag="False" HelpID="watchdogtimer" NeedRefresh="False">
@@ -1348,10 +1351,10 @@
       <setting name="RTC_clcok_selection" value="1" />
       <setting name="RESET_PIN_USED" value="true" />
       <setting name="RESET_PIN_UNUSED" value="false" />
-      <setting name="On_chip_debug" value="unused" />
+      <setting name="On_chip_debug" value="used" />
       <setting name="RRM" value="used" />
       <setting name="Trace" value="Used" />
-      <setting name="Erase_flash_memory" value="yes" />
+      <setting name="Erase_flash_memory" value="no" />
       <setting name="Security_ID_setting" value="unused" />
       <setting name="Security_ID" value="0x00000000000000000000" />
       <setting name="CG_ReadResetSource" value="generated" />
@@ -1365,7 +1368,7 @@
       <setting name="ProgramFlash" value="unused" />
       <setting name="Monitor" value="unused" />
       <setting name="StartStop" value="unused" />
-      <setting name="Emulator" value="E2L" />
+      <setting name="Emulator" value="E2" />
     </CGC>
     <PORT>
       <PortP0>
@@ -1386,21 +1389,21 @@
       </PortP0>
       <PortP1>
         <P10>
-          <setting name="Operation" value="output" />
+          <setting name="Operation" value="unused" />
           <setting name="Pull_up" value="unused" />
           <setting name="TTL_buffer" value="unused" />
           <setting name="N-ch_open-drain" value="unused" />
           <setting name="Output_value" value="0" />
         </P10>
         <P11>
-          <setting name="Operation" value="input" />
+          <setting name="Operation" value="unused" />
           <setting name="Pull_up" value="unused" />
           <setting name="TTL_buffer" value="unused" />
           <setting name="N-ch_open-drain" value="unused" />
           <setting name="Output_value" value="0" />
         </P11>
         <P12>
-          <setting name="Operation" value="output" />
+          <setting name="Operation" value="unused" />
           <setting name="Pull_up" value="unused" />
           <setting name="TTL_buffer" value="unused" />
           <setting name="N-ch_open-drain" value="unused" />
@@ -1414,19 +1417,17 @@
           <setting name="Output_value" value="0" />
         </P13>
         <P14>
-          <setting name="IIC_STATUS" value="used" />
           <setting name="Operation" value="unused" />
           <setting name="Pull_up" value="unused" />
           <setting name="TTL_buffer" value="unused" />
-          <setting name="N-ch_open-drain" value="used" />
+          <setting name="N-ch_open-drain" value="unused" />
           <setting name="Output_value" value="0" />
         </P14>
         <P15>
-          <setting name="IIC_STATUS" value="used" />
           <setting name="Operation" value="unused" />
           <setting name="Pull_up" value="unused" />
           <setting name="TTL_buffer" value="unused" />
-          <setting name="N-ch_open-drain" value="used" />
+          <setting name="N-ch_open-drain" value="unused" />
           <setting name="Output_value" value="0" />
         </P15>
         <P16>
@@ -1446,14 +1447,14 @@
       </PortP1>
       <PortP2>
         <P20>
-          <setting name="Operation" value="unused" />
+          <setting name="Operation" value="output" />
           <setting name="Pull_up" value="unused" />
           <setting name="TTL_buffer" value="unused" />
           <setting name="N-ch_open-drain" value="unused" />
           <setting name="Output_value" value="0" />
         </P20>
         <P21>
-          <setting name="Operation" value="unused" />
+          <setting name="Operation" value="output" />
           <setting name="Pull_up" value="unused" />
           <setting name="TTL_buffer" value="unused" />
           <setting name="N-ch_open-drain" value="unused" />
@@ -1467,7 +1468,7 @@
           <setting name="Output_value" value="0" />
         </P22>
         <P23>
-          <setting name="Operation" value="input" />
+          <setting name="Operation" value="output" />
           <setting name="Pull_up" value="unused" />
           <setting name="TTL_buffer" value="unused" />
           <setting name="N-ch_open-drain" value="unused" />
@@ -1533,7 +1534,7 @@
           <setting name="Output_value" value="0" />
         </P61>
         <P62>
-          <setting name="Operation" value="output" />
+          <setting name="Operation" value="unused" />
           <setting name="Pull_up" value="unused" />
           <setting name="TTL_buffer" value="unused" />
           <setting name="N-ch_open-drain" value="unused" />
@@ -1542,7 +1543,7 @@
       </PortP6>
       <PortP7>
         <P70>
-          <setting name="Operation" value="output" />
+          <setting name="Operation" value="unused" />
           <setting name="Pull_up" value="unused" />
           <setting name="TTL_buffer" value="unused" />
           <setting name="N-ch_open-drain" value="unused" />
@@ -1596,8 +1597,50 @@
       <CSI00 />
       <UART0 />
       <Channel0>
-        <setting name="Channel_function_-i" value="2" />
+        <setting name="Channel_function_-i" value="1" />
         <setting name="Detail_function_-i" value="2" />
+        <Both_UART0>
+          <setting name="Receive_data_direction" value="LSB" />
+          <setting name="Receive_data_length" value="8 bits" />
+          <setting name="Receive_parity" value="none" />
+          <setting name="RecBaudrate" value="9600" />
+          <setting name="Receive_end_callback_function" value="generated" />
+          <setting name="Receive_error_callback_function" value="generated" />
+          <setting name="Transfer_mode" value="single" />
+          <setting name="Transmit_data_direction" value="LSB" />
+          <setting name="Transmit_data_level" value="normal" />
+          <setting name="Transmit_data_length" value="8 bits" />
+          <setting name="Transmit_parity" value="none" />
+          <setting name="Transmit_stop_length" value="1 bit" />
+          <setting name="TranBaudrate" value="9600" />
+          <setting name="Transmit_end_callback_function" value="generated" />
+          <setting name="Transmit_end_interrupt_priority" value="3" />
+          <setting name="Receive_error_interrupt_priority" value="3" />
+          <setting name="Receive_end_interrupt_priority" value="3" />
+          <setting name="Reveive_Data_Level" value="Normal" />
+          <setting name="Receive_error_interrupt" value="not used" />
+        </Both_UART0>
+        <Receive_UART0>
+          <setting name="Receive_data_direction" value="LSB" />
+          <setting name="Receive_data_length" value="8 bits" />
+          <setting name="Receive_parity" value="none" />
+          <setting name="RecBaudrate" value="9600" />
+          <setting name="Receive_end_callback_function" value="generated" />
+          <setting name="Receive_error_callback_function" value="generated" />
+          <setting name="Transfer_mode" value="single" />
+          <setting name="Transmit_data_direction" value="LSB" />
+          <setting name="Transmit_data_level" value="normal" />
+          <setting name="Transmit_data_length" value="8 bits" />
+          <setting name="Transmit_parity" value="none" />
+          <setting name="Transmit_stop_length" value="1 bit" />
+          <setting name="TranBaudrate" value="9600" />
+          <setting name="Transmit_end_callback_function" value="generated" />
+          <setting name="Transmit_end_interrupt_priority" value="3" />
+          <setting name="Receive_error_interrupt_priority" value="3" />
+          <setting name="Receive_end_interrupt_priority" value="3" />
+          <setting name="Reveive_Data_Level" value="Normal" />
+          <setting name="Receive_error_interrupt" value="not used" />
+        </Receive_UART0>
         <Both_CSI00>
           <setting name="Transfer_mode" value="single" />
           <setting name="Data_length" value="8 bits" />
@@ -1694,52 +1737,6 @@
         </Transmit_UART0>
       </Channel1>
       <Channel2>
-        <setting name="Channel_function_-i" value="0" />
-        <setting name="Detail_function_-i" value="-1" />
-        <Both_UART1>
-          <setting name="Receive_data_direction" value="LSB" />
-          <setting name="Receive_data_length" value="8 bits" />
-          <setting name="Receive_parity" value="none" />
-          <setting name="RecBaudrate" value="9600" />
-          <setting name="Receive_end_callback_function" value="generated" />
-          <setting name="Receive_error_callback_function" value="generated" />
-          <setting name="Transfer_mode" value="single" />
-          <setting name="Transmit_data_direction" value="LSB" />
-          <setting name="Transmit_data_level" value="normal" />
-          <setting name="Transmit_data_length" value="8 bits" />
-          <setting name="Transmit_parity" value="none" />
-          <setting name="Transmit_stop_length" value="1 bit" />
-          <setting name="TranBaudrate" value="9600" />
-          <setting name="Transmit_end_callback_function" value="generated" />
-          <setting name="Transmit_end_interrupt_priority" value="3" />
-          <setting name="Receive_error_interrupt_priority" value="3" />
-          <setting name="Receive_end_interrupt_priority" value="3" />
-          <setting name="Reveive_Data_Level" value="Normal" />
-          <setting name="Receive_error_interrupt" value="not used" />
-        </Both_UART1>
-        <Receive_UART1>
-          <setting name="Receive_data_direction" value="LSB" />
-          <setting name="Receive_data_length" value="8 bits" />
-          <setting name="Receive_parity" value="none" />
-          <setting name="RecBaudrate" value="9600" />
-          <setting name="Receive_end_callback_function" value="generated" />
-          <setting name="Receive_error_callback_function" value="generated" />
-          <setting name="Transfer_mode" value="single" />
-          <setting name="Transmit_data_direction" value="LSB" />
-          <setting name="Transmit_data_level" value="normal" />
-          <setting name="Transmit_data_length" value="8 bits" />
-          <setting name="Transmit_parity" value="none" />
-          <setting name="Transmit_stop_length" value="1 bit" />
-          <setting name="TranBaudrate" value="9600" />
-          <setting name="Transmit_end_callback_function" value="generated" />
-          <setting name="Transmit_end_interrupt_priority" value="3" />
-          <setting name="Receive_error_interrupt_priority" value="3" />
-          <setting name="Receive_end_interrupt_priority" value="3" />
-          <setting name="Reveive_Data_Level" value="Normal" />
-          <setting name="Receive_error_interrupt" value="not used" />
-        </Receive_UART1>
-      </Channel2>
-      <Channel3>
         <setting name="Channel_function_-i" value="1" />
         <setting name="Detail_function_-i" value="2" />
         <Both_UART1>
@@ -1784,6 +1781,44 @@
           <setting name="Reveive_Data_Level" value="Normal" />
           <setting name="Receive_error_interrupt" value="not used" />
         </Receive_UART1>
+        <Transmit_UART1>
+          <setting name="Receive_data_direction" value="LSB" />
+          <setting name="Receive_data_length" value="8 bits" />
+          <setting name="Receive_parity" value="none" />
+          <setting name="RecBaudrate" value="9600" />
+          <setting name="Receive_end_callback_function" value="generated" />
+          <setting name="Receive_error_callback_function" value="generated" />
+          <setting name="Transfer_mode" value="single" />
+          <setting name="Transmit_data_direction" value="LSB" />
+          <setting name="Transmit_data_level" value="normal" />
+          <setting name="Transmit_data_length" value="8 bits" />
+          <setting name="Transmit_parity" value="none" />
+          <setting name="Transmit_stop_length" value="1 bit" />
+          <setting name="TranBaudrate" value="9600" />
+          <setting name="Transmit_end_callback_function" value="generated" />
+          <setting name="Transmit_end_interrupt_priority" value="3" />
+          <setting name="Receive_error_interrupt_priority" value="3" />
+          <setting name="Receive_end_interrupt_priority" value="3" />
+          <setting name="Reveive_Data_Level" value="Normal" />
+          <setting name="Receive_error_interrupt" value="not used" />
+        </Transmit_UART1>
+      </Channel2>
+      <Channel3>
+        <setting name="Channel_function_-i" value="0" />
+        <setting name="Detail_function_-i" value="-1" />
+        <Both_CSI11>
+          <setting name="Transfer_mode" value="single" />
+          <setting name="Data_length" value="8 bits" />
+          <setting name="SSI00" value="Unused" />
+          <setting name="Data_direction" value="LSB" />
+          <setting name="Data_timing" value="type 1" />
+          <setting name="BaudrateVal" value="9600" />
+          <setting name="Clock" value="0" />
+          <setting name="Transmit_end_callback_function" value="generated" />
+          <setting name="Receive_end_callback_function" value="generated" />
+          <setting name="Receive_error_callback_function" value="generated" />
+          <setting name="Interrupt_priority" value="3" />
+        </Both_CSI11>
         <Receive_CSI11>
           <setting name="Transfer_mode" value="single" />
           <setting name="Data_length" value="8 bits" />
@@ -1797,6 +1832,48 @@
           <setting name="Receive_error_callback_function" value="generated" />
           <setting name="Interrupt_priority" value="3" />
         </Receive_CSI11>
+        <Both_UART1>
+          <setting name="Receive_data_direction" value="LSB" />
+          <setting name="Receive_data_length" value="8 bits" />
+          <setting name="Receive_parity" value="none" />
+          <setting name="RecBaudrate" value="9600" />
+          <setting name="Receive_end_callback_function" value="generated" />
+          <setting name="Receive_error_callback_function" value="generated" />
+          <setting name="Transfer_mode" value="single" />
+          <setting name="Transmit_data_direction" value="LSB" />
+          <setting name="Transmit_data_level" value="normal" />
+          <setting name="Transmit_data_length" value="8 bits" />
+          <setting name="Transmit_parity" value="none" />
+          <setting name="Transmit_stop_length" value="1 bit" />
+          <setting name="TranBaudrate" value="9600" />
+          <setting name="Transmit_end_callback_function" value="generated" />
+          <setting name="Transmit_end_interrupt_priority" value="3" />
+          <setting name="Receive_error_interrupt_priority" value="3" />
+          <setting name="Receive_end_interrupt_priority" value="3" />
+          <setting name="Reveive_Data_Level" value="Normal" />
+          <setting name="Receive_error_interrupt" value="not used" />
+        </Both_UART1>
+        <Receive_UART1>
+          <setting name="Receive_data_direction" value="LSB" />
+          <setting name="Receive_data_length" value="8 bits" />
+          <setting name="Receive_parity" value="none" />
+          <setting name="RecBaudrate" value="9600" />
+          <setting name="Receive_end_callback_function" value="generated" />
+          <setting name="Receive_error_callback_function" value="generated" />
+          <setting name="Transfer_mode" value="single" />
+          <setting name="Transmit_data_direction" value="LSB" />
+          <setting name="Transmit_data_level" value="normal" />
+          <setting name="Transmit_data_length" value="8 bits" />
+          <setting name="Transmit_parity" value="none" />
+          <setting name="Transmit_stop_length" value="1 bit" />
+          <setting name="TranBaudrate" value="9600" />
+          <setting name="Transmit_end_callback_function" value="generated" />
+          <setting name="Transmit_end_interrupt_priority" value="3" />
+          <setting name="Receive_error_interrupt_priority" value="3" />
+          <setting name="Receive_end_interrupt_priority" value="3" />
+          <setting name="Reveive_Data_Level" value="Normal" />
+          <setting name="Receive_error_interrupt" value="not used" />
+        </Receive_UART1>
         <IIC11>
           <setting name="TransferSpeed" value="100000" />
           <setting name="Interrupt_priority" value="3" />
@@ -1810,7 +1887,7 @@
     </SAU0>
     <SAU1>
       <Channel0>
-        <setting name="Channel_function_-i" value="3" />
+        <setting name="Channel_function_-i" value="0" />
         <setting name="Detail_function_-i" value="-1" />
         <IIC20>
           <setting name="TransferSpeed" value="100000" />
@@ -1907,7 +1984,7 @@
       </INTP4>
       <INTP5>
         <setting name="Valid_edge" value="falling" />
-        <setting name="Operation" value="used" />
+        <setting name="Operation" value="unused" />
         <setting name="ValidEdge" value="0" />
         <setting name="Interrupt_priority" value="3" />
         <setting name="pinsel" value="-1" />
@@ -1928,7 +2005,7 @@
         <TAUMultiPWMMaster0>
           <PWMMaster0>
             <setting name="Value_scale" value="1" />
-            <setting name="PWM_cycle" value="100" />
+            <setting name="PWM_cycle" value="35" />
             <setting name="Master_interrupt_priority" value="3" />
             <setting name="Master_interrupt" value="used" />
           </PWMMaster0>
@@ -1940,7 +2017,7 @@
             <setting name="Slave_interrupt" value="used" />
           </PWMSlave1>
           <PWMSlave2>
-            <setting name="PWM_duty" value="50" />
+            <setting name="PWM_duty" value="40" />
             <setting name="OuputLevel" value="0" />
             <setting name="OuputValue" value="0" />
             <setting name="Slave_interrupt_priority" value="3" />
@@ -1985,7 +2062,7 @@
         </TAUPWMMaster0>
       </Channel0>
       <Channel1>
-        <setting name="ChannelFunction" value="1" />
+        <setting name="ChannelFunction" value="9" />
         <setting name="Pinselection" value="-1" />
         <TAUInterval1>
           <setting name="OperationMode" value="16bits" />
@@ -2009,12 +2086,20 @@
         <setting name="Pinselection" value="-1" />
       </Channel2>
       <Channel3>
-        <setting name="ChannelFunction" value="9" />
+        <setting name="ChannelFunction" value="5" />
         <setting name="Pinselection" value="-1" />
+        <TAULowHighMeasure3>
+          <setting name="MeasureRang" value="0.063 (µs) &lt; TI03 &lt; 4.096 (ms)" />
+          <setting name="Pinselection" value="-1" />
+          <setting name="ExternalEventEdge" value="0" />
+          <setting name="Noise_filter" value="unused" />
+          <setting name="Interrupt_priority" value="3" />
+          <setting name="Interrupt" value="used" />
+        </TAULowHighMeasure3>
       </Channel3>
     </TAU0>
     <TMRJ0>
-      <setting name="Function" value="Timer" />
+      <setting name="Function" value="Unused" />
       <TMRJTimerMode0>
         <setting name="InterClock" value="Auto" />
         <setting name="InputValue" value="100" />
@@ -2024,23 +2109,128 @@
       </TMRJTimerMode0>
     </TMRJ0>
     <TMRD0>
-      <setting name="Function" value="Unused" />
+      <setting name="Function" value="PWM6Output" />
+      <PWM3Output0>
+        <setting name="Count_source" value="InternalClock" />
+        <setting name="Internal_Clock" value="fIH" />
+        <setting name="External_clock_edge" value="Rising" />
+        <setting name="Counter_operation" value="0" />
+        <setting name="TRDGRDRegisterFunction" value="0" />
+        <setting name="TRDGRCRegisterFunction" value="0" />
+        <setting name="PeriodUnit" value="1" />
+        <setting name="Duty3" value="30" />
+        <setting name="Duty2" value="50" />
+        <setting name="Duty1" value="20" />
+        <setting name="Period" value="35" />
+        <setting name="Duty3_Inuse" value="use" />
+        <setting name="Duty2_Inuse" value="not use" />
+        <setting name="Duty1_Inuse" value="use" />
+        <setting name="InitOutputLevelD" value="0" />
+        <setting name="OutputLevelD" value="0" />
+        <setting name="InitOutputLevelC" value="0" />
+        <setting name="OutputLevelC" value="0" />
+        <setting name="InitOutputLevelB" value="0" />
+        <setting name="OutputLevelB" value="0" />
+        <setting name="INTP0_linked" value="not use" />
+        <setting name="ELC_linked" value="not use" />
+        <setting name="TRDIOB_Normal" value="0" />
+        <setting name="TRDIOC_Normal" value="0" />
+        <setting name="TRDIOD_Normal" value="0" />
+        <setting name="INTTRDGRD" value="use" />
+        <setting name="INTTRDGRC" value="use" />
+        <setting name="INTTRDGRB" value="use" />
+        <setting name="INTTRDGRA" value="use" />
+        <setting name="INTOverFlow" value="use" />
+        <setting name="INTPriority" value="3" />
+      </PWM3Output0>
+      <PWM6Output0>
+        <setting name="Count_source" value="InternalClock" />
+        <setting name="Internal_Clock" value="fIH" />
+        <setting name="External_clock_edge" value="Rising" />
+        <setting name="Counter_operation" value="0" />
+        <setting name="TRDGRD0RegisterFunction" value="0" />
+        <setting name="TRDGRC0RegisterFunction" value="0" />
+        <setting name="TRDGRD1RegisterFunction" value="0" />
+        <setting name="TRDGRC1RegisterFunction" value="0" />
+        <setting name="DutyD0" value="20" />
+        <setting name="DutyC0" value="50" />
+        <setting name="DutyB0" value="10" />
+        <setting name="PWMPeriod" value="35" />
+        <setting name="DutyD1" value="50" />
+        <setting name="DutyC1" value="40" />
+        <setting name="DutyB1" value="30" />
+        <setting name="Period_Unit" value="1" />
+        <setting name="InitOutputLevelD0" value="0" />
+        <setting name="OutputLevelD0" value="0" />
+        <setting name="InitOutputLevelC0" value="0" />
+        <setting name="OutputLevelC0" value="0" />
+        <setting name="InitOutputLevelB0" value="0" />
+        <setting name="OutputLevelB0" value="0" />
+        <setting name="InitOutputLevelD1" value="0" />
+        <setting name="OutputLevelD1" value="0" />
+        <setting name="InitOutputLevelC1" value="0" />
+        <setting name="OutputLevelC1" value="0" />
+        <setting name="InitOutputLevelB1" value="0" />
+        <setting name="OutputLevelB1" value="0" />
+        <setting name="TRDGRB1_Inuse" value="use" />
+        <setting name="TRDGRD1_Inuse" value="use" />
+        <setting name="TRDGRC1_Inuse" value="use" />
+        <setting name="TRDGRB0_Inuse" value="use" />
+        <setting name="TRDGRD0_Inuse" value="use" />
+        <setting name="TRDGRC0_Inuse" value="not use" />
+        <setting name="INTP0_Link" value="not use" />
+        <setting name="ELC_Link" value="not use" />
+        <setting name="TMRDIOC1_Normal" value="0" />
+        <setting name="TMRDIOD1_Normal" value="0" />
+        <setting name="TRDIOC0_Normal" value="0" />
+        <setting name="TRDIOD0_Normal" value="0" />
+        <setting name="TRDIOB0_Normal" value="0" />
+        <setting name="TRDIOB1_Normal" value="0" />
+        <setting name="INT_OverFlow1" value="use" />
+        <setting name="INT_TRDGRA1" value="use" />
+        <setting name="INT_TRDGRD1" value="use" />
+        <setting name="INT_TRDGRC1" value="use" />
+        <setting name="INT_TRDGRB1" value="use" />
+        <setting name="INT_OverFlow0" value="use" />
+        <setting name="INT_TRDGRD0" value="use" />
+        <setting name="INT_TRDGRC0" value="use" />
+        <setting name="INT_TRDGRB0" value="use" />
+        <setting name="INT_TRDGRA0" value="use" />
+        <setting name="INT1Priority" value="3" />
+        <setting name="INT0Priority" value="3" />
+      </PWM6Output0>
     </TMRD0>
     <TMRD1>
       <setting name="Function" value="Unused" />
     </TMRD1>
     <TMRG0>
       <setting name="Function" value="Unused" />
+      <TMRGPWM0>
+        <setting name="ClockMode" value="InternalClock" />
+        <setting name="InterClock" value="Auto" />
+        <setting name="Pinsel" value="0" />
+        <setting name="ExterClock" value="Rising" />
+        <setting name="CounterClear" value="0" />
+        <setting name="TRGGRC" value="0" />
+        <setting name="TRGGRD" value="0" />
+        <setting name="Scale0" value="1" />
+        <setting name="CycleValue" value="100" />
+        <setting name="DutyValue" value="50" />
+        <setting name="INT0En" value="true" />
+        <setting name="INT1En" value="true" />
+        <setting name="INTOverflowEn" value="true" />
+        <setting name="TMRG_INT_Priority" value="3" />
+      </TMRGPWM0>
     </TMRG0>
     <ADC>
-      <setting name="AD_convertion" value="used" />
+      <setting name="AD_convertion" value="unused" />
       <setting name="Comparator_operation" value="stop" />
       <setting name="Resolution" value="10bit" />
       <setting name="AD_Positive" value="VDD" />
       <setting name="AD_Negative" value="VSS" />
       <setting name="AD_Trigger" value="softtri" />
       <setting name="AD_Trigger_Timer" value="0" />
-      <setting name="Mode" value="CONSELECT" />
+      <setting name="Mode" value="ONESCAN" />
       <setting name="InputPins" value="2" />
       <setting name="InputPinsAttach" value="ANI0 - ANI1" />
       <setting name="AD_Inputpin16" value="unused" />
@@ -2054,8 +2244,8 @@
       <setting name="AD_Inputpin24" value="unused" />
       <setting name="AD_Inputpin25" value="unused" />
       <setting name="AD_Inputpin26" value="unused" />
-      <setting name="SelectedChannel" value="0" />
-      <setting name="SelectedChannelAttach" value="ANI0" />
+      <setting name="SelectedChannel" value="-1" />
+      <setting name="SelectedChannelAttach" value="" />
       <setting name="ConvTimeMode" value="0" />
       <setting name="ConversionTime" value="0" />
       <setting name="AREAFunction" value="AREA1" />
