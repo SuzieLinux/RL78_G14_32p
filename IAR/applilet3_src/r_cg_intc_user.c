@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file implements device driver for INTC module.
-* Creation Date: 1/22/2022
+* Creation Date: 1/31/2022
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -49,19 +49,6 @@ Global variables and functions
 ***********************************************************************************************************************/
 #pragma vector = INTP0_vect
 __interrupt static void r_intc0_interrupt(void)
-{
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_intc5_interrupt
-* Description  : This function is INTP5 interrupt service routine.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-#pragma vector = INTP5_vect
-__interrupt static void r_intc5_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
