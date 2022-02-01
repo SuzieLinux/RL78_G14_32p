@@ -155,7 +155,7 @@ MD_STATUS EE_ReadEEBlock(uint16_t start_address, uint16_t length, uint8_t *pucBu
     }
     else
     {
-        return;
+        return MD_ERROR;
     }
 
     RX_done = 0;
@@ -250,6 +250,6 @@ uint8_t EE_ReadByte(uint16_t ByteAddress)
         TX_done = 0;
     }
 
-    return Word;
+    return Byte;
 }
 
