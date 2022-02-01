@@ -135,7 +135,7 @@ MD_STATUS EE_ReadEEBlock(uint16_t start_address, uint16_t length, uint8_t *pucBu
 
     if (!length)
     {
-        return;
+        return MD_ERROR;
     }
     if (length > 32)
     {
@@ -187,7 +187,7 @@ uint16_t EE_ReadWord(uint16_t WordAddress)
     pack[1] = WordAddress & 0xFF;
 
     TX_done = 0;
-    status = MD_STATUS R_IICA0_Master_Send(AT24C32_ADDRESS, &WordAddress, 2, 15);
+    status = R_IICA0_Master_Send(AT24C32_ADDRESS,(uint8_t *) &WordAddress, 2, 15);
 
     if (status == MD_OK)
     {
@@ -201,7 +201,7 @@ uint16_t EE_ReadWord(uint16_t WordAddress)
 
     RX_done = 0;
     /* Receive the data */
-    status = R_IICA0_Master_Receive(AT24C32_ADDRESS | 0x01,&Word,2,15);
+    status = R_IICA0_Master_Receive(AT24C32_ADDRESS | 0x01,(uint8_t *) &Word,2,15);
 
     if (status == MD_OK)
     {
