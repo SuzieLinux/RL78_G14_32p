@@ -16,7 +16,7 @@
                 <debug>1</debug>
                 <option>
                     <name>GenDeviceSelect</name>
-                    <state>UnspecifiedRL78_2	RL78 core S3 - Unspecified</state>
+                    <state>R5F104GA	RL78 - R5F104GA</state>
                 </option>
                 <option>
                     <name>GenCodeModel</name>
@@ -40,11 +40,11 @@
                 </option>
                 <option>
                     <name>GenNearConstStart</name>
-                    <state>0xF3000</state>
+                    <state>0xF2000</state>
                 </option>
                 <option>
                     <name>GenNearConstSize</name>
-                    <state>0xF9EFF</state>
+                    <state>0xF3FFF</state>
                 </option>
                 <option>
                     <name>GenDoubleSize</name>
@@ -384,6 +384,7 @@
                     <state>$PROJ_DIR$\src\ports</state>
                     <state>$PROJ_DIR$\src\serial</state>
                     <state>$PROJ_DIR$\src\timers</state>
+                    <state>$PROJ_DIR$\src\eeprom</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>

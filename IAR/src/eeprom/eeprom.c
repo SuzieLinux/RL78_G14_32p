@@ -17,9 +17,9 @@
 /*! The I2C address is fixed for the AT24C32 device. */
 #define AT24C32_ADDRESS 0xA0
 
-static uint8_t TX_done = 0;
-static uint8_t RX_done = 0;
-static MD_STATUS RX_TX_error = 0;
+volatile uint8_t TX_done = 0;
+volatile uint8_t RX_done = 0;
+volatile MD_STATUS RX_TX_error = 0;
 
 /*****************************************************************************
  *      @brief   Write a block of 1 to 32 bytes
@@ -180,12 +180,8 @@ MD_STATUS EE_ReadEEBlock(uint16_t start_address, uint16_t length, uint8_t *pucBu
 */
 uint16_t EE_ReadWord(uint16_t WordAddress)
 {
-    uint8_t pack[34];
     uint16_t Word;
     MD_STATUS status;
-
-    pack[0] = WordAddress >> 8;
-    pack[1] = WordAddress & 0xFF;
 
     TX_done = 0;
     status = R_IICA0_Master_Send(AT24C32_ADDRESS,(uint8_t *) &WordAddress, 2, 15);
@@ -222,15 +218,11 @@ uint16_t EE_ReadWord(uint16_t WordAddress)
 */
 uint8_t EE_ReadByte(uint16_t ByteAddress)
 {
-    uint8_t pack[34];
     uint8_t Byte;
     MD_STATUS status;
 
-    pack[0] = ByteAddress >> 8;
-    pack[1] = ByteAddress & 0xFF;
-
     TX_done = 0;
-    status = MD_STATUS R_IICA0_Master_Send(AT24C32_ADDRESS, &ByteAddress, 2, 15);
+    status = R_IICA0_Master_Send(AT24C32_ADDRESS, (uint8_t *) &ByteAddress, 2, 15);
 
     if (status == MD_OK)
     {

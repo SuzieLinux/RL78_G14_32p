@@ -8,15 +8,15 @@
 
 "--near_const_start" 
 
-"0xF3000" 
+"0xF2000" 
 
 "--near_const_size" 
 
-"27.749" 
+"7.999" 
 
 "-p" 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\rl78\config\debugger\iorl78_s3.ddf" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\rl78\config\debugger\ior5f104ga.ddf" 
 
 "--double=32" 
 
