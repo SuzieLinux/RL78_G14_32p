@@ -12,6 +12,7 @@
 #include "r_cg_port.h"
 #include "r_cg_userdefine.h"
 #include "eeprom.h"
+#include <string.h>
 
 /*! The I2C address is fixed for the AT24C32 device. */
 #define AT24C32_ADDRESS 0xA0
@@ -50,7 +51,7 @@ void EE_WriteEEBlock(uint16_t start_address, uint16_t length, uint8_t const *puc
     memcpy(&pack[2], pucBuffer, length);
 
     TX_done = 0;
-    status = MD_STATUS R_IICA0_Master_Send(AT24C32_ADDRESS, pack, length + 2, 15);
+    status = R_IICA0_Master_Send(AT24C32_ADDRESS, pack, length + 2, 15);
 
     if (status == MD_OK)
     {
@@ -80,7 +81,7 @@ void EE_WriteWord(uint16_t WordAddress, uint16_t Word)
     pack[3] = Word >> 8;
 
     TX_done = 0;
-    status = MD_STATUS R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 4, 15);
+    status = R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 4, 15);
 
     if (status == MD_OK)
     {
@@ -109,7 +110,7 @@ void EE_WriteByte(uint16_t ByteAddress, uint8_t Byte)
     pack[2] = Byte;
 
     TX_done = 0;
-    status = MD_STATUS R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 3, 15);
+    status = R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 3, 15);
 
     if (status == MD_OK)
     {
@@ -145,7 +146,7 @@ MD_STATUS EE_ReadEEBlock(uint16_t start_address, uint16_t length, uint8_t *pucBu
     pack[1] = start_address & 0xFF;
 
     TX_done = 0;
-    status = MD_STATUS R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 2, 15);
+    status = R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 2, 15);
 
     if (status == MD_OK)
     {
