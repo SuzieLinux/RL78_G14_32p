@@ -180,6 +180,7 @@ MD_STATUS EE_ReadEEBlock(uint16_t start_address, uint16_t length, uint8_t *pucBu
 */
 uint16_t EE_ReadWord(uint16_t WordAddress)
 {
+    uint8_t pack[34];
     uint16_t Word;
     MD_STATUS status;
 
@@ -221,6 +222,7 @@ uint16_t EE_ReadWord(uint16_t WordAddress)
 */
 uint8_t EE_ReadByte(uint16_t ByteAddress)
 {
+    uint8_t pack[34];
     uint8_t Byte;
     MD_STATUS status;
 
