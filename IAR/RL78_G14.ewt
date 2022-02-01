@@ -2561,12 +2561,6 @@
         <name>$PROJ_DIR$\src\eeprom\eeprom.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\src\adc\r_cg_adc.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\src\adc\r_cg_adc_user.c</name>
-    </file>
-    <file>
         <name>$PROJ_DIR$\src\base\r_cg_cgc.c</name>
     </file>
     <file>
