@@ -54,6 +54,8 @@
             Name="Source Files"
             Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.c++;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.scala;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl;*.d;*.m;*.mm;*.go;*.groovy;*.gsh"
             GUID="{A5812AD1-840C-4C9F-B295-0DC44A08FFCD}">
+            <F N="src/eeprom/eeprom.c"/>
+            <F N="src/eeprom/pe2prom.c"/>
             <F N="src/adc/r_cg_adc.c"/>
             <F N="src/adc/r_cg_adc_user.c"/>
             <F N="src/base/r_cg_cgc.c"/>
@@ -75,6 +77,8 @@
             Name="Header Files"
             Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.h++;*.inc;*.sh;*.cpy;*.if"
             GUID="{C4DC1CBA-5E71-47EE-96C8-3AAEF29E1789}">
+            <F N="src/eeprom/eeprom.h"/>
+            <F N="src/eeprom/pe2prom.h"/>
             <F N="src/adc/r_cg_adc.h"/>
             <F N="src/base/r_cg_cgc.h"/>
             <F N="src/intc/r_cg_intc.h"/>
