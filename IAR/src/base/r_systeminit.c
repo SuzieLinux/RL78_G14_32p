@@ -67,12 +67,11 @@ void R_Systeminit(void)
     R_CGC_Create();
     R_PORT_Create();
     R_SAU0_Create();
-    R_SAU1_Create();
     R_IICA0_Create();
     R_TAU0_Create();
     R_RTC_Create();
     R_INTC_Create();
-    R_TMR_RJ0_Create();
+    R_TMR_RD0_Create();
     IAWCTL = 0x00U;
     /* Start data flash control */
     DFLEN = 1U;

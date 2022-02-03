@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file implements device driver for INTC module.
-* Creation Date: 1/16/2022
+* Creation Date: 1/31/2022
 ***********************************************************************************************************************/
 
 #ifndef INTC_H
@@ -81,7 +81,5 @@ Global functions
 void R_INTC_Create(void);
 void R_INTC0_Start(void);
 void R_INTC0_Stop(void);
-void R_INTC5_Start(void);
-void R_INTC5_Stop(void);
 
 #endif

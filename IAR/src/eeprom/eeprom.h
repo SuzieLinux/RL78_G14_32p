@@ -26,7 +26,7 @@ extern uint16_t  g_iica0_tx_cnt;              /* iica0 send data count */
 void EE_WriteEEBlock(uint16_t start_address, uint16_t length, uint8_t const *pucBuffer);
 void EE_WriteWord(uint16_t WordAddress, uint16_t Word);
 void EE_WriteByte(uint16_t ByteAddress, uint8_t Byte);
-MD_STATUS EE_ReadEEBlock(uint16_t start_address, uint16_t length, uint8_t *pucBuffer);
+void EE_ReadEEBlock(uint16_t start_address, uint16_t length, uint8_t *pucBuffer);
 uint16_t EE_ReadWord(uint16_t WordAddress);
 uint8_t EE_ReadByte(uint16_t ByteAddress);
 

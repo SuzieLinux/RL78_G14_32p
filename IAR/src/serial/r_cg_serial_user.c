@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file implements device driver for Serial module.
-* Creation Date: 1/22/2022
+* Creation Date: 1/31/2022
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -38,23 +38,16 @@ Includes
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
+extern uint8_t * gp_uart0_tx_address;         /* uart0 send buffer address */
+extern uint16_t  g_uart0_tx_count;            /* uart0 send data number */
+extern uint8_t * gp_uart0_rx_address;         /* uart0 receive buffer address */
+extern uint16_t  g_uart0_rx_count;            /* uart0 receive data number */
+extern uint16_t  g_uart0_rx_length;           /* uart0 receive data length */
 extern uint8_t * gp_uart1_tx_address;         /* uart1 send buffer address */
 extern uint16_t  g_uart1_tx_count;            /* uart1 send data number */
 extern uint8_t * gp_uart1_rx_address;         /* uart1 receive buffer address */
 extern uint16_t  g_uart1_rx_count;            /* uart1 receive data number */
 extern uint16_t  g_uart1_rx_length;           /* uart1 receive data length */
-extern uint8_t * gp_csi00_rx_address;         /* csi00 receive buffer address */
-extern uint16_t  g_csi00_rx_length;           /* csi00 receive data length */
-extern uint16_t  g_csi00_rx_count;            /* csi00 receive data count */
-extern uint8_t * gp_csi00_tx_address;         /* csi00 send buffer address */
-extern uint16_t  g_csi00_send_length;         /* csi00 send data length */
-extern uint16_t  g_csi00_tx_count;            /* csi00 send data count */
-extern uint8_t   g_iic20_master_status_flag;  /* iic20 start flag for send address check by master mode */
-extern uint8_t * gp_iic20_tx_address;         /* iic20 send data pointer by master mode */
-extern uint16_t  g_iic20_tx_count;            /* iic20 send data size by master mode */
-extern uint8_t * gp_iic20_rx_address;         /* iic20 receive data pointer by master mode */
-extern uint16_t  g_iic20_rx_count;            /* iic20 receive data size by master mode */
-extern uint16_t  g_iic20_rx_length;           /* iic20 receive data length by master mode */
 extern uint8_t   g_iica0_master_status_flag;  /* iica0 master flag */
 extern uint8_t   g_iica0_slave_status_flag;   /* iica0 slave flag */
 extern uint8_t * gp_iica0_rx_address;         /* iica0 receive buffer address */
@@ -64,6 +57,116 @@ extern uint8_t * gp_iica0_tx_address;         /* iica0 send buffer address */
 extern uint16_t  g_iica0_tx_cnt;              /* iica0 send data count */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
+
+/***********************************************************************************************************************
+* Function Name: r_uart0_interrupt_receive
+* Description  : This function is INTSR0 interrupt service routine.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+#pragma vector = INTSR0_vect
+__interrupt static void r_uart0_interrupt_receive(void)
+{
+    volatile uint8_t rx_data;
+    volatile uint8_t err_type;
+    
+    err_type = (uint8_t)(SSR01 & 0x0007U);
+    SIR01 = (uint16_t)err_type;
+
+    if (err_type != 0U)
+    {
+        r_uart0_callback_error(err_type);
+    }
+    
+    rx_data = RXD0;
+
+    if (g_uart0_rx_length > g_uart0_rx_count)
+    {
+        *gp_uart0_rx_address = rx_data;
+        gp_uart0_rx_address++;
+        g_uart0_rx_count++;
+
+        if (g_uart0_rx_length == g_uart0_rx_count)
+        {
+            r_uart0_callback_receiveend();
+        }
+    }
+    else
+    {
+        r_uart0_callback_softwareoverrun(rx_data);
+    }
+}
+
+/***********************************************************************************************************************
+* Function Name: r_uart0_interrupt_send
+* Description  : This function is INTST0 interrupt service routine.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+#pragma vector = INTST0_vect
+__interrupt static void r_uart0_interrupt_send(void)
+{
+    if (g_uart0_tx_count > 0U)
+    {
+        TXD0 = *gp_uart0_tx_address;
+        gp_uart0_tx_address++;
+        g_uart0_tx_count--;
+    }
+    else
+    {
+        r_uart0_callback_sendend();
+    }
+}
+
+/***********************************************************************************************************************
+* Function Name: r_uart0_callback_receiveend
+* Description  : This function is a callback function when UART0 finishes reception.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+static void r_uart0_callback_receiveend(void)
+{
+    /* Start user code. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_uart0_callback_softwareoverrun
+* Description  : This function is a callback function when UART0 receives an overflow data.
+* Arguments    : rx_data -
+*                    receive data
+* Return Value : None
+***********************************************************************************************************************/
+static void r_uart0_callback_softwareoverrun(uint16_t rx_data)
+{
+    /* Start user code. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_uart0_callback_sendend
+* Description  : This function is a callback function when UART0 finishes transmission.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+static void r_uart0_callback_sendend(void)
+{
+    /* Start user code. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_uart0_callback_error
+* Description  : This function is a callback function when UART0 reception error occurs.
+* Arguments    : err_type -
+*                    error type value
+* Return Value : None
+***********************************************************************************************************************/
+static void r_uart0_callback_error(uint8_t err_type)
+{
+    /* Start user code. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
+}
 
 /***********************************************************************************************************************
 * Function Name: r_uart1_interrupt_receive
@@ -170,232 +273,6 @@ static void r_uart1_callback_sendend(void)
 * Return Value : None
 ***********************************************************************************************************************/
 static void r_uart1_callback_error(uint8_t err_type)
-{
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_csi00_interrupt
-* Description  : This function is INTCSI00 interrupt service routine.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-#pragma vector = INTCSI00_vect
-__interrupt static void r_csi00_interrupt(void)
-{
-    volatile uint8_t err_type;
-    volatile uint8_t sio_dummy;
-
-    err_type = (uint8_t)(SSR00 & _0001_SAU_OVERRUN_ERROR);
-    SIR00 = (uint16_t)err_type;
-
-    if (1U == err_type)
-    {
-        r_csi00_callback_error(err_type);    /* overrun error occurs */
-    }
-    else
-    {
-        if (g_csi00_tx_count > 0U)
-        {
-            if (0U != gp_csi00_rx_address)
-            {
-                *gp_csi00_rx_address = SIO00;
-                gp_csi00_rx_address++;
-            }
-            else
-            {
-                sio_dummy = SIO00;
-            }
-
-            if (0U != gp_csi00_tx_address)
-            {
-                SIO00 = *gp_csi00_tx_address;
-                gp_csi00_tx_address++;
-            }
-            else
-            {
-                SIO00 = 0xFFU;
-            }
-
-            g_csi00_tx_count--;
-        }
-        else 
-        {
-            if (0U == g_csi00_tx_count)
-            {
-                if (0U != gp_csi00_rx_address)
-                {
-                    *gp_csi00_rx_address = SIO00;
-                }
-                else
-                {
-                    sio_dummy = SIO00;
-                }
-            }
-
-            r_csi00_callback_sendend();    /* complete send */
-            r_csi00_callback_receiveend();    /* complete receive */
-        }
-    }
-}
-
-/***********************************************************************************************************************
-* Function Name: r_csi00_callback_receiveend
-* Description  : This function is a callback function when CSI00 finishes reception.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void r_csi00_callback_receiveend(void)
-{
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_csi00_callback_error
-* Description  : This function is a callback function when CSI00 reception error occurs.
-* Arguments    : err_type -
-*                    error type value
-* Return Value : None
-***********************************************************************************************************************/
-static void r_csi00_callback_error(uint8_t err_type)
-{
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_csi00_callback_sendend
-* Description  : This function is a callback function when CSI00 finishes transmission.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void r_csi00_callback_sendend(void)
-{
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_iic20_interrupt
-* Description  : This function is INTIIC20 interrupt service routine.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-#pragma vector = INTIIC20_vect
-__interrupt static void r_iic20_interrupt(void)
-{
-    volatile uint16_t w_count;
-
-    for (w_count = 0U; w_count <= IIC20_WAITTIME_2; w_count++)
-    {
-        NOP();
-    }
-
-    if (((SSR10 & _0002_SAU_PARITY_ERROR) == 0x0002U) && (g_iic20_tx_count != 0U))
-    {
-        r_iic20_callback_master_error(MD_NACK);
-    }
-    else if(((SSR10 & _0001_SAU_OVERRUN_ERROR) == 0x0001U) && (g_iic20_tx_count != 0U))
-    {
-        r_iic20_callback_master_error(MD_OVERRUN);
-    }
-    else
-    {
-        /* Control for master send */
-        if ((g_iic20_master_status_flag & _01_SAU_IIC_SEND_FLAG) == 1U)
-        {
-            if (g_iic20_tx_count > 0U)
-            {
-                SIO20 = *gp_iic20_tx_address;
-                gp_iic20_tx_address++;
-                g_iic20_tx_count--;
-            }
-            else
-            {
-                /* IIC master transmission finishes and a callback function can be called here. */
-                r_iic20_callback_master_sendend();
-            }
-        }
-        /* Control for master receive */
-        else 
-        {
-            if ((g_iic20_master_status_flag & _04_SAU_IIC_SENDED_ADDRESS_FLAG) == 0U)
-            {
-                ST1 |= _0001_SAU_CH0_STOP_TRG_ON;
-                SCR10 &= ~_C000_SAU_RECEPTION_TRANSMISSION;
-                SCR10 |= _4000_SAU_RECEPTION;
-                SS1 |= _0001_SAU_CH0_START_TRG_ON;
-                g_iic20_master_status_flag |= _04_SAU_IIC_SENDED_ADDRESS_FLAG;
-                
-                if (g_iic20_rx_length == 1U)
-                {
-                    SOE1 &= ~_0001_SAU_CH0_OUTPUT_ENABLE;    /* disable IIC20 out */
-                }
-                
-                SIO20 = 0xFFU;
-            }
-            else
-            {
-                if (g_iic20_rx_count < g_iic20_rx_length)
-                {
-                    *gp_iic20_rx_address = SIO20;
-                    gp_iic20_rx_address++;
-                    g_iic20_rx_count++;
-                    
-                    if (g_iic20_rx_count == (g_iic20_rx_length - 1U))
-                    {
-                        SOE1 &= ~_0001_SAU_CH0_OUTPUT_ENABLE;    /* disable IIC20 out */
-                        SIO20 = 0xFFU;
-                    }
-                    else if (g_iic20_rx_count == g_iic20_rx_length)
-                    {
-                        /* IIC master reception finishes and a callback function can be called here. */
-                        r_iic20_callback_master_receiveend();
-                    }
-                    else
-                    {
-                        SIO20 = 0xFFU;
-                    }
-                }
-            }
-        }
-    }
-}
-
-/***********************************************************************************************************************
-* Function Name: r_iic20_callback_master_error
-* Description  : This function is a callback function when IIC20 master error occurs.
-* Arguments    : flag -
-*                    status flag
-* Return Value : None
-***********************************************************************************************************************/
-static void r_iic20_callback_master_error(MD_STATUS flag)
-{
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_iic20_callback_master_receiveend
-* Description  : This function is a callback function when IIC20 finishes master reception.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void r_iic20_callback_master_receiveend(void)
-{
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_iic20_callback_master_sendend
-* Description  : This function is a callback function when IIC20 finishes master transmission.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void r_iic20_callback_master_sendend(void)
 {
     /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */

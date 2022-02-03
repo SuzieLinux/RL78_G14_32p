@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 1/22/2022
+* Creation Date: 1/31/2022
 ***********************************************************************************************************************/
 
 #ifndef TAU_H
@@ -878,23 +878,33 @@ Macro definitions (Register bit)
 Macro definitions
 ***********************************************************************************************************************/
 /* 16-bit timer data register 00 (TDR00) */
-#define _0C7F_TAU_TDR00_VALUE                   (0x0C7FU)
+#define _045F_TAU_TDR00_VALUE                   (0x045FU)
+/* 16-bit timer data register 01 (TDR01) */
+#define _0230_TAU_TDR01_VALUE                   (0x0230U)
 /* 16-bit timer data register 02 (TDR02) */
-#define _0640_TAU_TDR02_VALUE                   (0x0640U)
-/* 16-bit timer data register 03 (TDR03) */
-#define _0640_TAU_TDR03_VALUE                   (0x0640U)
+#define _01C0_TAU_TDR02_VALUE                   (0x01C0U)
 /* Clock divisor for TAU0 channel 0 */
 #define _0001_TAU0_CHANNEL0_DIVISOR             (0x0001U)
+/* Clock divisor for TAU0 channel 1 */
+#define _0001_TAU0_CHANNEL1_DIVISOR             (0x0001U)
 /* Clock divisor for TAU0 channel 2 */
 #define _0001_TAU0_CHANNEL2_DIVISOR             (0x0001U)
 /* Clock divisor for TAU0 channel 3 */
 #define _0001_TAU0_CHANNEL3_DIVISOR             (0x0001U)
-/* 16-bit timer data register 01 (TDR01) */
-#define _0C7F_TAU_TDR01_VALUE                   (0x0C7FU)
-/* Clock divisor for TAU0 channel 1 */
-#define _0001_TAU0_CHANNEL1_DIVISOR             (0x0001U)
-/* Timer RJ register (TRJ0) value */
-#define _0C7F_TMRJ_TRJ0_VALUE                   (0x0C7FU)
+/* TMRD register A0 (TRDGRA0) */
+#define _08BF_TMRD_TRDGRA0_VALUE                (0x08BFU)
+/* TMRD register B0 (TRDGRB0) */
+#define _07DF_TMRD_TRDGRB0_VALUE                (0x07DFU)
+/* TMRD register D0 (TRDGRD0) */
+#define _06FF_TMRD_TRDGRD0_VALUE                (0x06FFU)
+/* TMRD register A1 (TRDGRA1) */
+#define _08BF_TMRD_TRDGRA1_VALUE                (0x08BFU)
+/* TMRD register B1 (TRDGRB1) */
+#define _061F_TMRD_TRDGRB1_VALUE                (0x061FU)
+/* TMRD register C1 (TRDGRC1) */
+#define _053F_TMRD_TRDGRC1_VALUE                (0x053FU)
+/* TMRD register D1 (TRDGRD1) */
+#define _045F_TMRD_TRDGRD1_VALUE                (0x045FU)
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -914,11 +924,12 @@ Global functions
 void R_TAU0_Create(void);
 void R_TAU0_Channel0_Start(void);
 void R_TAU0_Channel0_Stop(void);
-void R_TAU0_Channel1_Start(void);
-void R_TAU0_Channel1_Stop(void);
-void R_TMR_RJ0_Create(void);
-void R_TMR_RJ0_Start(void);
-void R_TMR_RJ0_Stop(void);
+void R_TAU0_Channel3_Start(void);
+void R_TAU0_Channel3_Stop(void);
+void R_TAU0_Channel3_Get_PulseWidth(uint32_t * const width);
+void R_TMR_RD0_Create(void);
+void R_TMR_RD0_Start(void);
+void R_TMR_RD0_Stop(void);
 
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
