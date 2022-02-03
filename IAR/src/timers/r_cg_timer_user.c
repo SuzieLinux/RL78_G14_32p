@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 1/22/2022
+* Creation Date: 1/31/2022
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -38,6 +38,8 @@ Includes
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
+/* For TAU0_ch3 pulse measurement */
+uint32_t g_tau0_ch3_width = 0UL;
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -89,18 +91,40 @@ __interrupt static void r_tau0_channel2_interrupt(void)
 #pragma vector = INTTM03_vect
 __interrupt static void r_tau0_channel3_interrupt(void)
 {
+    if ((TSR03 & _0001_TAU_OVERFLOW_OCCURS) == 1U)    /* overflow occurs */
+    {            
+        g_tau0_ch3_width = (uint32_t)(TDR03 + 1UL) + 0x10000UL;
+    }
+    else
+    {
+        g_tau0_ch3_width = (uint32_t)(TDR03 + 1UL);
+    }
+
     /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
-* Function Name: r_tmr_rj0_interrupt
-* Description  : This function is INTTRJ0 interrupt service routine.
+* Function Name: r_tmr_rd0_interrupt
+* Description  : This function is INTTRD0 interrupt service routine.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-#pragma vector = INTTRJ0_vect
-__interrupt static void r_tmr_rj0_interrupt(void)
+#pragma vector = INTTRD0_vect
+__interrupt static void r_tmr_rd0_interrupt(void)
+{
+    /* Start user code. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_tmr_rd1_interrupt
+* Description  : This function is INTTRD1 interrupt service routine.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+#pragma vector = INTTRD1_vect
+__interrupt static void r_tmr_rd1_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */

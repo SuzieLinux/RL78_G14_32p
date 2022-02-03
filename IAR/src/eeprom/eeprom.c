@@ -1,7 +1,7 @@
 /**
  * @file   eeprom.c
  * @author Michel Catudal
- * @date   31 January 2022
+ * @date   2 February 2022
  * @version 0.1
  * @brief  EEPROM Driver
  *
@@ -17,10 +17,6 @@
 /*! The I2C address is fixed for the AT24C32 device. */
 #define AT24C32_ADDRESS 0xA0
 
-volatile uint8_t TX_done = 0;
-volatile uint8_t RX_done = 0;
-volatile MD_STATUS RX_TX_error = 0;
-
 /*****************************************************************************
  *      @brief   Write a block of 1 to 32 bytes
  *
@@ -33,9 +29,6 @@ volatile MD_STATUS RX_TX_error = 0;
 void EE_WriteEEBlock(uint16_t start_address, uint16_t length, uint8_t const *pucBuffer)
 {
     uint8_t pack[34];
-    MD_STATUS status;
-
-    P6_bit.no2 = 0;     //  Remove EEPROM Write Protect
 
     if (!length)
     {
@@ -50,14 +43,7 @@ void EE_WriteEEBlock(uint16_t start_address, uint16_t length, uint8_t const *puc
     pack[1] = start_address & 0xFF;
     memcpy(&pack[2], pucBuffer, length);
 
-    TX_done = 0;
-    status = R_IICA0_Master_Send(AT24C32_ADDRESS, pack, length + 2, 15);
-
-    if (status == MD_OK)
-    {
-        while (!TX_done);
-        TX_done = 0;
-    }
+    R_IICA0_Master_Send(AT24C32_ADDRESS, pack, length + 2, 100);
 }
 
 /*****************************************************************************
@@ -71,9 +57,6 @@ void EE_WriteEEBlock(uint16_t start_address, uint16_t length, uint8_t const *puc
 void EE_WriteWord(uint16_t WordAddress, uint16_t Word)
 {
     uint8_t pack[4];
-    MD_STATUS status;
-
-    P6_bit.no2 = 0;     //  Remove EEPROM Write Protect
 
     pack[0] = WordAddress >> 8;
     pack[1] = WordAddress & 0xFF;
@@ -81,13 +64,7 @@ void EE_WriteWord(uint16_t WordAddress, uint16_t Word)
     pack[3] = Word >> 8;
 
     TX_done = 0;
-    status = R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 4, 15);
-
-    if (status == MD_OK)
-    {
-        while (!TX_done);
-        TX_done = 0;
-    }
+    R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 4, 100);
 }
 
 /*****************************************************************************
@@ -101,22 +78,13 @@ void EE_WriteWord(uint16_t WordAddress, uint16_t Word)
 void EE_WriteByte(uint16_t ByteAddress, uint8_t Byte)
 {
     uint8_t pack[3];
-    MD_STATUS status;
-
-    P6_bit.no2 = 0;     //  Remove EEPROM Write Protect
 
     pack[0] = ByteAddress >> 8;
     pack[1] = ByteAddress & 0xFF;
     pack[2] = Byte;
 
     TX_done = 0;
-    status = R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 3, 15);
-
-    if (status == MD_OK)
-    {
-        while (!TX_done);
-        TX_done = 0;
-    }
+    R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 3, 100);
 }
 
 /*****************************************************************************
@@ -128,47 +96,17 @@ void EE_WriteByte(uint16_t ByteAddress, uint8_t Byte)
  *
  *      @return MD_OK or MD_ERROR1 or MD_ERROR2
 */
-MD_STATUS EE_ReadEEBlock(uint16_t start_address, uint16_t length, uint8_t *pucBuffer)
+void EE_ReadEEBlock(uint16_t start_address, uint16_t length, uint8_t *pucBuffer)
 {
     uint8_t pack[32];
-    MD_STATUS status;
-
-    if (!length)
-    {
-        return MD_ERROR;
-    }
-    if (length > 32)
-    {
-        length = 32;     // Maximum size of a page is 32 bytes
-    }
 
     pack[0] = start_address >> 8;
     pack[1] = start_address & 0xFF;
 
-    TX_done = 0;
-    status = R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 2, 15);
+    status = R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 2, 100);
+    /* Wait to receive IIC reply from the EEP */
+    while(R_IICA0_Master_Receive(AT24C32_ADDRESS, pack, length, 100) != MD_OK);
 
-    if (status == MD_OK)
-    {
-        while (!TX_done);
-        TX_done = 0;
-    }
-    else
-    {
-        return MD_ERROR;
-    }
-
-    RX_done = 0;
-    /* Receive the data */
-    status = R_IICA0_Master_Receive(AT24C32_ADDRESS | 0x01,pack,length,15);
-
-    if (status == MD_OK)
-    {
-        while (!TX_done);
-        RX_done = 0;
-    }
-
-    return MD_OK;
 }
 
 /*****************************************************************************
@@ -181,30 +119,11 @@ MD_STATUS EE_ReadEEBlock(uint16_t start_address, uint16_t length, uint8_t *pucBu
 uint16_t EE_ReadWord(uint16_t WordAddress)
 {
     uint16_t Word;
-    MD_STATUS status;
 
-    TX_done = 0;
-    status = R_IICA0_Master_Send(AT24C32_ADDRESS,(uint8_t *) &WordAddress, 2, 15);
+    R_IICA0_Master_Send(AT24C32_ADDRESS,(uint8_t *) &WordAddress, 2, 100);
 
-    if (status == MD_OK)
-    {
-        while (!TX_done);
-        TX_done = 0;
-    }
-    else
-    {
-        return 0;
-    }
-
-    RX_done = 0;
-    /* Receive the data */
-    status = R_IICA0_Master_Receive(AT24C32_ADDRESS | 0x01,(uint8_t *) &Word,2,15);
-
-    if (status == MD_OK)
-    {
-        while (!TX_done);
-        TX_done = 0;
-    }
+    /* Wait to receive IIC reply from the EEP */
+    while(R_IICA0_Master_Receive(AT24C32_ADDRESS, (uint8_t *) &Word, 2, 100) != MD_OK);
 
     return Word;
 }
@@ -219,30 +138,11 @@ uint16_t EE_ReadWord(uint16_t WordAddress)
 uint8_t EE_ReadByte(uint16_t ByteAddress)
 {
     uint8_t Byte;
-    MD_STATUS status;
 
-    TX_done = 0;
-    status = R_IICA0_Master_Send(AT24C32_ADDRESS, (uint8_t *) &ByteAddress, 2, 15);
+    R_IICA0_Master_Send(AT24C32_ADDRESS,(uint8_t *) &ByteAddress, 2, 100);
 
-    if (status == MD_OK)
-    {
-        while (!TX_done);
-        TX_done = 0;
-    }
-    else
-    {
-        return 0;
-    }
-
-    RX_done = 0;
-    /* Receive the data */
-    status = R_IICA0_Master_Receive(AT24C32_ADDRESS | 0x01,&Byte,1,15);
-
-    if (status == MD_OK)
-    {
-        while (!TX_done);
-        TX_done = 0;
-    }
+    /* Wait to receive IIC reply from the EEP */
+    while(R_IICA0_Master_Receive(AT24C32_ADDRESS, (uint8_t *) &Byte, 1, 100) != MD_OK);
 
     return Byte;
 }
