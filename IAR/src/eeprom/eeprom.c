@@ -63,7 +63,6 @@ void EE_WriteWord(uint16_t WordAddress, uint16_t Word)
     pack[2] = Word & 0xFF;
     pack[3] = Word >> 8;
 
-    TX_done = 0;
     R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 4, 100);
 }
 
@@ -83,7 +82,6 @@ void EE_WriteByte(uint16_t ByteAddress, uint8_t Byte)
     pack[1] = ByteAddress & 0xFF;
     pack[2] = Byte;
 
-    TX_done = 0;
     R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 3, 100);
 }
 
@@ -103,7 +101,7 @@ void EE_ReadEEBlock(uint16_t start_address, uint16_t length, uint8_t *pucBuffer)
     pack[0] = start_address >> 8;
     pack[1] = start_address & 0xFF;
 
-    status = R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 2, 100);
+    R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 2, 100);
     /* Wait to receive IIC reply from the EEP */
     while(R_IICA0_Master_Receive(AT24C32_ADDRESS, pack, length, 100) != MD_OK);
 
