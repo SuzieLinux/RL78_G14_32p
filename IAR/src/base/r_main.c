@@ -65,8 +65,7 @@ __root const uint8_t secuid[10] =
 void R_MAIN_UserInit(void);
 
 static uint16_t aWord = 0x666;
-static RxBuffer[20] = {0};
-}
+static uint8_t RxBuffer[20] = {0};
 
 /***********************************************************************************************************************
 * Function Name: main
@@ -76,7 +75,7 @@ static RxBuffer[20] = {0};
 ***********************************************************************************************************************/
 void main(void)
 {
-    uint16_t address = 100;
+    uint16_t address = 0;
     R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */
     EE_WriteWord(address,aWord);
