@@ -64,7 +64,9 @@ __root const uint8_t secuid[10] =
 
 void R_MAIN_UserInit(void);
 
-static uint16_t aWord = 0;
+static uint16_t aWord = 0x666;
+static RxBuffer[20] = {0};
+}
 
 /***********************************************************************************************************************
 * Function Name: main
@@ -74,14 +76,15 @@ static uint16_t aWord = 0;
 ***********************************************************************************************************************/
 void main(void)
 {
+    uint16_t address = 100;
     R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */
-    EE_WriteWord(100,0x666);
+    EE_WriteWord(address,aWord);
     R_IICA0_StopCondition();
 
     while (1U)
     {
-        aWord = EE_ReadWord(120);
+        EE_ReadEEBlock(address,8, RxBuffer);
         R_IICA0_StopCondition();
     }
     /* End user code. Do not edit comment generated here */
