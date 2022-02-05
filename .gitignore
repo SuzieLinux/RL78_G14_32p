@@ -1,3 +1,6 @@
 /IAR/Debug/List
 /IAR/Debug/Obj
 /IAR/*.dep
+/tests/Arduino/Debug/List
+/tests/Arduino/Debug/Obj
+/tests/Arduino/arduino.dep
