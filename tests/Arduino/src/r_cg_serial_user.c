@@ -451,7 +451,7 @@ void R_Master_EEPROM() {
             /* Compare the buffers using a loop */
             for (_delay = 0; _delay != EEPROM_RECEIVE_COUNT; _delay++) {
                 /* Compare the buffer locations */
-                if (write_buffer[_delay + EEPROM_WORD_ADDRESS] = read_buffer[_delay]) {
+                if (write_buffer[_delay + EEPROM_WORD_ADDRESS] == read_buffer[_delay]) {
                     /* Display success message for each byte */
                     EE_status = 2;
                 } else {
