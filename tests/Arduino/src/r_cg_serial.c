@@ -488,13 +488,13 @@ MD_STATUS R_IICA0_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint16_t r
         IICAMK0 = 0U;  /* enable INTIIA0 interrupt */
         status = MD_ERROR1;
     }
+#endif
     if (1U == IICBSY0)
     {
         /* Check bus busy */
         IICAMK0 = 0U;  /* enable INTIIA0 interrupt */
         status = MD_ERROR1;
     }
-#endif
     else if ((1U == SPT0) || (1U == STT0))
     {
         /* Check trigger */
