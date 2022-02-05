@@ -428,7 +428,8 @@ void R_Master_EEPROM() {
 
             /* Wait to receive IIC reply from the EEP */
 
-            while (R_IICA0_Master_Receive(EEPROM_DEVICE_ADDRESS, read_buffer, EEPROM_RECEIVE_COUNT, 100) != MD_OK);
+            R_IICA0_Master_Receive(EEPROM_DEVICE_ADDRESS, read_buffer, EEPROM_RECEIVE_COUNT, 100);
+//            while (R_IICA0_Master_Receive(EEPROM_DEVICE_ADDRESS, read_buffer, EEPROM_RECEIVE_COUNT, 100) != MD_OK);
 
             /* Set flag to indicate that a read has competed */
             WriteRead_Complete |= 0x01;
