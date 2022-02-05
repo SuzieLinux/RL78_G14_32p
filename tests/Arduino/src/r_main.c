@@ -67,16 +67,18 @@ void R_MAIN_UserInit(void);
 ***********************************************************************************************************************/
 void main(void)
 {
-    uint8_t Buffer[8] = "12345678";
+    uint8_t rxBuffer[32];
+    uint8_t txBuffer[8] = "12345678";
     R_MAIN_UserInit();
-    EE_WriteEEBlock(0, 8, Buffer);
+    EE_WriteEEBlock(0, 8, txBuffer);
     R_IICA0_StopCondition();
-    EE_ReadEEBlock(0,8, RxBuffer);
+    EE_ReadEEBlock(0,8, rxBuffer);
     R_IICA0_StopCondition();
 
     while (1U)
     {
-        ;
+        if (rxBuffer[0] == TxBuffer[0]) status = 1;
+        else status = 0;
     }
 }
 
