@@ -414,14 +414,13 @@ MD_STATUS R_IICA0_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_n
 
     IICAMK0 = 1U;  /* disable INTIICA0 interrupt */
 
-#if 0
     if ((1U == IICBSY0) && (0U == MSTS0))
     {
         /* Check bus busy */
         IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
         status = MD_ERROR1;
     }
-#endif
+#if 0
     if (1U == IICBSY0)
     {
         /* Check bus busy */
@@ -434,6 +433,7 @@ MD_STATUS R_IICA0_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_n
         IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
         status = MD_ERROR2;
     }
+#endif
     else
     {
         STT0 = 1U; /* send IICA0 start condition */
@@ -481,14 +481,13 @@ MD_STATUS R_IICA0_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint16_t r
 
     IICAMK0 = 1U;  /* disable INTIIA0 interrupt */
 
-#if 0
     if ((1U == IICBSY0) && (0U == MSTS0))
     {
         /* Check bus busy */
         IICAMK0 = 0U;  /* enable INTIIA0 interrupt */
         status = MD_ERROR1;
     }
-#endif
+#if 0
     if (1U == IICBSY0)
     {
         /* Check bus busy */
@@ -501,6 +500,7 @@ MD_STATUS R_IICA0_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint16_t r
         IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
         status = MD_ERROR2;
     }
+#endif
     else
     {
         STT0 = 1U; /* set IICA0 start condition */
