@@ -49,7 +49,7 @@
         <FreqHi>0</FreqHi>
     </Simulator>
     <DebugChecksum>
-        <Checksum>931487451</Checksum>
+        <Checksum>2810598723</Checksum>
     </DebugChecksum>
     <E2Lite>
         <Map0>0,0,16383,16384</Map0>
@@ -58,7 +58,7 @@
         <HWsettings>3,0,1,2,4,0,1,0,16,1,0</HWsettings>
         <HWsettingsCube>2,4294967295,2,4294967295,0,1,0,0,0</HWsettingsCube>
         <HWsettingsRsuid>00000000000000000000</HWsettingsRsuid>
-        <HWsettingsRsuidSerial>FFFFFFFFFFFFFFFFFFFF</HWsettingsRsuidSerial>
+        <HWsettingsRsuidSerial>00000000000000000000</HWsettingsRsuidSerial>
         <EventEntries>0</EventEntries>
         <SeqName0 />
         <SeqData0>0,0</SeqData0>
@@ -204,6 +204,13 @@
         <GraphEnabled>0</GraphEnabled>
         <ShowTimeLog>1</ShowTimeLog>
     </DataSample>
+    <Breakpoints>
+        <Bp0>_ "STD_CODE" "{$PROJ_DIR$\src\base\r_main.c}.85.9" 1 0 0 0 "" 0 ""</Bp0>
+        <Count>1</Count>
+    </Breakpoints>
+    <Monitor_Execution>
+        <Leave_target_running>0</Leave_target_running>
+    </Monitor_Execution>
     <TermIOLog>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>
@@ -213,18 +220,12 @@
         <LogFile>_ ""</LogFile>
         <Category>_ 0</Category>
     </LogFile>
-    <TraceHelper>
-        <Enabled>0</Enabled>
-        <ShowSource>1</ShowSource>
-    </TraceHelper>
-    <Breakpoints>
-        <Count>0</Count>
-    </Breakpoints>
-    <Monitor_Execution>
-        <Leave_target_running>0</Leave_target_running>
-    </Monitor_Execution>
     <Aliases>
         <Count>0</Count>
         <SuppressDialog>0</SuppressDialog>
     </Aliases>
+    <TraceHelper>
+        <Enabled>0</Enabled>
+        <ShowSource>1</ShowSource>
+    </TraceHelper>
 </settings>

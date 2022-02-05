@@ -64,7 +64,7 @@ __root const uint8_t secuid[10] =
 
 void R_MAIN_UserInit(void);
 
-static uint16_t aWord;
+static uint16_t aWord = 0;
 
 /***********************************************************************************************************************
 * Function Name: main
@@ -76,12 +76,12 @@ void main(void)
 {
     R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */
-    EE_WriteWord(0,0x666);
+    EE_WriteWord(100,0x666);
     R_IICA0_StopCondition();
 
     while (1U)
     {
-        aWord = EE_ReadWord(0);
+        aWord = EE_ReadWord(120);
         R_IICA0_StopCondition();
     }
     /* End user code. Do not edit comment generated here */
