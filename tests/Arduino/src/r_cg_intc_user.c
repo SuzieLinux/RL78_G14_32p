@@ -31,7 +31,7 @@ Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_intc.h"
-uint8_t gSwitchFlag;
+uint8_t gSwitchFlag,Switch = 0;;
 #include "r_cg_userdefine.h"
 
 /***********************************************************************************************************************
@@ -49,7 +49,13 @@ Global variables and functions
 #pragma vector = INTP0_vect
 __interrupt static void r_intc0_interrupt(void)
 {
-    if (gSwitchFlag == '1') gSwitchFlag = '2';
-    else gSwitchFlag = '1';
+    if (Switch == 1) {
+        gSwitchFlag = '2';
+        Switch = 0;
+    }
+    else {
+        gSwitchFlag = '1';
+        Switch= 1;
+    }
 }
 
