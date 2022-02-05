@@ -1,0 +1,129 @@
+Macro list
+MCU name: RL78/G14(ROM:512KB)
+Chip name: R5F104ML
+Module,Macro,Sub,Setting,Status
+
+Clock Generator,,,,Used
+,CGC,,,Used
+,,,Pin assignment setting-PIOR00 bit = 1,Unused
+,,,Pin assignment setting-PIOR01 bit = 1,Unused
+,,,Pin assignment setting-PIOR02 bit = 1,Unused
+,,,Pin assignment setting-PIOR03 bit = 1,Unused
+,,,Pin assignment setting-PIOR04 bit = 1,Unused
+,,,Pin assignment setting-PIOR06 bit = 1,Unused
+,,,Pin assignment setting-PIOR10 bit = 1,Unused
+,,,Pin assignment setting-PIOR11 bit = 1,Unused
+,,,Pin assignment setting-PIOR12 bit = 1,Unused
+,,,Pin assignment setting-PIOR13 bit = 1,Unused
+,,,Operation mode setting,High speed main mode 3.6 (V) = VDD = 5.5 (V)
+,,,EVDD setting,4.0 (V) = EVDD = 5.5 (V)
+,,,Main system clock (fMAIN) setting,High-speed OCO (fIH)
+,,,fIH operation,Used
+,,,fIH frequency,64 (fHOCO=64, fIH=32)(MHz)
+,,,fMX operation,Unused
+,,,fSUB operation,Unused
+,,,fIL Frequency,15(kHz)
+,,,RTC and interval timer operation clock,15 (fIL)(kHz)
+,,,CPU and peripheral clock (fCLK),32000 (fIH)(kHz)
+,,,On-chip debug operation setting,Used
+,,,Trace function setting,Unused
+,,,Security ID setting,Used
+,,,Security ID,0x00000000000000000000
+,,,Security ID authentication failure setting,Do not erase flash memory data
+,,,Emulator setting,E2 Lite
+,,,Pseudo-RRM/DMM function setting,Used
+,,,Start/Stop function setting,Unused
+,,,Monitoring point function setting,Unused
+,,,Output the function for confirming reset source,Used
+,,,Illegal memory access detection function setting,Unused
+,,,RAM guard function setting,Unused
+,,,Port register guard function setting,Unused
+,,,Interrupt register guard function setting,Unused
+,,,Chip state control register guard function setting,Unused
+,,,Data flash access control setting,Enables data flash access
+,,,Setting of data flash library,Unused
+Port,,,,Used
+,PORT,,,Used
+,,P16,,
+,,,Mode,Out
+,,,N-ch,Unused
+,,,output value,0
+Interrupt,,,,Used
+,INTP,,,Used
+,,INTP6,,
+,,,Valid edge,Falling
+,,,Priority,Low
+,,INTP10,,
+,,,Valid edge,Falling
+,,,Priority,Low
+,,INTP11,,
+,,,Valid edge,Falling
+,,,Priority,Low
+,KEY,,,Unused
+Serial,,,,Used
+,SAU0,,,Used
+,,Channel0,,
+,,,Channel 0,UART0(Transmit/receive function)
+,,,Data length setting (Receive function),8 bits
+,,,Transfer direction setting (Receive function),LSB
+,,,Parity setting (Receive function),None
+,,,Stop bit length setting (Receive function),1 bit fixed
+,,,Receive data level setting,Normal
+,,,Transfer rate setting (Receive function),9600(bps)(Current error: +0.16% the minimum is -5.17% the maximum is +5.16%)
+,,,Reception end interrupt priority (INTSR0),Low
+,,,Reception error interrupt priority (INTSRE0),Unused
+,,,Reception end (Callback function setting),Used
+,,,Reception error (Callback function setting),Used
+,,,Transfer mode setting,Single transfer mode
+,,,Data length setting (Transmit function),8 bits
+,,,Transfer direction setting (Transmit function),LSB
+,,,Parity setting (Transmit function),None
+,,,Stop bit length setting (Transmit function),1 bit
+,,,Transmit data level setting,Normal
+,,,Transfer rate setting (Transmit function),9600(bps)(Current error: +0.16%)
+,,,Transmit end interrupt priority (INTST0),Low
+,,,Transmission end (Callback function setting),Used
+,SAU1,,,Used
+,,Channel0,,
+,,,Channel 0,CSI20(Transmit/receive function)
+,,,Transfer mode setting,Single transfer mode
+,,,Data length setting,8 bits
+,,,Transfer direction setting,MSB
+,,,Specification of data timing,Type 1
+,,,Clock mode,Internal clock (master)
+,,,Baudrate,4000000(bps)(Actual value: 4000000)
+,,,Transfer interrupt priority (INTCSI20),Low
+,,,Transmission end (Callback function setting),Used
+,,,Reception end (Callback function setting),Used
+,,,Overrun error (Callback function setting),Used
+,IICA0,,,Unused
+,IICA1,,,Unused
+A/D Converter,,,,Unused
+D/A Converter,,,,Unused
+Timer,,,,Used
+,TAU0,,,Used
+,,Channel1,,
+,,,Channel 1,Interval timer
+,,,Operation mode setting,16 bits
+,,,Interval value (16 bits),10ms, (Actual value: 10)
+,,,Generates INTTM01 when counting is started,Unused
+,,,End of timer channel 1 count, generate an interrupt (INTTM01),Used
+,,,Priority (INTTM01),Low
+,TAU1,,,Unused
+,TMRJ0,,,Used
+,,,Functions,Timer mode
+,,,Count source setting,Auto
+,,,Timer value,1ms, (Actual value: 1)
+,,,When the counter underflows, generate an interrupt (INTTRJ0),Used
+,,,Priority,Low
+,TMRD0,,,Unused
+,TMRD1,,,Unused
+,TMRG0,,,Unused
+Watchdog Timer,,,,Unused
+Real-time Clock,,,,Unused
+12-Bit Interval Timer,,,,Unused
+Comparator,,,,Unused
+Clock Output/Buzzer Output,,,,Unused
+Data Transfer Controller,,,,Unused
+Event Link Controller,,,,Unused
+Voltage Detector,,,,Unused
