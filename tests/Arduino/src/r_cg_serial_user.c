@@ -63,6 +63,8 @@ uint16_t _delay = 0x1FF;
 /* Declare write buffer array, initialised with constant data written
    to the EEPROM each time. X is replaced with the data identifier. */
 uint8_t write_buffer[] = "XXRL78G14  ";
+/* Define read buffer array */
+uint8_t read_buffer[] = "XXXXXXXXX";
 
 /***********************************************************************************************************************
 * Function Name: r_uart0_interrupt_receive
