@@ -105,7 +105,7 @@ void EE_ReadEEBlock(uint16_t start_address, uint16_t length, uint8_t *pucBuffer)
 
     R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 2, 100);
     /* Wait to receive IIC reply from the EEP */
-    while(R_IICA0_Master_Receive(AT24C32_ADDRESS, pack, length, 100) != MD_OK);
+    while(R_IICA0_Master_Receive(AT24C32_ADDRESS, pucBuffer, length, 100) != MD_OK);
 
 }
 
