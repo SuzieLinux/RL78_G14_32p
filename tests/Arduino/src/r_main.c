@@ -67,6 +67,7 @@ void R_MAIN_UserInit(void);
 ***********************************************************************************************************************/
 void main(void)
 {
+    uint8_t status = 0;
     uint8_t rxBuffer[32];
     uint8_t txBuffer[8] = "12345678";
     R_MAIN_UserInit();
