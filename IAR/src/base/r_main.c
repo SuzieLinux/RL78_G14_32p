@@ -45,7 +45,6 @@ Includes
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-    volatile uint16_t aWord;
 /* End user code. Do not edit comment generated here */
 
 /* Set option bytes */
@@ -65,6 +64,8 @@ __root const uint8_t secuid[10] =
 
 void R_MAIN_UserInit(void);
 
+static uint16_t aWord;
+
 /***********************************************************************************************************************
 * Function Name: main
 * Description  : This function implements main function.
@@ -74,10 +75,12 @@ void R_MAIN_UserInit(void);
 void main(void)
 {
     R_MAIN_UserInit();
+    /* Start user code. Do not edit comment generated here */
+    EE_WriteWord(0,0x666);
 
     while (1U)
     {
-        ;
+        aWord = EE_ReadWord(0);
     }
     /* End user code. Do not edit comment generated here */
 }
@@ -93,9 +96,6 @@ void R_MAIN_UserInit(void)
 {
     /* Start user code. Do not edit comment generated here */
     EI();
-    /* Start user code. Do not edit comment generated here */
-    EE_WriteWord(0,0x666);
-    aWord = EE_ReadWord(0);
     /* End user code. Do not edit comment generated here */
 }
 
