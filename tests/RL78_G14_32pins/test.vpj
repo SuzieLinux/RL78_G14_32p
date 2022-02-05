@@ -1,0 +1,97 @@
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/10.0/vpj.dtd">
+<Project
+    Version="10.0"
+    VendorName="SlickEdit"
+    TemplateName="(Other)"
+    WorkingDir=".">
+    <Config
+        Name="Release"
+        OutputFile=""
+        CompilerConfigName="">
+        <Menu>
+            <Target
+                Name="Compile"
+                MenuCaption="&amp;Compile"
+                CaptureOutputWith="ProcessBuffer"
+                SaveOption="SaveCurrent"
+                RunFromDir="%rw">
+                <Exec/>
+            </Target>
+            <Target
+                Name="Build"
+                MenuCaption="&amp;Build"
+                CaptureOutputWith="ProcessBuffer"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec/>
+            </Target>
+            <Target
+                Name="Rebuild"
+                MenuCaption="&amp;Rebuild"
+                CaptureOutputWith="ProcessBuffer"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec/>
+            </Target>
+            <Target
+                Name="Debug"
+                MenuCaption="&amp;Debug"
+                SaveOption="SaveNone"
+                RunFromDir="%rw">
+                <Exec/>
+            </Target>
+            <Target
+                Name="Execute"
+                MenuCaption="E&amp;xecute"
+                SaveOption="SaveNone"
+                RunFromDir="%rw">
+                <Exec CmdLine='"RL78_G14_32p.exe"'/>
+            </Target>
+        </Menu>
+    </Config>
+    <Files>
+        <Folder
+            Name="Source Files"
+            Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.c++;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.scala;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl;*.d;*.m;*.mm;*.go;*.groovy;*.gsh"
+            GUID="{A5812AD1-840C-4C9F-B295-0DC44A08FFCD}">
+            <F N="src/eeprom.c"/>
+            <F N="src/r_cg_adc.c"/>
+            <F N="src/r_cg_adc_user.c"/>
+            <F N="src/r_cg_cgc.c"/>
+            <F N="src/r_cg_cgc_user.c"/>
+            <F N="src/r_cg_intc.c"/>
+            <F N="src/r_cg_intc_user.c"/>
+            <F N="src/r_cg_port.c"/>
+            <F N="src/r_cg_port_user.c"/>
+            <F N="src/r_cg_rtc.c"/>
+            <F N="src/r_cg_rtc_user.c"/>
+            <F N="src/r_cg_serial.c"/>
+            <F N="src/r_cg_serial_user.c"/>
+            <F N="src/r_cg_timer.c"/>
+            <F N="src/r_cg_timer_user.c"/>
+            <F N="src/r_main.c"/>
+            <F N="src/r_systeminit.c"/>
+        </Folder>
+        <Folder
+            Name="Header Files"
+            Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.h++;*.inc;*.sh;*.cpy;*.if"
+            GUID="{C4DC1CBA-5E71-47EE-96C8-3AAEF29E1789}">
+            <F N="src/eeprom.h"/>
+            <F N="src/r_cg_adc.h"/>
+            <F N="src/r_cg_cgc.h"/>
+            <F N="src/r_cg_intc.h"/>
+            <F N="src/r_cg_macrodriver.h"/>
+            <F N="src/r_cg_port.h"/>
+            <F N="src/r_cg_rtc.h"/>
+            <F N="src/r_cg_serial.h"/>
+            <F N="src/r_cg_timer.h"/>
+            <F N="src/r_cg_userdefine.h"/>
+        </Folder>
+        <Folder
+            Name="Other Files"
+            Filters=""
+            GUID="{60615AF6-A6D4-449A-B09D-D6BBC74459C1}"/>
+    </Files>
+    <List Name="RTE">
+    </List>
+</Project>
