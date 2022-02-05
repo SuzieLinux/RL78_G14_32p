@@ -64,8 +64,7 @@ __root const uint8_t secuid[10] =
 
 void R_MAIN_UserInit(void);
 
-volatile uint16_t aWord = 0x666;
-volatile uint8_t RxBuffer[20] = {0};
+uint8_t RxBuffer[20] = {0};
 
 /***********************************************************************************************************************
 * Function Name: main
