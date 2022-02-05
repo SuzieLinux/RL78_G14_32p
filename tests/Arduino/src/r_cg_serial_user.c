@@ -412,6 +412,8 @@ void R_Master_EEPROM() {
             WriteRead_Complete |= 0x02;
 
             /* Preset the EEP address pointer back to beginning of the memory */
+            write_buffer[0] = 0x00; /* keep adr= x0000 */
+            write_buffer[1] = 0x00; /*keep adr= x0000 */
 
             R_IICA0_Master_Send
                 (
