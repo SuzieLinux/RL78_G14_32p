@@ -414,49 +414,26 @@ MD_STATUS R_IICA0_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_n
 
     IICAMK0 = 1U;  /* disable INTIICA0 interrupt */
 
-    if ((1U == IICBSY0) && (0U == MSTS0))
+    STT0 = 1U; /* send IICA0 start condition */
+    IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
+
+    /* Wait */
+    while (wait--)
     {
-        /* Check bus busy */
-        IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
-        status = MD_ERROR1;
+        ;
     }
-#if 0
-    if (1U == IICBSY0)
+
+    if (0U == STD0)
     {
-        /* Check bus busy */
-        IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
-        status = MD_ERROR1;
-    }
-    else if ((1U == SPT0) || (1U == STT0))
-    {
-        /* Check trigger */
-        IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
         status = MD_ERROR2;
     }
-#endif
-    else
-    {
-        STT0 = 1U; /* send IICA0 start condition */
-        IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
 
-        /* Wait */
-        while (wait--)
-        {
-            ;
-        }
-
-        if (0U == STD0)
-        {
-            status = MD_ERROR2;
-        }
-
-        /* Set parameter */
-        g_iica0_tx_cnt = tx_num;
-        gp_iica0_tx_address = tx_buf;
-        g_iica0_master_status_flag = _00_IICA_MASTER_FLAG_CLEAR;
-        adr &= (uint8_t)~0x01U; /* set send mode */
-        IICA0 = adr; /* send address */
-    }
+    /* Set parameter */
+    g_iica0_tx_cnt = tx_num;
+    gp_iica0_tx_address = tx_buf;
+    g_iica0_master_status_flag = _00_IICA_MASTER_FLAG_CLEAR;
+    adr &= (uint8_t)~0x01U; /* set send mode */
+    IICA0 = adr; /* send address */
 
     return (status);
 }
@@ -481,18 +458,48 @@ MD_STATUS R_IICA0_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint16_t r
 
     IICAMK0 = 1U;  /* disable INTIIA0 interrupt */
 
-#if 0
-    if ((1U == IICBSY0) && (0U == MSTS0))
+    STT0 = 1U; /* set IICA0 start condition */
+    IICAMK0 = 0U;  /* enable INTIIA0 interrupt */
+
+    /* Wait */
+    while (wait--)
     {
-        /* Check bus busy */
-        IICAMK0 = 0U;  /* enable INTIIA0 interrupt */
-        status = MD_ERROR1;
+        ;
     }
-#endif
+
+    if (0U == STD0)
+    {
+        status = MD_ERROR2;
+    }
+
+    /* Set parameter */
+    g_iica0_rx_len = rx_num;
+    g_iica0_rx_cnt = 0U;
+    gp_iica0_rx_address = rx_buf;
+    g_iica0_master_status_flag  = _00_IICA_MASTER_FLAG_CLEAR;
+    adr |= 0x01U; /* set receive mode */
+    IICA0 = adr; /* receive address */
+
+    return (status);
+}
+
+/***********************************************************************************************************************
+* Function Name: R_IICA0_Busy_Check
+* Description  : This function starts to send data as master mode.
+* Arguments    :  -
+* Return Value : status -
+*                    MD_OK or MD_ERROR1 or MD_ERROR2
+***********************************************************************************************************************/
+MD_STATUS R_IICA0_Busy_Check(void)
+{
+    MD_STATUS status = MD_OK;
+
+    IICAMK0 = 1U;  /* disable INTIICA0 interrupt */
+
     if (1U == IICBSY0)
     {
         /* Check bus busy */
-        IICAMK0 = 0U;  /* enable INTIIA0 interrupt */
+        IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
         status = MD_ERROR1;
     }
     else if ((1U == SPT0) || (1U == STT0))
@@ -501,33 +508,8 @@ MD_STATUS R_IICA0_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint16_t r
         IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
         status = MD_ERROR2;
     }
-    else
-    {
-        STT0 = 1U; /* set IICA0 start condition */
-        IICAMK0 = 0U;  /* enable INTIIA0 interrupt */
-
-        /* Wait */
-        while (wait--)
-        {
-            ;
-        }
-
-        if (0U == STD0)
-        {
-            status = MD_ERROR2;
-        }
-
-        /* Set parameter */
-        g_iica0_rx_len = rx_num;
-        g_iica0_rx_cnt = 0U;
-        gp_iica0_rx_address = rx_buf;
-        g_iica0_master_status_flag  = _00_IICA_MASTER_FLAG_CLEAR;
-        adr |= 0x01U; /* set receive mode */
-        IICA0 = adr; /* receive address */
-    }
 
     return (status);
 }
 
-/* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+

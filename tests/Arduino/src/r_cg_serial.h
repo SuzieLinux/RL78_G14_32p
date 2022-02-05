@@ -2,15 +2,15 @@
 * DISCLAIMER
 * This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products.
 * No other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
-* applicable laws, including copyright laws. 
+* applicable laws, including copyright laws.
 * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING THIS SOFTWARE, WHETHER EXPRESS, IMPLIED
 * OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
 * NON-INFRINGEMENT.  ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY
 * LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE FOR ANY DIRECT,
 * INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR
 * ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability 
-* of this software. By using this software, you agree to the additional terms and conditions found by accessing the 
+* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability
+* of this software. By using this software, you agree to the additional terms and conditions found by accessing the
 * following link:
 * http://www.renesas.com/disclaimer
 *
@@ -75,10 +75,10 @@ Macro definitions (Register bit)
 */
 #define _0020_SAU_SMRMN_INITIALVALUE     (0x0020U)
 /* Selection of macro clock (MCK) of channel n (CKSmn) */
-#define _0000_SAU_CLOCK_SELECT_CK00      (0x0000U)    /* operation clock CK0 set by PRS register */ 
+#define _0000_SAU_CLOCK_SELECT_CK00      (0x0000U)    /* operation clock CK0 set by PRS register */
 #define _8000_SAU_CLOCK_SELECT_CK01      (0x8000U)    /* operation clock CK1 set by PRS register */
 /* Selection of transfer clock (TCLK) of channel n (CCSmn) */
-#define _0000_SAU_CLOCK_MODE_CKS         (0x0000U)    /* divided operation clock MCK specified by CKSmn bit */  
+#define _0000_SAU_CLOCK_MODE_CKS         (0x0000U)    /* divided operation clock MCK specified by CKSmn bit */
 #define _4000_SAU_CLOCK_MODE_TI0N        (0x4000U)    /* clock input from SCK pin (slave transfer in CSI mode) */
 /* Selection of start trigger source (STSmn) */
 #define _0000_SAU_TRIGGER_SOFTWARE       (0x0000U)    /* only software trigger is valid */
@@ -317,7 +317,7 @@ Macro definitions (Register bit)
 #define _00_IICA_ADDRESS_NOTMATCH        (0x00U)    /* addresses do not match */
 #define _10_IICA_ADDRESS_MATCH           (0x10U)    /* addresses match */
 /* Detection of transmit/receive status (TRCn) */
-#define _00_IICA_STATUS_RECEIVE          (0x00U)    /* receive status */ 
+#define _00_IICA_STATUS_RECEIVE          (0x00U)    /* receive status */
 #define _08_IICA_STATUS_TRANSMIT         (0x08U)    /* transmit status */
 /* Detection of acknowledge signal (ACKDn) */
 #define _00_IICA_ACK_NOTDETECTED         (0x00U)    /* ACK signal was not detected */
@@ -361,10 +361,10 @@ Macro definitions (Register bit)
 #define _00_IICA_MODE_STANDARD           (0x00U)    /* operates in standard mode */
 #define _08_IICA_MODE_HIGHSPEED          (0x08U)    /* operates in high-speed mode */
 /* Digital filter operation control (DFCn) */
-#define _00_IICA_FILTER_OFF              (0x00U)    /* digital filter off */ 
+#define _00_IICA_FILTER_OFF              (0x00U)    /* digital filter off */
 #define _04_IICA_FILTER_ON               (0x04U)    /* digital filter on */
 /* Operation of clock dividing frequency permission (PRSn) */
-#define _00_IICA_fCLK                    (0x00U)    /* clock of dividing frequency operation (fCLK) */ 
+#define _00_IICA_fCLK                    (0x00U)    /* clock of dividing frequency operation (fCLK) */
 #define _01_IICA_fCLK_HALF               (0x01U)    /* 2 clock of dividing frequency operation (fCLK/2) */
 /* IICA used flag */
 #define _80_IICA_ADDRESS_COMPLETE        (0x80U)
@@ -415,7 +415,6 @@ static void r_iica0_callback_master_receiveend(void);
 static void r_iica0_callback_master_error(MD_STATUS flag);
 static void iica0_master_handler(void);
 static void iica0_slave_handler(void);
+MD_STATUS R_IICA0_Busy_Check(void)
 
-/* Start user code for function. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
 #endif

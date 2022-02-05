@@ -336,8 +336,6 @@ static void iica0_master_handler(void) {
 * Return Value : None
 ***********************************************************************************************************************/
 static void r_iica0_callback_master_error(MD_STATUS flag) {
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
@@ -347,9 +345,7 @@ static void r_iica0_callback_master_error(MD_STATUS flag) {
 * Return Value : None
 ***********************************************************************************************************************/
 static void r_iica0_callback_master_receiveend(void) {
-    SPT0 = 1U;
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
+    IIC_flg_end = 1;
 }
 
 /***********************************************************************************************************************
@@ -359,9 +355,7 @@ static void r_iica0_callback_master_receiveend(void) {
 * Return Value : None
 ***********************************************************************************************************************/
 static void r_iica0_callback_master_sendend(void) {
-    SPT0 = 1U;
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
+    IIC_flg_end = 1;
 }
 
 
@@ -384,88 +378,91 @@ void R_Master_EEPROM() {
 
     /* Peform program infinitely */
     while (1) {
-        /* Check if switch SW1 was pressed */
-        if (gSwitchFlag == '1') {
+        if (R_IICA0_Busy_Check() == MD_OK) {
+            /* Check if switch SW1 was pressed */
+            if (gSwitchFlag == '1') {
+                IIC_flg_end = 0;
 
-            R_IICA0_Master_Send
-                (
-                EEPROM_DEVICE_ADDRESS,
-                write_buffer,
-                EEPROM_NUMB_WRITE,
-                100
-                );
+                R_IICA0_Master_Send(EEPROM_DEVICE_ADDRESS,write_buffer,EEPROM_NUMB_WRITE,0);
 
-            /* Clear the switch press flag */
-            gSwitchFlag = 0;
+                while (IIC_flg_end == 0) NOP();
+                IIC_flg_end = 0;
 
-            /* Set flag to indicate that a write has completed */
-            WriteRead_Complete |= 0x06;
-        }
+                R_IICA0_StopCondition();
 
+                /* Clear the switch press flag */
+                gSwitchFlag = 0;
 
-        /* Check if switch SW3 was pressed */
-        if (gSwitchFlag == '2') {
-            /* Set the delay value */
-//            _delay = 0x1FF;
-
-            /* Set flag to indicate that a read is in progress */
-            WriteRead_Complete |= 0x02;
-
-            /* Preset the EEP address pointer back to beginning of the memory */
-            write_buffer[0] = 0x00; /* keep adr= x0000 */
-            write_buffer[1] = 0x00; /*keep adr= x0000 */
-
-            R_IICA0_Master_Send
-                (
-                EEPROM_DEVICE_ADDRESS,
-                write_buffer,
-                EEPROM_WORD_ADDRESS,
-                100
-                );
-
-            /* Wait for the delay to elapse */
-//            while (--_delay);
-
-            /* Wait to receive IIC reply from the EEP */
-
-            while (R_IICA0_Master_Receive(EEPROM_DEVICE_ADDRESS, read_buffer, EEPROM_RECEIVE_COUNT, 100) != MD_OK);
-
-            /* Set flag to indicate that a read has competed */
-            WriteRead_Complete |= 0x01;
-
-            /* Check if a write has already occured */
-            if ((WriteRead_Complete & 0x04) != 0) {
-                /* Inform user of that data was
-                read from the EEPROM device */
-                EE_status = 1;
-            } else {
-                EE_status = 0;
-                /* Clear the flag */
-                WriteRead_Complete &= 0xFD;
+                /* Set flag to indicate that a write has completed */
+                WriteRead_Complete |= 0x06;
             }
 
-            /* Clear the switch press flag */
-            gSwitchFlag = 0;
-        }
 
-        /* Check if a write and a read were performed */
-        if ((WriteRead_Complete & 0x07) == 0x7) {
-            /* Compare the buffers using a loop */
-            for (_delay = 0; _delay != EEPROM_RECEIVE_COUNT; _delay++) {
-                /* Compare the buffer locations */
-                if (write_buffer[_delay + EEPROM_WORD_ADDRESS] == read_buffer[_delay]) {
-                    /* Display success message for each byte */
-                    EE_status = 2;
+            /* Check if switch SW3 was pressed */
+            if (gSwitchFlag == '2') {
+                IIC_flg_end = 0;
+
+                /* Set flag to indicate that a read is in progress */
+                WriteRead_Complete |= 0x02;
+
+                write_buffer[0] = 0x00; /* keep adr= x0000 */
+                write_buffer[1] = 0x00; /*keep adr= x0000 */
+
+                R_IICA0_Master_Send
+                    (
+                    EEPROM_DEVICE_ADDRESS,
+                    write_buffer,
+                    EEPROM_WORD_ADDRESS,
+                    100
+                    );
+
+                while (IIC_flg_end == 0) NOP();
+                IIC_flg_end = 0;
+
+                R_IICA0_Master_Receive(EEPROM_DEVICE_ADDRESS, read_buffer, EEPROM_RECEIVE_COUNT, 0);
+
+                while (IIC_flg_end == 0) NOP();
+                IIC_flg_end = 0;
+
+                R_IICA0_StopCondition();
+
+                /* Set flag to indicate that a read has competed */
+                WriteRead_Complete |= 0x01;
+
+                /* Check if a write has already occured */
+                if ((WriteRead_Complete & 0x04) != 0) {
+                    /* Inform user of that data was
+                    read from the EEPROM device */
+                    EE_status = 1;
                 } else {
-                    /* Inform the user that an error occured */
-                    EE_status = -1;
-                    _delay = EEPROM_RECEIVE_COUNT - 1;
-
+                    EE_status = 0;
+                    /* Clear the flag */
+                    WriteRead_Complete &= 0xFD;
                 }
+
+                /* Clear the switch press flag */
+                gSwitchFlag = 0;
             }
 
-            /* Indicate that at least one write was performed */
-            WriteRead_Complete = 0x04;
+            /* Check if a write and a read were performed */
+            if ((WriteRead_Complete & 0x07) == 0x7) {
+                /* Compare the buffers using a loop */
+                for (_delay = 0; _delay != EEPROM_RECEIVE_COUNT; _delay++) {
+                    /* Compare the buffer locations */
+                    if (write_buffer[_delay + EEPROM_WORD_ADDRESS] == read_buffer[_delay]) {
+                        /* Display success message for each byte */
+                        EE_status = 2;
+                    } else {
+                        /* Inform the user that an error occured */
+                        EE_status = -1;
+                        _delay = EEPROM_RECEIVE_COUNT - 1;
+
+                    }
+                }
+
+                /* Indicate that at least one write was performed */
+                WriteRead_Complete = 0x04;
+            }
         }
     }
 }
