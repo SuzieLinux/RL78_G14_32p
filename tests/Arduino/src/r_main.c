@@ -57,8 +57,6 @@ __root const uint8_t opbyte3 = 0x85U;
 __root const uint8_t secuid[10] =
     {0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U};
 
-void R_MAIN_UserInit(void);
-
 /***********************************************************************************************************************
 * Function Name: main
 * Description  : This function implements main function.
@@ -67,31 +65,14 @@ void R_MAIN_UserInit(void);
 ***********************************************************************************************************************/
 void main(void)
 {
-    uint8_t status = 0;
-    uint8_t rxBuffer[32];
-    uint8_t txBuffer[8] = "12345678";
-    R_MAIN_UserInit();
-    EE_WriteEEBlock(0, 8, txBuffer);
-    R_IICA0_StopCondition();
-    EE_ReadEEBlock(0,8, rxBuffer);
-    R_IICA0_StopCondition();
+    EI();
+    R_INTC0_Start();
 
     while (1U)
     {
-        if (rxBuffer[0] == txBuffer[0]) status = 1;
-        else status = 0;
+        /* Start EEPROM communication */
+        R_Master_EEPROM();
     }
 }
 
-
-/***********************************************************************************************************************
-* Function Name: R_MAIN_UserInit
-* Description  : This function adds user code before implementing main function.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_MAIN_UserInit(void)
-{
-    EI();
-}
 
