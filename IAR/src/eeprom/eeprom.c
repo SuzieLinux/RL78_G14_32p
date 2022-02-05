@@ -59,12 +59,18 @@ void EE_WriteWord(uint16_t WordAddress, uint16_t Word)
     uint8_t pack[4];
     int Delay = 0x1FF;
 
-    pack[0] = WordAddress >> 8;
-    pack[1] = WordAddress & 0xFF;
-    pack[2] = Word & 0xFF;
-    pack[3] = Word >> 8;
+//    pack[0] = WordAddress >> 8;
+//    pack[1] = WordAddress & 0xFF;
+//    pack[2] = Word & 0xFF;
+//    pack[3] = Word >> 8;
 
-    R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 4, 100);
+    pack[0] = WordAddress & 0xFF;
+    pack[1] = Word & 0xFF;
+    pack[2] = Word >> 8;
+
+
+//    R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 4, 100);
+    R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 3, 100);
     while (--Delay);
 }
 
@@ -120,7 +126,8 @@ uint16_t EE_ReadWord(uint16_t WordAddress)
 {
     uint16_t Word;
 
-    R_IICA0_Master_Send(AT24C32_ADDRESS,(uint8_t *) &WordAddress, 2, 100);
+    R_IICA0_Master_Send(AT24C32_ADDRESS,(uint8_t *) &WordAddress, 1, 100);
+//    R_IICA0_Master_Send(AT24C32_ADDRESS,(uint8_t *) &WordAddress, 2, 100);
 
     /* Wait to receive IIC reply from the EEP */
     while(R_IICA0_Master_Receive(AT24C32_ADDRESS, (uint8_t *) &Word, 2, 100) != MD_OK);
