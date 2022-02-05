@@ -406,7 +406,7 @@ void R_Master_EEPROM() {
         /* Check if switch SW3 was pressed */
         if (gSwitchFlag == '2') {
             /* Set the delay value */
-            _delay = 0x1FF;
+//            _delay = 0x1FF;
 
             /* Set flag to indicate that a read is in progress */
             WriteRead_Complete |= 0x02;
@@ -424,12 +424,11 @@ void R_Master_EEPROM() {
                 );
 
             /* Wait for the delay to elapse */
-            while (--_delay);
+//            while (--_delay);
 
             /* Wait to receive IIC reply from the EEP */
 
-            R_IICA0_Master_Receive(EEPROM_DEVICE_ADDRESS, read_buffer, EEPROM_RECEIVE_COUNT, 100);
-//            while (R_IICA0_Master_Receive(EEPROM_DEVICE_ADDRESS, read_buffer, EEPROM_RECEIVE_COUNT, 100) != MD_OK);
+            while (R_IICA0_Master_Receive(EEPROM_DEVICE_ADDRESS, read_buffer, EEPROM_RECEIVE_COUNT, 100) != MD_OK);
 
             /* Set flag to indicate that a read has competed */
             WriteRead_Complete |= 0x01;
