@@ -77,7 +77,7 @@ void main(void)
 
     while (1U)
     {
-        if (rxBuffer[0] == TxBuffer[0]) status = 1;
+        if (rxBuffer[0] == txBuffer[0]) status = 1;
         else status = 0;
     }
 }
