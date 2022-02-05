@@ -414,13 +414,14 @@ MD_STATUS R_IICA0_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_n
 
     IICAMK0 = 1U;  /* disable INTIICA0 interrupt */
 
+#if 0
     if ((1U == IICBSY0) && (0U == MSTS0))
     {
         /* Check bus busy */
         IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
         status = MD_ERROR1;
     }
-#if 0
+#endif
     if (1U == IICBSY0)
     {
         /* Check bus busy */
@@ -433,7 +434,6 @@ MD_STATUS R_IICA0_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_n
         IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
         status = MD_ERROR2;
     }
-#endif
     else
     {
         STT0 = 1U; /* send IICA0 start condition */
