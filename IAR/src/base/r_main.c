@@ -75,7 +75,7 @@ static uint8_t RxBuffer[20] = {0};
 ***********************************************************************************************************************/
 void main(void)
 {
-    uint16_t address = 0;
+    uint16_t address = 7;
     R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */
     EE_WriteWord(address,aWord);
