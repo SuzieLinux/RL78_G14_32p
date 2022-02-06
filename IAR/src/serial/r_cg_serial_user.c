@@ -2,15 +2,15 @@
 * DISCLAIMER
 * This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products.
 * No other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
-* applicable laws, including copyright laws. 
+* applicable laws, including copyright laws.
 * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING THIS SOFTWARE, WHETHER EXPRESS, IMPLIED
 * OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
 * NON-INFRINGEMENT.  ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY
 * LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE FOR ANY DIRECT,
 * INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR
 * ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability 
-* of this software. By using this software, you agree to the additional terms and conditions found by accessing the 
+* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability
+* of this software. By using this software, you agree to the additional terms and conditions found by accessing the
 * following link:
 * http://www.renesas.com/disclaimer
 *
@@ -31,32 +31,38 @@ Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_serial.h"
-/* Start user code for include. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-extern uint8_t * gp_uart0_tx_address;         /* uart0 send buffer address */
+extern uint8_t *gp_uart0_tx_address;         /* uart0 send buffer address */
 extern uint16_t  g_uart0_tx_count;            /* uart0 send data number */
-extern uint8_t * gp_uart0_rx_address;         /* uart0 receive buffer address */
+extern uint8_t *gp_uart0_rx_address;         /* uart0 receive buffer address */
 extern uint16_t  g_uart0_rx_count;            /* uart0 receive data number */
 extern uint16_t  g_uart0_rx_length;           /* uart0 receive data length */
-extern uint8_t * gp_uart1_tx_address;         /* uart1 send buffer address */
+extern uint8_t *gp_uart1_tx_address;         /* uart1 send buffer address */
 extern uint16_t  g_uart1_tx_count;            /* uart1 send data number */
-extern uint8_t * gp_uart1_rx_address;         /* uart1 receive buffer address */
+extern uint8_t *gp_uart1_rx_address;         /* uart1 receive buffer address */
 extern uint16_t  g_uart1_rx_count;            /* uart1 receive data number */
 extern uint16_t  g_uart1_rx_length;           /* uart1 receive data length */
 extern uint8_t   g_iica0_master_status_flag;  /* iica0 master flag */
 extern uint8_t   g_iica0_slave_status_flag;   /* iica0 slave flag */
-extern uint8_t * gp_iica0_rx_address;         /* iica0 receive buffer address */
+extern uint8_t *gp_iica0_rx_address;         /* iica0 receive buffer address */
 extern uint16_t  g_iica0_rx_cnt;              /* iica0 receive data length */
 extern uint16_t  g_iica0_rx_len;              /* iica0 receive data count */
-extern uint8_t * gp_iica0_tx_address;         /* iica0 send buffer address */
+extern uint8_t *gp_iica0_tx_address;         /* iica0 send buffer address */
 extern uint16_t  g_iica0_tx_cnt;              /* iica0 send data count */
-/* Start user code for global. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+extern uint8_t gSwitchFlag;
+volatile uint8_t WriteRead_Complete = 0;
+volatile int EE_status;
+uint16_t _delay = 0x1FF;
+/* Declare write buffer array, initialised with constant data written
+   to the EEPROM each time. X is replaced with the data identifier. */
+uint8_t write_buffer[] = "XXRL78G14  ";
+/* Define read buffer array */
+uint8_t read_buffer[] = "XXXXXXXXX";
+uint8_t IIC_flg_end = 0;
 
 /***********************************************************************************************************************
 * Function Name: r_uart0_interrupt_receive
@@ -65,34 +71,28 @@ extern uint16_t  g_iica0_tx_cnt;              /* iica0 send data count */
 * Return Value : None
 ***********************************************************************************************************************/
 #pragma vector = INTSR0_vect
-__interrupt static void r_uart0_interrupt_receive(void)
-{
+__interrupt static void r_uart0_interrupt_receive(void) {
     volatile uint8_t rx_data;
     volatile uint8_t err_type;
-    
+
     err_type = (uint8_t)(SSR01 & 0x0007U);
     SIR01 = (uint16_t)err_type;
 
-    if (err_type != 0U)
-    {
+    if (err_type != 0U) {
         r_uart0_callback_error(err_type);
     }
-    
+
     rx_data = RXD0;
 
-    if (g_uart0_rx_length > g_uart0_rx_count)
-    {
+    if (g_uart0_rx_length > g_uart0_rx_count) {
         *gp_uart0_rx_address = rx_data;
         gp_uart0_rx_address++;
         g_uart0_rx_count++;
 
-        if (g_uart0_rx_length == g_uart0_rx_count)
-        {
+        if (g_uart0_rx_length == g_uart0_rx_count) {
             r_uart0_callback_receiveend();
         }
-    }
-    else
-    {
+    } else {
         r_uart0_callback_softwareoverrun(rx_data);
     }
 }
@@ -104,16 +104,12 @@ __interrupt static void r_uart0_interrupt_receive(void)
 * Return Value : None
 ***********************************************************************************************************************/
 #pragma vector = INTST0_vect
-__interrupt static void r_uart0_interrupt_send(void)
-{
-    if (g_uart0_tx_count > 0U)
-    {
+__interrupt static void r_uart0_interrupt_send(void) {
+    if (g_uart0_tx_count > 0U) {
         TXD0 = *gp_uart0_tx_address;
         gp_uart0_tx_address++;
         g_uart0_tx_count--;
-    }
-    else
-    {
+    } else {
         r_uart0_callback_sendend();
     }
 }
@@ -124,8 +120,7 @@ __interrupt static void r_uart0_interrupt_send(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_uart0_callback_receiveend(void)
-{
+static void r_uart0_callback_receiveend(void) {
     /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
@@ -137,8 +132,7 @@ static void r_uart0_callback_receiveend(void)
 *                    receive data
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_uart0_callback_softwareoverrun(uint16_t rx_data)
-{
+static void r_uart0_callback_softwareoverrun(uint16_t rx_data) {
     /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
@@ -149,8 +143,7 @@ static void r_uart0_callback_softwareoverrun(uint16_t rx_data)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_uart0_callback_sendend(void)
-{
+static void r_uart0_callback_sendend(void) {
     /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
@@ -162,8 +155,7 @@ static void r_uart0_callback_sendend(void)
 *                    error type value
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_uart0_callback_error(uint8_t err_type)
-{
+static void r_uart0_callback_error(uint8_t err_type) {
     /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
@@ -175,34 +167,28 @@ static void r_uart0_callback_error(uint8_t err_type)
 * Return Value : None
 ***********************************************************************************************************************/
 #pragma vector = INTSR1_vect
-__interrupt static void r_uart1_interrupt_receive(void)
-{
+__interrupt static void r_uart1_interrupt_receive(void) {
     volatile uint8_t rx_data;
     volatile uint8_t err_type;
-    
+
     err_type = (uint8_t)(SSR03 & 0x0007U);
     SIR03 = (uint16_t)err_type;
 
-    if (err_type != 0U)
-    {
+    if (err_type != 0U) {
         r_uart1_callback_error(err_type);
     }
-    
+
     rx_data = RXD1;
 
-    if (g_uart1_rx_length > g_uart1_rx_count)
-    {
+    if (g_uart1_rx_length > g_uart1_rx_count) {
         *gp_uart1_rx_address = rx_data;
         gp_uart1_rx_address++;
         g_uart1_rx_count++;
 
-        if (g_uart1_rx_length == g_uart1_rx_count)
-        {
+        if (g_uart1_rx_length == g_uart1_rx_count) {
             r_uart1_callback_receiveend();
         }
-    }
-    else
-    {
+    } else {
         r_uart1_callback_softwareoverrun(rx_data);
     }
 }
@@ -214,16 +200,12 @@ __interrupt static void r_uart1_interrupt_receive(void)
 * Return Value : None
 ***********************************************************************************************************************/
 #pragma vector = INTST1_vect
-__interrupt static void r_uart1_interrupt_send(void)
-{
-    if (g_uart1_tx_count > 0U)
-    {
+__interrupt static void r_uart1_interrupt_send(void) {
+    if (g_uart1_tx_count > 0U) {
         TXD1 = *gp_uart1_tx_address;
         gp_uart1_tx_address++;
         g_uart1_tx_count--;
-    }
-    else
-    {
+    } else {
         r_uart1_callback_sendend();
     }
 }
@@ -234,8 +216,7 @@ __interrupt static void r_uart1_interrupt_send(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_uart1_callback_receiveend(void)
-{
+static void r_uart1_callback_receiveend(void) {
     /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
@@ -247,8 +228,7 @@ static void r_uart1_callback_receiveend(void)
 *                    receive data
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_uart1_callback_softwareoverrun(uint16_t rx_data)
-{
+static void r_uart1_callback_softwareoverrun(uint16_t rx_data) {
     /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
@@ -259,8 +239,7 @@ static void r_uart1_callback_softwareoverrun(uint16_t rx_data)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_uart1_callback_sendend(void)
-{
+static void r_uart1_callback_sendend(void) {
     /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
@@ -272,8 +251,7 @@ static void r_uart1_callback_sendend(void)
 *                    error type value
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_uart1_callback_error(uint8_t err_type)
-{
+static void r_uart1_callback_error(uint8_t err_type) {
     /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
@@ -285,10 +263,8 @@ static void r_uart1_callback_error(uint8_t err_type)
 * Return Value : None
 ***********************************************************************************************************************/
 #pragma vector = INTIICA0_vect
-__interrupt static void r_iica0_interrupt(void)
-{
-    if ((IICS0 & _80_IICA_STATUS_MASTER) == 0x80U)
-    {
+__interrupt static void r_iica0_interrupt(void) {
+    if ((IICS0 & _80_IICA_STATUS_MASTER) == 0x80U) {
         iica0_master_handler();
     }
 }
@@ -299,94 +275,65 @@ __interrupt static void r_iica0_interrupt(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void iica0_master_handler(void)
-{
+static void iica0_master_handler(void) {
     /* Control for communication */
-    if ((0U == IICBSY0) && (g_iica0_tx_cnt != 0U))
-    {
+    if ((0U == IICBSY0) && (g_iica0_tx_cnt != 0U)) {
         r_iica0_callback_master_error(MD_SPT);
     }
     /* Control for sended address */
-    else
-    {
-        if ((g_iica0_master_status_flag & _80_IICA_ADDRESS_COMPLETE) == 0U)
-        {
-            if (1U == ACKD0)
-            {
+    else {
+        if ((g_iica0_master_status_flag & _80_IICA_ADDRESS_COMPLETE) == 0U) {
+            if (1U == ACKD0) {
                 g_iica0_master_status_flag |= _80_IICA_ADDRESS_COMPLETE;
-                
-                if (1U == TRC0)
-                {
+
+                if (1U == TRC0) {
                     WTIM0 = 1U;
-                    
-                    if (g_iica0_tx_cnt > 0U)
-                    {
+
+                    if (g_iica0_tx_cnt > 0U) {
                         IICA0 = *gp_iica0_tx_address;
                         gp_iica0_tx_address++;
                         g_iica0_tx_cnt--;
-                    }
-                    else
-                    {
+                    } else {
                         r_iica0_callback_master_sendend();
                     }
-                }
-                else
-                {
+                } else {
                     ACKE0 = 1U;
                     WTIM0 = 0U;
                     WREL0 = 1U;
                 }
-            }
-            else
-            {
+            } else {
                 r_iica0_callback_master_error(MD_NACK);
             }
-        }
-        else
-        {
+        } else {
             /* Master send control */
-            if (1U == TRC0)
-            {
-                if ((0U == ACKD0) && (g_iica0_tx_cnt != 0U))
-                {
+            if (1U == TRC0) {
+                if ((0U == ACKD0) && (g_iica0_tx_cnt != 0U)) {
                     r_iica0_callback_master_error(MD_NACK);
-                }
-                else
-                {
-                    if (g_iica0_tx_cnt > 0U)
-                    {
+                } else {
+                    if (g_iica0_tx_cnt > 0U) {
                         IICA0 = *gp_iica0_tx_address;
                         gp_iica0_tx_address++;
                         g_iica0_tx_cnt--;
-                    }
-                    else
-                    {
+                    } else {
                         r_iica0_callback_master_sendend();
                     }
                 }
             }
             /* Master receive control */
-            else
-            {
-                if (g_iica0_rx_cnt < g_iica0_rx_len)
-                {
+            else {
+                if (g_iica0_rx_cnt < g_iica0_rx_len) {
                     *gp_iica0_rx_address = IICA0;
                     gp_iica0_rx_address++;
                     g_iica0_rx_cnt++;
-                    
-                    if (g_iica0_rx_cnt == g_iica0_rx_len)
-                    {
+
+                    if (g_iica0_rx_cnt == g_iica0_rx_len) {
                         ACKE0 = 0U;
                         WTIM0 = 1U;
                         WREL0 = 1U;
-                    }
-                    else
-                    {
+                    } else {
                         WREL0 = 1U;
                     }
-                }
-                else
-                {
+                } else {
                     r_iica0_callback_master_receiveend();
                 }
             }
@@ -400,10 +347,7 @@ static void iica0_master_handler(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_iica0_callback_master_error(MD_STATUS flag)
-{
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
+static void r_iica0_callback_master_error(MD_STATUS flag) {
 }
 
 /***********************************************************************************************************************
@@ -412,11 +356,8 @@ static void r_iica0_callback_master_error(MD_STATUS flag)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_iica0_callback_master_receiveend(void)
-{
-    SPT0 = 1U;
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
+static void r_iica0_callback_master_receiveend(void) {
+    IIC_flg_end = 1;
 }
 
 /***********************************************************************************************************************
@@ -425,12 +366,111 @@ static void r_iica0_callback_master_receiveend(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_iica0_callback_master_sendend(void)
-{
-    SPT0 = 1U;
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
+static void r_iica0_callback_master_sendend(void) {
+    IIC_flg_end = 1;
 }
 
-/* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+
+/*******************************************************************************
+* Function name : R_Master_EEPROM
+* Description   : Initialises the buffer array to be manipulated on each SW1
+*         press. Enters an infinite loop with SW1 presses used to write
+*         data to the EEPROM slave and SW3 presses to read from the
+*         EEPROM slave. After detection of switches having been
+*         pressed, a comparison is conducted between the write and read
+*         buffers to determine whether the read and write data matches.
+* Argument  : none
+* Return value  : none
+*******************************************************************************/
+void R_Master_EEPROM() {
+    /* Configure the array location to be incremented */
+    /* 1Mbit or 512Kbit EEP requires a 16/17 bit of address */
+    write_buffer[0] = 0x00; /* keep adr= x0000 */
+    write_buffer[1] = 0x00; /*keep adr= x0000 */
+
+    /* Peform program infinitely */
+    while (1) {
+        if (R_IICA0_Busy_Check() == MD_OK) {
+            /* Check if switch SW1 was pressed */
+            if (gSwitchFlag == '1') {
+                IIC_flg_end = 0;
+
+                R_IICA0_Master_Send(EEPROM_DEVICE_ADDRESS,write_buffer,EEPROM_NUMB_WRITE);
+
+                while (IIC_flg_end == 0) NOP();
+                IIC_flg_end = 0;
+
+                R_IICA0_StopCondition();
+
+                /* Clear the switch press flag */
+                gSwitchFlag = 0;
+
+                /* Set flag to indicate that a write has completed */
+                WriteRead_Complete |= 0x06;
+            }
+
+
+            /* Check if switch SW3 was pressed */
+            if (gSwitchFlag == '2') {
+                IIC_flg_end = 0;
+
+                /* Set flag to indicate that a read is in progress */
+                WriteRead_Complete |= 0x02;
+
+                write_buffer[0] = 0x00; /* keep adr= x0000 */
+                write_buffer[1] = 0x00; /*keep adr= x0000 */
+
+                R_IICA0_Master_Send(EEPROM_DEVICE_ADDRESS,write_buffer,EEPROM_WORD_ADDRESS);
+
+                while (IIC_flg_end == 0) NOP();
+                IIC_flg_end = 0;
+
+                R_IICA0_Master_Receive(EEPROM_DEVICE_ADDRESS, read_buffer, EEPROM_RECEIVE_COUNT);
+
+                while (IIC_flg_end == 0) NOP();
+                IIC_flg_end = 0;
+
+                R_IICA0_StopCondition();
+
+                /* Set flag to indicate that a read has competed */
+                WriteRead_Complete |= 0x01;
+
+                /* Check if a write has already occured */
+                if ((WriteRead_Complete & 0x04) != 0) {
+                    /* Inform user of that data was
+                    read from the EEPROM device */
+                    EE_status = 1;
+                } else {
+                    EE_status = 0;
+                    /* Clear the flag */
+                    WriteRead_Complete &= 0xFD;
+                }
+
+                /* Clear the switch press flag */
+                gSwitchFlag = 0;
+            }
+
+            /* Check if a write and a read were performed */
+            if ((WriteRead_Complete & 0x07) == 0x7) {
+                /* Compare the buffers using a loop */
+                for (_delay = 0; _delay != EEPROM_RECEIVE_COUNT; _delay++) {
+                    /* Compare the buffer locations */
+                    if (write_buffer[_delay + EEPROM_WORD_ADDRESS] == read_buffer[_delay]) {
+                        /* Display success message for each byte */
+                        EE_status = 2;
+                    } else {
+                        /* Inform the user that an error occured */
+                        EE_status = -1;
+                        _delay = EEPROM_RECEIVE_COUNT - 1;
+
+                    }
+                }
+
+                /* Indicate that at least one write was performed */
+                WriteRead_Complete = 0x04;
+            }
+        }
+    }
+}
+
+

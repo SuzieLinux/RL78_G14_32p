@@ -382,7 +382,7 @@ void R_Master_EEPROM() {
             if (gSwitchFlag == '1') {
                 IIC_flg_end = 0;
 
-                R_IICA0_Master_Send(EEPROM_DEVICE_ADDRESS,write_buffer,EEPROM_NUMB_WRITE,0);
+                R_IICA0_Master_Send(EEPROM_DEVICE_ADDRESS,write_buffer,EEPROM_NUMB_WRITE);
 
                 while (IIC_flg_end == 0) NOP();
                 IIC_flg_end = 0;
@@ -407,12 +407,12 @@ void R_Master_EEPROM() {
                 write_buffer[0] = 0x00; /* keep adr= x0000 */
                 write_buffer[1] = 0x00; /*keep adr= x0000 */
 
-                R_IICA0_Master_Send(EEPROM_DEVICE_ADDRESS,write_buffer,EEPROM_WORD_ADDRESS,0);
+                R_IICA0_Master_Send(EEPROM_DEVICE_ADDRESS,write_buffer,EEPROM_WORD_ADDRESS);
 
                 while (IIC_flg_end == 0) NOP();
                 IIC_flg_end = 0;
 
-                R_IICA0_Master_Receive(EEPROM_DEVICE_ADDRESS, read_buffer, EEPROM_RECEIVE_COUNT, 0);
+                R_IICA0_Master_Receive(EEPROM_DEVICE_ADDRESS, read_buffer, EEPROM_RECEIVE_COUNT);
 
                 while (IIC_flg_end == 0) NOP();
                 IIC_flg_end = 0;

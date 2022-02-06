@@ -380,16 +380,13 @@ void R_IICA0_StopCondition(void) {
 * Return Value : status -
 *                    MD_OK or MD_ERROR1 or MD_ERROR2
 ***********************************************************************************************************************/
-MD_STATUS R_IICA0_Master_Send(uint8_t adr, uint8_t *const tx_buf, uint16_t tx_num, uint8_t wait) {
+MD_STATUS R_IICA0_Master_Send(uint8_t adr, uint8_t *const tx_buf, uint16_t tx_num) {
     MD_STATUS status = MD_OK;
 
     IICAMK0 = 1U;  /* disable INTIICA0 interrupt */
 
     STT0 = 1U; /* send IICA0 start condition */
     IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
-
-    /* Wait */
-    while (wait--);
 
     if (0U == STD0) status = MD_ERROR2;
 
@@ -417,16 +414,13 @@ MD_STATUS R_IICA0_Master_Send(uint8_t adr, uint8_t *const tx_buf, uint16_t tx_nu
 * Return Value : status -
 *                    MD_OK or MD_ERROR1 or MD_ERROR2
 ***********************************************************************************************************************/
-MD_STATUS R_IICA0_Master_Receive(uint8_t adr, uint8_t *const rx_buf, uint16_t rx_num, uint8_t wait) {
+MD_STATUS R_IICA0_Master_Receive(uint8_t adr, uint8_t *const rx_buf, uint16_t rx_num) {
     MD_STATUS status = MD_OK;
 
     IICAMK0 = 1U;  /* disable INTIIA0 interrupt */
 
     STT0 = 1U; /* set IICA0 start condition */
     IICAMK0 = 0U;  /* enable INTIIA0 interrupt */
-
-    /* Wait */
-    while (wait--);
 
     if (0U == STD0) status = MD_ERROR2;
 

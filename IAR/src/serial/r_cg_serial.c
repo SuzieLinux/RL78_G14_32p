@@ -38,22 +38,22 @@ Includes
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-uint8_t * gp_uart0_tx_address;         /* uart0 transmit buffer address */
+uint8_t *gp_uart0_tx_address;         /* uart0 transmit buffer address */
 uint16_t  g_uart0_tx_count;            /* uart0 transmit data number */
-uint8_t * gp_uart0_rx_address;         /* uart0 receive buffer address */
+uint8_t *gp_uart0_rx_address;         /* uart0 receive buffer address */
 uint16_t  g_uart0_rx_count;            /* uart0 receive data number */
 uint16_t  g_uart0_rx_length;           /* uart0 receive data length */
-uint8_t * gp_uart1_tx_address;         /* uart1 transmit buffer address */
+uint8_t *gp_uart1_tx_address;         /* uart1 transmit buffer address */
 uint16_t  g_uart1_tx_count;            /* uart1 transmit data number */
-uint8_t * gp_uart1_rx_address;         /* uart1 receive buffer address */
+uint8_t *gp_uart1_rx_address;         /* uart1 receive buffer address */
 uint16_t  g_uart1_rx_count;            /* uart1 receive data number */
 uint16_t  g_uart1_rx_length;           /* uart1 receive data length */
 uint8_t   g_iica0_master_status_flag;  /* iica0 master flag */
 uint8_t   g_iica0_slave_status_flag;   /* iica0 slave flag */
-uint8_t * gp_iica0_rx_address;         /* iica0 receive buffer address */
+uint8_t *gp_iica0_rx_address;         /* iica0 receive buffer address */
 uint16_t  g_iica0_rx_len;              /* iica0 receive data length */
 uint16_t  g_iica0_rx_cnt;              /* iica0 receive data count */
-uint8_t * gp_iica0_tx_address;         /* iica0 send buffer address */
+uint8_t *gp_iica0_tx_address;         /* iica0 send buffer address */
 uint16_t  g_iica0_tx_cnt;              /* iica0 send data count */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
@@ -64,8 +64,7 @@ uint16_t  g_iica0_tx_cnt;              /* iica0 send data count */
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_SAU0_Create(void)
-{
+void R_SAU0_Create(void) {
     SAU0EN = 1U;    /* supply SAU0 clock */
     NOP();
     NOP();
@@ -82,8 +81,7 @@ void R_SAU0_Create(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_UART0_Create(void)
-{
+void R_UART0_Create(void) {
     ST0 |= _0002_SAU_CH1_STOP_TRG_ON | _0001_SAU_CH0_STOP_TRG_ON;    /* disable UART0 receive and transmit */
     STMK0 = 1U;    /* disable INTST0 interrupt */
     STIF0 = 0U;    /* clear INTST0 interrupt flag */
@@ -98,16 +96,16 @@ void R_UART0_Create(void)
     SRPR10 = 1U;
     SRPR00 = 1U;
     SMR00 = _0020_SAU_SMRMN_INITIALVALUE | _0000_SAU_CLOCK_SELECT_CK00 | _0000_SAU_TRIGGER_SOFTWARE |
-            _0002_SAU_MODE_UART | _0000_SAU_TRANSFER_END;
+        _0002_SAU_MODE_UART | _0000_SAU_TRANSFER_END;
     SCR00 = _8000_SAU_TRANSMISSION | _0000_SAU_INTSRE_MASK | _0000_SAU_PARITY_NONE | _0080_SAU_LSB | _0010_SAU_STOP_1 |
-            _0007_SAU_LENGTH_8;
+        _0007_SAU_LENGTH_8;
     SDR00 = _CE00_UART0_TRANSMIT_DIVISOR;
     NFEN0 |= _01_SAU_RXD0_FILTER_ON;
     SIR01 = _0004_SAU_SIRMN_FECTMN | _0002_SAU_SIRMN_PECTMN | _0001_SAU_SIRMN_OVCTMN;    /* clear error flag */
     SMR01 = _0020_SAU_SMRMN_INITIALVALUE | _0000_SAU_CLOCK_SELECT_CK00 | _0100_SAU_TRIGGER_RXD | _0000_SAU_EDGE_FALL |
-            _0002_SAU_MODE_UART | _0000_SAU_TRANSFER_END;
+        _0002_SAU_MODE_UART | _0000_SAU_TRANSFER_END;
     SCR01 = _4000_SAU_RECEPTION | _0000_SAU_INTSRE_MASK | _0000_SAU_PARITY_NONE | _0080_SAU_LSB | _0010_SAU_STOP_1 |
-            _0007_SAU_LENGTH_8;
+        _0007_SAU_LENGTH_8;
     SDR01 = _CE00_UART0_RECEIVE_DIVISOR;
     SO0 |= _0001_SAU_CH0_DATA_OUTPUT_1;
     SOL0 |= _0000_SAU_CHANNEL0_NORMAL;    /* output level normal */
@@ -125,8 +123,7 @@ void R_UART0_Create(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_UART0_Start(void)
-{
+void R_UART0_Start(void) {
     SO0 |= _0001_SAU_CH0_DATA_OUTPUT_1;    /* output level normal */
     SOE0 |= _0001_SAU_CH0_OUTPUT_ENABLE;    /* enable UART0 output */
     SS0 |= _0002_SAU_CH1_START_TRG_ON | _0001_SAU_CH0_START_TRG_ON;    /* enable UART0 receive and transmit */
@@ -142,8 +139,7 @@ void R_UART0_Start(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_UART0_Stop(void)
-{
+void R_UART0_Stop(void) {
     STMK0 = 1U;    /* disable INTST0 interrupt */
     SRMK0 = 1U;    /* disable INTSR0 interrupt */
     ST0 |= _0002_SAU_CH1_STOP_TRG_ON | _0001_SAU_CH0_STOP_TRG_ON;    /* disable UART0 receive and transmit */
@@ -163,16 +159,12 @@ void R_UART0_Stop(void)
 * Return Value : status -
 *                    MD_OK or MD_ARGERROR
 ***********************************************************************************************************************/
-MD_STATUS R_UART0_Receive(uint8_t * const rx_buf, uint16_t rx_num)
-{
+MD_STATUS R_UART0_Receive(uint8_t *const rx_buf, uint16_t rx_num) {
     MD_STATUS status = MD_OK;
 
-    if (rx_num < 1U)
-    {
+    if (rx_num < 1U) {
         status = MD_ARGERROR;
-    }
-    else
-    {
+    } else {
         g_uart0_rx_count = 0U;
         g_uart0_rx_length = rx_num;
         gp_uart0_rx_address = rx_buf;
@@ -191,16 +183,12 @@ MD_STATUS R_UART0_Receive(uint8_t * const rx_buf, uint16_t rx_num)
 * Return Value : status -
 *                    MD_OK or MD_ARGERROR
 ***********************************************************************************************************************/
-MD_STATUS R_UART0_Send(uint8_t * const tx_buf, uint16_t tx_num)
-{
+MD_STATUS R_UART0_Send(uint8_t *const tx_buf, uint16_t tx_num) {
     MD_STATUS status = MD_OK;
 
-    if (tx_num < 1U)
-    {
+    if (tx_num < 1U) {
         status = MD_ARGERROR;
-    }
-    else
-    {
+    } else {
         gp_uart0_tx_address = tx_buf;
         g_uart0_tx_count = tx_num;
         STMK0 = 1U;    /* disable INTST0 interrupt */
@@ -219,8 +207,7 @@ MD_STATUS R_UART0_Send(uint8_t * const tx_buf, uint16_t tx_num)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_UART1_Create(void)
-{
+void R_UART1_Create(void) {
     ST0 |= _0008_SAU_CH3_STOP_TRG_ON | _0004_SAU_CH2_STOP_TRG_ON;    /* disable UART1 receive and transmit */
     STMK1 = 1U;    /* disable INTST1 interrupt */
     STIF1 = 0U;    /* clear INTST1 interrupt flag */
@@ -235,16 +222,16 @@ void R_UART1_Create(void)
     SRPR11 = 1U;
     SRPR01 = 1U;
     SMR02 = _0020_SAU_SMRMN_INITIALVALUE | _0000_SAU_CLOCK_SELECT_CK00 | _0000_SAU_TRIGGER_SOFTWARE |
-            _0002_SAU_MODE_UART | _0000_SAU_TRANSFER_END;
+        _0002_SAU_MODE_UART | _0000_SAU_TRANSFER_END;
     SCR02 = _8000_SAU_TRANSMISSION | _0000_SAU_INTSRE_MASK | _0000_SAU_PARITY_NONE | _0080_SAU_LSB | _0010_SAU_STOP_1 |
-            _0007_SAU_LENGTH_8;
+        _0007_SAU_LENGTH_8;
     SDR02 = _CE00_UART1_TRANSMIT_DIVISOR;
     NFEN0 |= _04_SAU_RXD1_FILTER_ON;
     SIR03 = _0004_SAU_SIRMN_FECTMN | _0002_SAU_SIRMN_PECTMN | _0001_SAU_SIRMN_OVCTMN;    /* clear error flag */
     SMR03 = _0020_SAU_SMRMN_INITIALVALUE | _0000_SAU_CLOCK_SELECT_CK00 | _0100_SAU_TRIGGER_RXD | _0000_SAU_EDGE_FALL |
-            _0002_SAU_MODE_UART | _0000_SAU_TRANSFER_END;
+        _0002_SAU_MODE_UART | _0000_SAU_TRANSFER_END;
     SCR03 = _4000_SAU_RECEPTION | _0000_SAU_INTSRE_MASK | _0000_SAU_PARITY_NONE | _0080_SAU_LSB | _0010_SAU_STOP_1 |
-            _0007_SAU_LENGTH_8;
+        _0007_SAU_LENGTH_8;
     SDR03 = _CE00_UART1_RECEIVE_DIVISOR;
     SO0 |= _0004_SAU_CH2_DATA_OUTPUT_1;
     SOL0 |= _0000_SAU_CHANNEL2_NORMAL;    /* output level normal */
@@ -264,8 +251,7 @@ void R_UART1_Create(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_UART1_Start(void)
-{
+void R_UART1_Start(void) {
     SO0 |= _0004_SAU_CH2_DATA_OUTPUT_1;    /* output level normal */
     SOE0 |= _0004_SAU_CH2_OUTPUT_ENABLE;    /* enable UART1 output */
     SS0 |= _0008_SAU_CH3_START_TRG_ON | _0004_SAU_CH2_START_TRG_ON;    /* enable UART1 receive and transmit */
@@ -281,8 +267,7 @@ void R_UART1_Start(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_UART1_Stop(void)
-{
+void R_UART1_Stop(void) {
     STMK1 = 1U;    /* disable INTST1 interrupt */
     SRMK1 = 1U;    /* disable INTSR1 interrupt */
     ST0 |= _0008_SAU_CH3_STOP_TRG_ON | _0004_SAU_CH2_STOP_TRG_ON;    /* disable UART1 receive and transmit */
@@ -302,16 +287,12 @@ void R_UART1_Stop(void)
 * Return Value : status -
 *                    MD_OK or MD_ARGERROR
 ***********************************************************************************************************************/
-MD_STATUS R_UART1_Receive(uint8_t * const rx_buf, uint16_t rx_num)
-{
+MD_STATUS R_UART1_Receive(uint8_t *const rx_buf, uint16_t rx_num) {
     MD_STATUS status = MD_OK;
 
-    if (rx_num < 1U)
-    {
+    if (rx_num < 1U) {
         status = MD_ARGERROR;
-    }
-    else
-    {
+    } else {
         g_uart1_rx_count = 0U;
         g_uart1_rx_length = rx_num;
         gp_uart1_rx_address = rx_buf;
@@ -330,16 +311,12 @@ MD_STATUS R_UART1_Receive(uint8_t * const rx_buf, uint16_t rx_num)
 * Return Value : status -
 *                    MD_OK or MD_ARGERROR
 ***********************************************************************************************************************/
-MD_STATUS R_UART1_Send(uint8_t * const tx_buf, uint16_t tx_num)
-{
+MD_STATUS R_UART1_Send(uint8_t *const tx_buf, uint16_t tx_num) {
     MD_STATUS status = MD_OK;
 
-    if (tx_num < 1U)
-    {
+    if (tx_num < 1U) {
         status = MD_ARGERROR;
-    }
-    else
-    {
+    } else {
         gp_uart1_tx_address = tx_buf;
         g_uart1_tx_count = tx_num;
         STMK1 = 1U;    /* disable INTST1 interrupt */
@@ -358,8 +335,7 @@ MD_STATUS R_UART1_Send(uint8_t * const tx_buf, uint16_t tx_num)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_IICA0_Create(void)
-{
+void R_IICA0_Create(void) {
     IICA0EN = 1U; /* supply IICA0 clock */
     IICE0 = 0U; /* disable IICA0 operation */
     IICAMK0 = 1U; /* disable INTIICA0 interrupt */
@@ -393,8 +369,7 @@ void R_IICA0_Create(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_IICA0_Stop(void)
-{
+void R_IICA0_Stop(void) {
     IICE0 = 0U;    /* disable IICA0 operation */
 }
 
@@ -404,8 +379,7 @@ void R_IICA0_Stop(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_IICA0_StopCondition(void)
-{
+void R_IICA0_StopCondition(void) {
     SPT0 = 1U;     /* set stop condition flag */
 }
 
@@ -423,41 +397,22 @@ void R_IICA0_StopCondition(void)
 * Return Value : status -
 *                    MD_OK or MD_ERROR1 or MD_ERROR2
 ***********************************************************************************************************************/
-MD_STATUS R_IICA0_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_num, uint8_t wait)
-{
+MD_STATUS R_IICA0_Master_Send(uint8_t adr, uint8_t *const tx_buf, uint16_t tx_num) {
     MD_STATUS status = MD_OK;
 
     IICAMK0 = 1U;  /* disable INTIICA0 interrupt */
 
-    if ((1U == IICBSY0) && (0U == MSTS0))
-    {
-        /* Check bus busy */
-        IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
-        status = MD_ERROR1;
-    }
-    else
-    {
-        STT0 = 1U; /* send IICA0 start condition */
-        IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
+    STT0 = 1U; /* send IICA0 start condition */
+    IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
 
-        /* Wait */
-        while (wait--)
-        {
-            ;
-        }
+    if (0U == STD0) status = MD_ERROR2;
 
-        if (0U == STD0)
-        {
-            status = MD_ERROR2;
-        }
-
-        /* Set parameter */
-        g_iica0_tx_cnt = tx_num;
-        gp_iica0_tx_address = tx_buf;
-        g_iica0_master_status_flag = _00_IICA_MASTER_FLAG_CLEAR;
-        adr &= (uint8_t)~0x01U; /* set send mode */
-        IICA0 = adr; /* send address */
-    }
+    /* Set parameter */
+    g_iica0_tx_cnt = tx_num;
+    gp_iica0_tx_address = tx_buf;
+    g_iica0_master_status_flag = _00_IICA_MASTER_FLAG_CLEAR;
+    adr &= (uint8_t)~0x01U; /* set send mode */
+    IICA0 = adr; /* send address */
 
     return (status);
 }
@@ -476,45 +431,50 @@ MD_STATUS R_IICA0_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_n
 * Return Value : status -
 *                    MD_OK or MD_ERROR1 or MD_ERROR2
 ***********************************************************************************************************************/
-MD_STATUS R_IICA0_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint16_t rx_num, uint8_t wait)
-{
+MD_STATUS R_IICA0_Master_Receive(uint8_t adr, uint8_t *const rx_buf, uint16_t rx_num) {
     MD_STATUS status = MD_OK;
 
     IICAMK0 = 1U;  /* disable INTIIA0 interrupt */
 
-    if ((1U == IICBSY0) && (0U == MSTS0))
-    {
+    STT0 = 1U; /* set IICA0 start condition */
+    IICAMK0 = 0U;  /* enable INTIIA0 interrupt */
+
+    if (0U == STD0) status = MD_ERROR2;
+
+    /* Set parameter */
+    g_iica0_rx_len = rx_num;
+    g_iica0_rx_cnt = 0U;
+    gp_iica0_rx_address = rx_buf;
+    g_iica0_master_status_flag  = _00_IICA_MASTER_FLAG_CLEAR;
+    adr |= 0x01U; /* set receive mode */
+    IICA0 = adr; /* receive address */
+
+    return (status);
+}
+
+/***********************************************************************************************************************
+* Function Name: R_IICA0_Busy_Check
+* Description  : This function starts to send data as master mode.
+* Arguments    :  -
+* Return Value : status -
+*                    MD_OK or MD_ERROR1 or MD_ERROR2
+***********************************************************************************************************************/
+MD_STATUS R_IICA0_Busy_Check(void) {
+    MD_STATUS status = MD_OK;
+
+    IICAMK0 = 1U;  /* disable INTIICA0 interrupt */
+
+    if (1U == IICBSY0) {
         /* Check bus busy */
-        IICAMK0 = 0U;  /* enable INTIIA0 interrupt */
+        IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
         status = MD_ERROR1;
-    }
-    else
-    {
-        STT0 = 1U; /* set IICA0 start condition */
-        IICAMK0 = 0U;  /* enable INTIIA0 interrupt */
-
-        /* Wait */
-        while (wait--)
-        {
-            ;
-        }
-
-        if (0U == STD0)
-        {
-            status = MD_ERROR2;
-        }
-
-        /* Set parameter */
-        g_iica0_rx_len = rx_num;
-        g_iica0_rx_cnt = 0U;
-        gp_iica0_rx_address = rx_buf;
-        g_iica0_master_status_flag  = _00_IICA_MASTER_FLAG_CLEAR;
-        adr |= 0x01U; /* set receive mode */
-        IICA0 = adr; /* receive address */
+    } else if ((1U == SPT0) || (1U == STT0)) {
+        /* Check trigger */
+        IICAMK0 = 0U;  /* enable INTIICA0 interrupt */
+        status = MD_ERROR2;
     }
 
     return (status);
 }
 
-/* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+

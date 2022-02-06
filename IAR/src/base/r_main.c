@@ -44,8 +44,6 @@ Includes
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-/* Start user code for global. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
 
 /* Set option bytes */
 #pragma location = "OPTBYTE"
@@ -62,10 +60,6 @@ __root const uint8_t opbyte3 = 0x85U;
 __root const uint8_t secuid[10] =
     {0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U};
 
-void R_MAIN_UserInit(void);
-
-uint8_t RxBuffer[20] = {0};
-
 /***********************************************************************************************************************
 * Function Name: main
 * Description  : This function implements main function.
@@ -74,34 +68,14 @@ uint8_t RxBuffer[20] = {0};
 ***********************************************************************************************************************/
 void main(void)
 {
-    uint8_t Buffer[8] = "12345678";
-    R_MAIN_UserInit();
-    /* Start user code. Do not edit comment generated here */
-    EE_WriteEEBlock(0, 8, Buffer);
-    R_IICA0_StopCondition();
+    EI();
+    R_INTC0_Start();
 
     while (1U)
     {
-        EE_ReadEEBlock(0,8, RxBuffer);
-        R_IICA0_StopCondition();
+        /* Start EEPROM communication */
+        R_Master_EEPROM();
     }
-    /* End user code. Do not edit comment generated here */
 }
 
 
-
-/***********************************************************************************************************************
-* Function Name: R_MAIN_UserInit
-* Description  : This function adds user code before implementing main function.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_MAIN_UserInit(void)
-{
-    /* Start user code. Do not edit comment generated here */
-    EI();
-    /* End user code. Do not edit comment generated here */
-}
-
-/* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */

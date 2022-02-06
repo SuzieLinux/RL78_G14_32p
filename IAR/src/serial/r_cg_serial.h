@@ -408,8 +408,8 @@ static void r_uart1_callback_receiveend(void);
 static void r_uart1_callback_sendend(void);
 static void r_uart1_callback_softwareoverrun(uint16_t rx_data);
 void R_IICA0_Create(void);
-MD_STATUS R_IICA0_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_num, uint8_t wait);
-MD_STATUS R_IICA0_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint16_t rx_num, uint8_t wait);
+MD_STATUS R_IICA0_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_num);
+MD_STATUS R_IICA0_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint16_t rx_num);
 void R_IICA0_Stop(void);
 void R_IICA0_StopCondition(void);
 static void r_iica0_callback_master_sendend(void);
@@ -417,7 +417,6 @@ static void r_iica0_callback_master_receiveend(void);
 static void r_iica0_callback_master_error(MD_STATUS flag);
 static void iica0_master_handler(void);
 static void iica0_slave_handler(void);
+MD_STATUS R_IICA0_Busy_Check(void);
 
-/* Start user code for function. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
 #endif
