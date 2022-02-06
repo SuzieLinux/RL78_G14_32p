@@ -33,17 +33,4 @@
 User definitions
 ***********************************************************************************************************************/
 
-/* Defines the maximum number of writes the EEPROM supports per page write */
-#define EEPROM_MAX_WRITE        8u
-/* Defines the number of expected bytes to be received from the slave */
-#define EEPROM_RECEIVE_COUNT        9u
-
-/* Defines the address the EEPROM device responds to on the IIC bus */
-/* A0 = 160 decimal */
-#define EEPROM_DEVICE_ADDRESS       0xA0
-
-/* Define the number of bytes used for addressing the EEPROM's memory */
-#define EEPROM_WORD_ADDRESS     2u
-/* Defines the total number of data to be sent to the slave */
-#define EEPROM_NUMB_WRITE       11u
 #endif
