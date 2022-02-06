@@ -47,15 +47,16 @@ Global variables and functions
 * Return Value : None
 ***********************************************************************************************************************/
 #pragma vector = INTP0_vect
-__interrupt static void r_intc0_interrupt(void)
-{
-    if (Switch == 1) {
-        gSwitchFlag = '2';
-        Switch = 0;
-    }
-    else {
-        gSwitchFlag = '1';
-        Switch= 1;
+__interrupt static void r_intc0_interrupt(void) {
+    if (!gSwitchFlag) {
+        if (Switch == 1) {
+            gSwitchFlag = '2';
+            Switch = 0;
+        }
+        else {
+            gSwitchFlag = '1';
+            Switch= 1;
+        }
     }
 }
 
