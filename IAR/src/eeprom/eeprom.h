@@ -38,8 +38,8 @@ void EE_WriteBlock64kb(uint16_t start_address, uint8_t len, uint8_t const *pucBu
 void EE_WriteBlock128kb(uint32_t start_address, uint16_t len, uint8_t const *pucBuffer, uint8_t Device);
 void EE_WriteBlock256kb(uint32_t start_address, uint16_t len, uint8_t const *pucBuffer, uint8_t Device);
 void EE_WriteByte64kb(uint16_t ByteAddress, uint8_t Byte, uint8_t Device);
-void EE_WriteByte128kb(uint16_t ByteAddress, uint8_t Byte, uint8_t Device);
-void EE_WriteByte256kb(uint16_t ByteAddress, uint8_t Byte, uint8_t Device);
+void EE_WriteByte128kb(uint32_t ByteAddress, uint8_t Byte, uint8_t Device);
+void EE_WriteByte256kb(uint32_t ByteAddress, uint8_t Byte, uint8_t Device);
 void EE_ReadBlock64kb(uint16_t start_address, uint16_t len, uint8_t *pucBuffer, uint8_t Device);
 void EE_ReadBlock128kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device);
 void EE_ReadBlock256kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device);
