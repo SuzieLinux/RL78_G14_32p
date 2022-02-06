@@ -239,7 +239,7 @@ void EE_WriteByte64kb(uint16_t ByteAddress, uint8_t Byte, uint8_t Device) {
  *
  *      @return None
 */
-void EE_WriteByte128kb(uint16_t ByteAddress, uint8_t Byte, uint8_t Device) {
+void EE_WriteByte128kb(uint32_t ByteAddress, uint8_t Byte, uint8_t Device) {
     uint8_t write_buffer[3];
     uint8_t adr;
 
@@ -269,7 +269,7 @@ void EE_WriteByte128kb(uint16_t ByteAddress, uint8_t Byte, uint8_t Device) {
  *
  *      @return None
 */
-void EE_WriteByte256kb(uint16_t ByteAddress, uint8_t Byte, uint8_t Device) {
+void EE_WriteByte256kb(uint32_t ByteAddress, uint8_t Byte, uint8_t Device) {
     uint8_t write_buffer[3];
     uint8_t adr;
 
@@ -434,7 +434,7 @@ uint8_t EE_ReadByte64kb(uint16_t start_address, uint8_t Device) {
  *
  *      @return Byte read
 */
-void EE_ReadEEBlock128kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device) {
+void EE_ReadByte128kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device) {
     uint8_t write_buffer[2];
     uint8_t adr;
 
@@ -467,7 +467,7 @@ void EE_ReadEEBlock128kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffe
  *
  *      @return Byte read
 */
-void EE_ReadEEBlock256kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device) {
+void EE_ReadByte256kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device) {
     uint8_t write_buffer[2];
     uint8_t adr;
 

@@ -44,8 +44,8 @@ void EE_ReadBlock64kb(uint16_t start_address, uint16_t len, uint8_t *pucBuffer, 
 void EE_ReadBlock128kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device);
 void EE_ReadBlock256kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device);
 uint8_t EE_ReadByte64kb(uint16_t start_address, uint8_t Device);
-void EE_ReadEEBlock128kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device);
-void EE_ReadEEBlock256kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device);
+void EE_ReadByte128kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device);
+void EE_ReadByte256kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device);
 
 #endif
 
