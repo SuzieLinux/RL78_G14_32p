@@ -382,7 +382,7 @@ static void r_iica0_callback_master_sendend(void) {
 * Argument  : none
 * Return value  : none
 *******************************************************************************/
-void R_Master_EEPROM() {
+void R_Master_EEPROM(void) {
     /* Configure the array location to be incremented */
     /* 1Mbit or 512Kbit EEP requires a 16/17 bit of address */
     write_buffer[0] = 0x00; /* keep adr= x0000 */

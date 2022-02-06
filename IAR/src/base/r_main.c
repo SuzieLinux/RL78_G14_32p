@@ -36,10 +36,11 @@ Includes
 #include "r_cg_serial.h"
 #include "r_cg_timer.h"
 #include "r_cg_rtc.h"
-/* Start user code for include. Do not edit comment generated here */
 #include "eeprom.h"
-/* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
+
+extern void R_Master_EEPROM(void);
+
 
 /***********************************************************************************************************************
 Global variables and functions
