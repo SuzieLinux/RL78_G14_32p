@@ -31,8 +31,6 @@ Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_serial.h"
-/* Start user code for include. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
 /***********************************************************************************************************************
@@ -65,6 +63,7 @@ uint16_t _delay = 0x1FF;
 uint8_t write_buffer[] = "XXRL78G14  ";
 /* Define read buffer array */
 uint8_t read_buffer[] = "XXXXXXXXX";
+uint8_t IIC_flg_end = 0;
 
 /***********************************************************************************************************************
 * Function Name: r_uart0_interrupt_receive
