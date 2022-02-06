@@ -245,7 +245,7 @@ void EE_WriteByte128kb(uint16_t ByteAddress, uint8_t Byte, uint8_t Device) {
 
     adr = ((Device & 3) << 1) | 0xA0;
     /* upper address bit is in bit 0 of I2C device address */
-    adr |= ((start_address >> 16) & 1);
+    adr |= ((ByteAddress >> 16) & 1);
     write_buffer[0] = ByteAddress >> 8;
     write_buffer[1] = ByteAddress & 0xFF;
     write_buffer[2] = Byte;
@@ -275,7 +275,7 @@ void EE_WriteByte256kb(uint16_t ByteAddress, uint8_t Byte, uint8_t Device) {
 
     adr = ((Device & 1) << 2) | 0xA0;
     /* upper address 2 bits are in bit 0 and 1 of I2C device address */
-    adr |= ((start_address >> 16) & 3);
+    adr |= ((ByteAddress >> 16) & 3);
     write_buffer[0] = ByteAddress >> 8;
     write_buffer[1] = ByteAddress & 0xFF;
     write_buffer[2] = Byte;
