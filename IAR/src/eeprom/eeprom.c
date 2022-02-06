@@ -43,7 +43,7 @@ void EE_WriteEEBlock(uint16_t start_address, uint16_t length, uint8_t const *puc
     pack[1] = start_address & 0xFF;
     memcpy(&pack[2], pucBuffer, length);
 
-    R_IICA0_Master_Send(AT24C32_ADDRESS, pack, length + 2, 100);
+    R_IICA0_Master_Send(AT24C32_ADDRESS, pack, length + 2);
 }
 
 /*****************************************************************************
@@ -64,7 +64,7 @@ void EE_WriteWord(uint16_t WordAddress, uint16_t Word)
     pack[2] = Word & 0xFF;
     pack[3] = Word >> 8;
 
-    R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 4, 100);
+    R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 4);
     while (--Delay);
 }
 
@@ -84,7 +84,7 @@ void EE_WriteByte(uint16_t ByteAddress, uint8_t Byte)
     pack[1] = ByteAddress & 0xFF;
     pack[2] = Byte;
 
-    R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 3, 100);
+    R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 3);
 }
 
 /*****************************************************************************
@@ -103,9 +103,9 @@ void EE_ReadEEBlock(uint16_t start_address, uint16_t length, uint8_t *pucBuffer)
     pack[0] = start_address >> 8;
     pack[1] = start_address & 0xFF;
 
-    R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 2, 0);
+    R_IICA0_Master_Send(AT24C32_ADDRESS, pack, 2);
     /* Wait to receive IIC reply from the EEP */
-    while(R_IICA0_Master_Receive(AT24C32_ADDRESS, pucBuffer, length, 100) != MD_OK);
+    while(R_IICA0_Master_Receive(AT24C32_ADDRESS, pucBuffer, length) != MD_OK);
 
 }
 
@@ -120,10 +120,10 @@ uint16_t EE_ReadWord(uint16_t WordAddress)
 {
     uint16_t Word;
 
-    R_IICA0_Master_Send(AT24C32_ADDRESS,(uint8_t *) &WordAddress, 2, 100);
+    R_IICA0_Master_Send(AT24C32_ADDRESS,(uint8_t *) &WordAddress, 2);
 
     /* Wait to receive IIC reply from the EEP */
-    while(R_IICA0_Master_Receive(AT24C32_ADDRESS, (uint8_t *) &Word, 2, 100) != MD_OK);
+    while(R_IICA0_Master_Receive(AT24C32_ADDRESS, (uint8_t *) &Word, 2) != MD_OK);
 
     return Word;
 }
@@ -139,10 +139,10 @@ uint8_t EE_ReadByte(uint16_t ByteAddress)
 {
     uint8_t Byte;
 
-    R_IICA0_Master_Send(AT24C32_ADDRESS,(uint8_t *) &ByteAddress, 2, 100);
+    R_IICA0_Master_Send(AT24C32_ADDRESS,(uint8_t *) &ByteAddress, 2);
 
     /* Wait to receive IIC reply from the EEP */
-    while(R_IICA0_Master_Receive(AT24C32_ADDRESS, (uint8_t *) &Byte, 1, 100) != MD_OK);
+    while(R_IICA0_Master_Receive(AT24C32_ADDRESS, (uint8_t *) &Byte, 1) != MD_OK);
 
     return Byte;
 }
