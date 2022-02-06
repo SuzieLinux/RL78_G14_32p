@@ -31,8 +31,8 @@ Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_intc.h"
-uint8_t gSwitchFlag,Switch = 0;;
 #include "r_cg_userdefine.h"
+uint8_t gSwitchFlag,Switch = 0;;
 
 /***********************************************************************************************************************
 Global variables and functions
