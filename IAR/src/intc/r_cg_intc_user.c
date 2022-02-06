@@ -33,7 +33,6 @@ Includes
 #include "r_cg_intc.h"
 #include "r_cg_userdefine.h"
 #include "eeprom.h"
-uint8_t gSwitchFlag,Switch = 0;;
 
 uint8_t txBuffer[32] = "Un Test du EEPROM";
 uint8_t rxBuffer[32] = { 0 };

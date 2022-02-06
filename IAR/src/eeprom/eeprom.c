@@ -14,6 +14,7 @@
 #include "eeprom.h"
 #include <string.h>
 
+extern uint8_t IIC_flg_end;
 
 /*****************************************************************************
  *      @brief   Write a block to 4kb or 8kb devices
@@ -30,11 +31,11 @@ void EE_WriteBlock8kb(uint16_t start_address, uint8_t len, uint8_t const *pucBuf
     uint8_t write_buffer[34];
     uint8_t adr = 0xA0 | (Device & 0x0F);
 
-    if (!length) {
+    if (!len) {
         return;
     }
-    if (length > 32) {
-        length = 32;     // Maximum size of a page is 32 bytes
+    if (len > 32) {
+        len = 32;     // Maximum size of a page is 32 bytes
     }
 
     write_buffer[0] = start_address >> 8;
@@ -66,11 +67,11 @@ void EE_WriteBlock32kb(uint16_t start_address, uint8_t len, uint8_t const *pucBu
     uint8_t write_buffer[34];
     uint8_t adr = 0xA0 | (Device & 0x0F);
 
-    if (!length) {
+    if (!len) {
         return;
     }
-    if (length > 64) {
-        length = 64;     // Maximum size of a page is 64 bytes
+    if (len > 64) {
+        len = 64;     // Maximum size of a page is 64 bytes
     }
 
     write_buffer[0] = start_address >> 8;
@@ -102,11 +103,11 @@ void EE_WriteBlock64kb(uint16_t start_address, uint8_t len, uint8_t const *pucBu
     uint8_t write_buffer[34];
     uint8_t adr = 0xA0 | (Device & 0x0F);
 
-    if (!length) {
+    if (!len) {
         return;
     }
-    if (length > 128) {
-        length = 128;     // Maximum size of a page is 128 bytes
+    if (len > 128) {
+        len = 128;     // Maximum size of a page is 128 bytes
     }
 
     write_buffer[0] = start_address >> 8;
@@ -138,11 +139,11 @@ void EE_WriteBlock128kb(uint32_t start_address, uint16_t len, uint8_t const *puc
     uint8_t write_buffer[34];
     uint8_t adr;
 
-    if (!length) {
+    if (!len) {
         return;
     }
-    if (length > 256) {
-        length = 256;     // Maximum size of a page is 128 bytes
+    if (len > 256) {
+        len = 256;     // Maximum size of a page is 128 bytes
     }
 
     adr = ((Device & 3) << 1) | 0xA0;
@@ -177,11 +178,11 @@ void EE_WriteBlock256kb(uint32_t start_address, uint16_t len, uint8_t const *puc
     uint8_t write_buffer[34];
     uint8_t adr;
 
-    if (!length) {
+    if (!len) {
         return;
     }
-    if (length > 256) {
-        length = 256;     // Maximum size of a page is 128 bytes
+    if (len > 256) {
+        len = 256;     // Maximum size of a page is 128 bytes
     }
 
     adr = ((Device & 1) << 2) | 0xA0;
