@@ -415,6 +415,6 @@ static void r_iica0_callback_master_receiveend(void);
 static void r_iica0_callback_master_error(MD_STATUS flag);
 static void iica0_master_handler(void);
 static void iica0_slave_handler(void);
-MD_STATUS R_IICA0_Busy_Check(void)
+MD_STATUS R_IICA0_Busy_Check(void);
 
 #endif
