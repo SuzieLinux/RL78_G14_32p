@@ -42,7 +42,7 @@ Includes
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-extyern void R_Test_EEPROM(void);
+extern void R_Test_EEPROM(void);
 
 /* Set option bytes */
 #pragma location = "OPTBYTE"
