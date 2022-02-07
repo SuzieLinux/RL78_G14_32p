@@ -458,15 +458,16 @@ uint8_t EE_ReadByte64kb(uint16_t start_address, uint8_t Device) {
  *
  *      @return Byte read
 */
-void EE_ReadByte128kb(uint32_t start_address, uint16_t len, uint8_t *pucBuffer, uint8_t Device) {
+void EE_ReadByte128kb(uint32_t ByteAddress, uint8_t Device) {
     uint8_t write_buffer[2];
     uint8_t adr;
+    uint8_t Byte;
 
     adr = ((Device & 3) << 1) | 0xA0;
     /* upper address bit is in bit 0 of I2C device address */
-    adr |= ((start_address >> 16) & 1);
-    write_buffer[0] = start_address >> 8;
-    write_buffer[1] = start_address & 0xFF;
+    adr |= ((ByteAddress >> 16) & 1);
+    write_buffer[0] = ByteAddress >> 8;
+    write_buffer[1] = ByteAddress & 0xFF;
 
     while (R_IICA0_Busy_Check() != MD_OK);
 
@@ -477,7 +478,7 @@ void EE_ReadByte128kb(uint32_t start_address, uint16_t len, uint8_t *pucBuffer, 
     while (IIC_flg_end == 0) NOP();
     IIC_flg_end = 0;
 
-    R_IICA0_Master_Receive(adr, pucBuffer, len);
+    R_IICA0_Master_Receive(adr, &Byte, 1);
 
     while (IIC_flg_end == 0) NOP();
     IIC_flg_end = 0;
@@ -493,15 +494,16 @@ void EE_ReadByte128kb(uint32_t start_address, uint16_t len, uint8_t *pucBuffer, 
  *
  *      @return Byte read
 */
-void EE_ReadByte256kb(uint32_t start_address, uint16_t len, uint8_t *pucBuffer, uint8_t Device) {
+void EE_ReadByte256kb(uint32_t ByteAddress, uint8_t Device) {
     uint8_t write_buffer[2];
     uint8_t adr;
+    uint8_t Byte;
 
     adr = ((Device & 1) << 2) | 0xA0;
     /* upper address 2 bits are in bit 0 and 1 of I2C device address */
-    adr |= ((start_address >> 16) & 3);
-    write_buffer[0] = start_address >> 8;
-    write_buffer[1] = start_address & 0xFF;
+    adr |= ((ByteAddress >> 16) & 3);
+    write_buffer[0] = ByteAddress >> 8;
+    write_buffer[1] = ByteAddress & 0xFF;
 
     while (R_IICA0_Busy_Check() != MD_OK);
 
@@ -512,7 +514,7 @@ void EE_ReadByte256kb(uint32_t start_address, uint16_t len, uint8_t *pucBuffer, 
     while (IIC_flg_end == 0) NOP();
     IIC_flg_end = 0;
 
-    R_IICA0_Master_Receive(adr, pucBuffer, len);
+    R_IICA0_Master_Receive(adr, &Byte, 1);
 
     while (IIC_flg_end == 0) NOP();
     IIC_flg_end = 0;
