@@ -42,6 +42,8 @@ void EE_WriteBlock8kb(uint16_t start_address, uint8_t len, uint8_t const *pucBuf
     write_buffer[1] = start_address & 0xFF;
     memcpy(&write_buffer[2], pucBuffer, len);
 
+    while (R_IICA0_Busy_Check() != MD_OK);
+
     IIC_flg_end = 0;
 
     R_IICA0_Master_Send(adr, write_buffer, len + 2);
@@ -77,6 +79,8 @@ void EE_WriteBlock32kb(uint16_t start_address, uint8_t len, uint8_t const *pucBu
     write_buffer[0] = start_address >> 8;
     write_buffer[1] = start_address & 0xFF;
     memcpy(&write_buffer[2], pucBuffer, len);
+
+    while (R_IICA0_Busy_Check() != MD_OK);
 
     IIC_flg_end = 0;
 
@@ -114,6 +118,8 @@ void EE_WriteBlock64kb(uint16_t start_address, uint8_t len, uint8_t const *pucBu
     write_buffer[1] = start_address & 0xFF;
     memcpy(&write_buffer[2], pucBuffer, len);
 
+    while (R_IICA0_Busy_Check() != MD_OK);
+
     IIC_flg_end = 0;
 
     R_IICA0_Master_Send(adr, write_buffer, len + 2);
@@ -149,9 +155,12 @@ void EE_WriteBlock128kb(uint32_t start_address, uint16_t len, uint8_t const *puc
     adr = ((Device & 3) << 1) | 0xA0;
     /* upper address bit is in bit 0 of I2C device address */
     adr |= ((start_address >> 16) & 1);
+
     write_buffer[0] = start_address >> 8;
     write_buffer[1] = start_address & 0xFF;
     memcpy(&write_buffer[2], pucBuffer, len);
+
+    while (R_IICA0_Busy_Check() != MD_OK);
 
     IIC_flg_end = 0;
 
@@ -192,6 +201,8 @@ void EE_WriteBlock256kb(uint32_t start_address, uint16_t len, uint8_t const *puc
     write_buffer[1] = start_address & 0xFF;
     memcpy(&write_buffer[2], pucBuffer, len);
 
+    while (R_IICA0_Busy_Check() != MD_OK);
+
     IIC_flg_end = 0;
 
     R_IICA0_Master_Send(adr, write_buffer, len + 2);
@@ -219,6 +230,8 @@ void EE_WriteByte64kb(uint16_t ByteAddress, uint8_t Byte, uint8_t Device) {
     write_buffer[0] = ByteAddress >> 8;
     write_buffer[1] = ByteAddress & 0xFF;
     write_buffer[2] = Byte;
+
+    while (R_IICA0_Busy_Check() != MD_OK);
 
     IIC_flg_end = 0;
 
@@ -250,6 +263,8 @@ void EE_WriteByte128kb(uint32_t ByteAddress, uint8_t Byte, uint8_t Device) {
     write_buffer[1] = ByteAddress & 0xFF;
     write_buffer[2] = Byte;
 
+    while (R_IICA0_Busy_Check() != MD_OK);
+
     IIC_flg_end = 0;
 
     R_IICA0_Master_Send(adr, write_buffer, 3);
@@ -280,6 +295,8 @@ void EE_WriteByte256kb(uint32_t ByteAddress, uint8_t Byte, uint8_t Device) {
     write_buffer[1] = ByteAddress & 0xFF;
     write_buffer[2] = Byte;
 
+    while (R_IICA0_Busy_Check() != MD_OK);
+
     IIC_flg_end = 0;
 
     R_IICA0_Master_Send(adr, write_buffer, 3);
@@ -308,6 +325,8 @@ void EE_ReadBlock64kb(uint16_t start_address, uint16_t len, uint8_t *pucBuffer, 
     write_buffer[0] = start_address >> 8;
     write_buffer[1] = start_address & 0xFF;
 
+    while (R_IICA0_Busy_Check() != MD_OK);
+
     IIC_flg_end = 0;
 
     R_IICA0_Master_Send(adr,write_buffer,2);
@@ -333,7 +352,7 @@ void EE_ReadBlock64kb(uint16_t start_address, uint16_t len, uint8_t *pucBuffer, 
  *
  *      @return MD_OK or MD_ERROR1 or MD_ERROR2
 */
-void EE_ReadBlock128kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device) {
+void EE_ReadBlock128kb(uint32_t start_address, uint16_t len, uint8_t *pucBuffer, uint8_t Device) {
     uint8_t write_buffer[2];
     uint8_t adr;
 
@@ -342,6 +361,8 @@ void EE_ReadBlock128kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer,
     adr |= ((start_address >> 16) & 1);
     write_buffer[0] = start_address >> 8;
     write_buffer[1] = start_address & 0xFF;
+
+    while (R_IICA0_Busy_Check() != MD_OK);
 
     IIC_flg_end = 0;
 
@@ -368,7 +389,7 @@ void EE_ReadBlock128kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer,
  *
  *      @return None
 */
-void EE_ReadBlock256kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device) {
+void EE_ReadBlock256kb(uint32_t start_address, uint16_t len, uint8_t *pucBuffer, uint8_t Device) {
     uint8_t write_buffer[2];
     uint8_t adr;
 
@@ -377,6 +398,8 @@ void EE_ReadBlock256kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer,
     adr |= ((start_address >> 16) & 3);
     write_buffer[0] = start_address >> 8;
     write_buffer[1] = start_address & 0xFF;
+
+    while (R_IICA0_Busy_Check() != MD_OK);
 
     IIC_flg_end = 0;
 
@@ -409,6 +432,8 @@ uint8_t EE_ReadByte64kb(uint16_t start_address, uint8_t Device) {
     write_buffer[0] = start_address >> 8;
     write_buffer[1] = start_address & 0xFF;
 
+    while (R_IICA0_Busy_Check() != MD_OK);
+
     IIC_flg_end = 0;
 
     R_IICA0_Master_Send(adr,write_buffer,2);
@@ -433,7 +458,7 @@ uint8_t EE_ReadByte64kb(uint16_t start_address, uint8_t Device) {
  *
  *      @return Byte read
 */
-void EE_ReadByte128kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device) {
+void EE_ReadByte128kb(uint32_t start_address, uint16_t len, uint8_t *pucBuffer, uint8_t Device) {
     uint8_t write_buffer[2];
     uint8_t adr;
 
@@ -442,6 +467,8 @@ void EE_ReadByte128kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, 
     adr |= ((start_address >> 16) & 1);
     write_buffer[0] = start_address >> 8;
     write_buffer[1] = start_address & 0xFF;
+
+    while (R_IICA0_Busy_Check() != MD_OK);
 
     IIC_flg_end = 0;
 
@@ -466,7 +493,7 @@ void EE_ReadByte128kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, 
  *
  *      @return Byte read
 */
-void EE_ReadByte256kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, uint8_t Device) {
+void EE_ReadByte256kb(uint32_t start_address, uint16_t len, uint8_t *pucBuffer, uint8_t Device) {
     uint8_t write_buffer[2];
     uint8_t adr;
 
@@ -475,6 +502,8 @@ void EE_ReadByte256kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, 
     adr |= ((start_address >> 16) & 3);
     write_buffer[0] = start_address >> 8;
     write_buffer[1] = start_address & 0xFF;
+
+    while (R_IICA0_Busy_Check() != MD_OK);
 
     IIC_flg_end = 0;
 
@@ -490,4 +519,10 @@ void EE_ReadByte256kb(uint32_t start_address, uint32_t len, uint8_t *pucBuffer, 
 
     R_IICA0_StopCondition();
 }
+
+
+
+
+
+
 
