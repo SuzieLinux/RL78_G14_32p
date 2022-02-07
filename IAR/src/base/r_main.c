@@ -39,9 +39,6 @@ Includes
 #include "eeprom.h"
 #include "r_cg_userdefine.h"
 
-extern void R_Master_EEPROM(void);
-
-
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
@@ -74,8 +71,7 @@ void main(void)
 
     while (1U)
     {
-        /* Start EEPROM communication */
-        R_Master_EEPROM();
+        /* Do nothing */
     }
 }
 
