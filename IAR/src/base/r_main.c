@@ -42,6 +42,7 @@ Includes
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
+extyern void R_Test_EEPROM(void);
 
 /* Set option bytes */
 #pragma location = "OPTBYTE"
@@ -71,7 +72,8 @@ void main(void)
 
     while (1U)
     {
-        /* Do nothing */
+        /* Do EEPROM Test */
+        R_Test_EEPROM();
     }
 }
 

@@ -32,6 +32,7 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_serial.h"
 #include "r_cg_userdefine.h"
+extern uint8_t gSwitchFlag;
 
 /***********************************************************************************************************************
 Global variables and functions
@@ -55,13 +56,10 @@ extern uint8_t *gp_iica0_tx_address;         /* iica0 send buffer address */
 extern uint16_t  g_iica0_tx_cnt;              /* iica0 send data count */
 volatile uint8_t WriteRead_Complete = 0;
 volatile int EE_status;
-uint16_t _delay = 0x1FF;
-/* Declare write buffer array, initialised with constant data written
-   to the EEPROM each time. X is replaced with the data identifier. */
-uint8_t write_buffer[] = "XXRL78G14  ";
-/* Define read buffer array */
-uint8_t read_buffer[] = "XXXXXXXXX";
 uint8_t IIC_flg_end = 0;
+
+uint8_t txBuffer[32] = "Un Test du EEPROM";
+uint8_t rxBuffer[32] = { 0 };
 
 /***********************************************************************************************************************
 * Function Name: r_uart0_interrupt_receive
@@ -368,5 +366,38 @@ static void r_iica0_callback_master_receiveend(void) {
 static void r_iica0_callback_master_sendend(void) {
     IIC_flg_end = 1;
 }
+
+/*******************************************************************************
+* Function name : R_Master_EEPROM
+* Description   : Initialises the buffer array to be manipulated on each SW1
+*         press. Enters an infinite loop with SW1 presses used to write
+*         data to the EEPROM slave and SW3 presses to read from the
+*         EEPROM slave. After detection of switches having been
+*         pressed, a comparison is conducted between the write and read
+*         buffers to determine whether the read and write data matches.
+* Argument  : none
+* Return value  : none
+*******************************************************************************/
+void R_Test_EEPROM() {
+    /* Peform program infinitely */
+    while (1) {
+        if (R_IICA0_Busy_Check() == MD_OK) {
+            /* Check if switcwas pressed */
+            if (gSwitchFlag == '1') {
+                EE_WriteBlock32kb(0, 17, txBuffer,0);
+                /* Clear the switch press flag */
+                gSwitchFlag = 0;
+            }
+
+            /* Check if switch SW3 was pressed */
+            if (gSwitchFlag == '2') {
+                EE_ReadBlock64kb(0,32,rxBuffer,0);
+                /* Clear the switch press flag */
+                gSwitchFlag = 0;
+            }
+        }
+    }
+}
+
 
 

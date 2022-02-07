@@ -34,9 +34,7 @@ Includes
 #include "r_cg_userdefine.h"
 #include "eeprom.h"
 
-uint8_t txBuffer[32] = "Un Test du EEPROM";
-uint8_t rxBuffer[32] = { 0 };
-uint8_t Switch = 0;
+uint8_t gSwitchFlag,Switch = 0;
 
 /***********************************************************************************************************************
 Global variables and functions
@@ -51,13 +49,15 @@ Global variables and functions
 #pragma vector = INTP0_vect
 __interrupt static void r_intc0_interrupt(void)
 {
-    if (Switch == 1) {
-        EE_WriteBlock32kb(0, 17, txBuffer,0);
-        Switch = 0;
-    }
-    else {
-        EE_ReadBlock64kb(0,32,rxBuffer,0);
-        Switch= 1;
+    if (!gSwitchFlag) {
+        if (Switch == 1) {
+            gSwitchFlag = '2';
+            Switch = 0;
+        }
+        else {
+            gSwitchFlag = '1';
+            Switch= 1;
+        }
     }
 }
 

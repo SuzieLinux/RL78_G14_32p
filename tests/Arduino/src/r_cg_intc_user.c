@@ -32,7 +32,7 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_intc.h"
 #include "r_cg_userdefine.h"
-uint8_t gSwitchFlag,Switch = 0;;
+uint8_t gSwitchFlag,Switch = 0;
 
 /***********************************************************************************************************************
 Global variables and functions
