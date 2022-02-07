@@ -36,6 +36,7 @@ Includes
 
 uint8_t txBuffer[32] = "Un Test du EEPROM";
 uint8_t rxBuffer[32] = { 0 };
+uint8_t Switch = 0;
 
 /***********************************************************************************************************************
 Global variables and functions

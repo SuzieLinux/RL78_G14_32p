@@ -305,7 +305,6 @@ void EE_ReadBlock64kb(uint16_t start_address, uint16_t len, uint8_t *pucBuffer, 
     uint8_t write_buffer[2];
     uint8_t adr = 0xA0 | (Device & 0x0F);
 
-    if (len > (64 * 1024)) return;
     write_buffer[0] = start_address >> 8;
     write_buffer[1] = start_address & 0xFF;
 
