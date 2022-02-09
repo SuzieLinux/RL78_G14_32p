@@ -36,7 +36,7 @@ Includes
 
 inline void uart_time_delay(void)
 {
-    NOP():
+    NOP();
 }
 
 #define Tx_Pin P0.bit.no1
