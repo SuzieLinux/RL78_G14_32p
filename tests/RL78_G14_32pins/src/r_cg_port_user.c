@@ -38,12 +38,12 @@ Includes
 
 #define Tx_Pin P0_bit.no1
 
-void uart_tx_bit_bang(unsigned char val)
+void uart_tx_bit_bang(uint8_t val)
 {
-    unsigned char i;
+    uint8_t i;
     Tx_Pin = 0;                         // Start bit
     uart_time_delay();
-    for (i = 8; i != 0; --i)
+    for (i = 0; i < 8; i++)
     {
         if (val & 1) Tx_Pin = 1;   // Begin with LSB
         else         Tx_Pin = 0;
