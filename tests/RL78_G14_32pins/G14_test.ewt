@@ -2576,6 +2576,12 @@
         <name>$PROJ_DIR$\src\r_cg_intc_user.c</name>
     </file>
     <file>
+        <name>$PROJ_DIR$\src\r_cg_it.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\src\r_cg_it_user.c</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\src\r_cg_port.c</name>
     </file>
     <file>

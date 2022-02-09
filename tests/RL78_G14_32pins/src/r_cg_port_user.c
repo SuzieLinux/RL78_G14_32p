@@ -34,13 +34,14 @@ Includes
 #include "r_cg_userdefine.h"
 
 
-#define uart_time_delay() NOP(); NOP(); NOP(); NOP();
+#define uart_time_delay() NOP(); NOP(); NOP(); NOP(); NOP()
 
 #define Tx_Pin P0_bit.no1
 
 void uart_tx_bit_bang(uint8_t val)
 {
     Tx_Pin = 0;                         // Start bit
+    uart_time_delay();
     uart_time_delay();
     if (val & 1) Tx_Pin = 1;   // Begin with LSB
     else
@@ -97,7 +98,7 @@ void uart_tx_bit_bang(uint8_t val)
         Tx_Pin = 0;
         uart_time_delay();
     }
+    uart_time_delay();
     Tx_Pin = 1;                         // Stop bit
 }
-
 
