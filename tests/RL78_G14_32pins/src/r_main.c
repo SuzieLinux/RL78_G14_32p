@@ -68,13 +68,14 @@ __root const uint8_t secuid[10] =
 ***********************************************************************************************************************/
 void main(void)
 {
+    uint8_t uci;
+
+    uint8_t *test = "UART Bit bang test ";
+
     R_TAU0_Channel0_Start();
     R_INTC0_Start();
     EI();
 
-    uint8_t uci;
-
-    uint8_t *test = "UART Bit bang test "
 
     while (1U)
     {
