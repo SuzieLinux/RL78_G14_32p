@@ -43,7 +43,6 @@ void uart_tx_bit_bang(uint8_t val)
     NOP();
     NOP();
     NOP();
-    NOP();
     if (val & 1) Tx_Pin = 1;   // Begin with LSB
     else
     {
@@ -131,7 +130,6 @@ void uart_tx_bit_bang(uint8_t val)
         NOP();
         NOP();
     }
-    NOP();
     NOP();
     NOP();
     NOP();
