@@ -34,10 +34,7 @@ Includes
 #include "r_cg_userdefine.h"
 
 
-inline void uart_time_delay(void)
-{
-    NOP();
-}
+#define uart_time_delay() NOP()
 
 #define Tx_Pin P0_bit.no1
 
