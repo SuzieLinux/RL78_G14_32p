@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file implements device driver for INTC module.
-* Creation Date: 1/16/2022
+* Creation Date: 2/9/2022
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -64,13 +64,7 @@ void R_INTC_Create(void)
     /* Set INTP0 low priority */
     PPR10 = 1U;
     PPR00 = 1U;
-    /* Set INTP5 low priority */
-    PPR15 = 1U;
-    PPR05 = 1U;
-    EGN0 = _01_INTP0_EDGE_FALLING_SEL | _20_INTP5_EDGE_FALLING_SEL;
-    /* Set INTP5 pin */
-    PMC1 &= 0xBFU;
-    PM1 |= 0x40U;
+    EGN0 = _01_INTP0_EDGE_FALLING_SEL;
 }
 
 /***********************************************************************************************************************
@@ -95,30 +89,6 @@ void R_INTC0_Stop(void)
 {
     PMK0 = 1U;    /* disable INTP0 interrupt */
     PIF0 = 0U;    /* clear INTP0 interrupt flag */
-}
-
-/***********************************************************************************************************************
-* Function Name: R_INTC5_Start
-* Description  : This function clears INTP5 interrupt flag and enables interrupt.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_INTC5_Start(void)
-{
-    PIF5 = 0U;    /* clear INTP5 interrupt flag */
-    PMK5 = 0U;    /* enable INTP5 interrupt */
-}
-
-/***********************************************************************************************************************
-* Function Name: R_INTC5_Stop
-* Description  : This function disables INTP5 interrupt and clears interrupt flag.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_INTC5_Stop(void)
-{
-    PMK5 = 1U;    /* disable INTP5 interrupt */
-    PIF5 = 0U;    /* clear INTP5 interrupt flag */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

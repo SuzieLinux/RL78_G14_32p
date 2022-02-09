@@ -32,6 +32,7 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
+#include "r_cg_intc.h"
 #include "r_cg_serial.h"
 #include "r_cg_timer.h"
 #include "r_cg_rtc.h"
@@ -68,6 +69,7 @@ void R_Systeminit(void)
     R_SAU0_Create();
     R_TAU0_Create();
     R_RTC_Create();
+    R_INTC_Create();
     IAWCTL = 0x00U;
     /* Start data flash control */
     DFLEN = 1U;

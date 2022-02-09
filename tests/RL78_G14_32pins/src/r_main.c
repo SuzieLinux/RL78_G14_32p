@@ -32,10 +32,10 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
+#include "r_cg_intc.h"
 #include "r_cg_serial.h"
 #include "r_cg_timer.h"
 #include "r_cg_rtc.h"
-#include "r_cg_intc.h"
 #include "r_cg_userdefine.h"
 
 /***********************************************************************************************************************
