@@ -48,7 +48,7 @@ Global variables and functions
 #pragma vector = INTIT_vect
 __interrupt static void r_it_interrupt(void)
 {
-    uart_tx_bit_bang(0xaa);
+    uart_tx_bit_bang((uint8_t) 0xaa);
 }
 
 
