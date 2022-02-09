@@ -264,7 +264,7 @@
           <P122 Name="P122/X2/EXCLK" AltFunc="X2" Point="I" />
         </Port12>
         <Port13>
-          <P137 Name="P137/INTP0" AltFunc="" Point="I" />
+          <P137 Name="P137/INTP0" AltFunc="INTP0" Point="I" />
         </Port13>
         <Port14 Pullup="true">
           <P147 Chip="R5F104AF,R5F104AG,R5F104BF,R5F104BG,R5F104CF,R5F104CG,R5F104EF,R5F104EG,R5F104EH,R5F104FF,R5F104FG,R5F104FH,R5F104FJ,R5F104GF,R5F104GG,R5F104GH,R5F104GJ,R5F104GK,R5F104GL,R5F104JF,R5F104JG,R5F104JH,R5F104JJ,R5F104JK,R5F104JL,R5F104LF,R5F104LG,R5F104LH,R5F104LJ,R5F104LK,R5F104LL,R5F104MF,R5F104MG,R5F104MH,R5F104MJ,R5F104MK,R5F104ML,R5F104PF,R5F104PG,R5F104PH,R5F104PJ,R5F104PK,R5F104PL" Name="P147/ANI18/VCOUT1" DIN="true" AltFunc="" Point="I/O" />
@@ -428,7 +428,7 @@
     <INT>
       <INTC>
         <INTP>
-          <INTP0 InUse="0" ISR="r_intc0_interrupt " />
+          <INTP0 InUse="1" ISR="r_intc0_interrupt " />
           <INTP1 InUse="0" ISR="r_intc1_interrupt" />
           <INTP2 InUse="0" ISR="r_intc2_interrupt" />
           <INTP3 InUse="0" ISR="r_intc3_interrupt" />
@@ -620,13 +620,13 @@
         <r_cg_port.h UserName="r_cg_port.h" LibName=".h" InUse="1" />
       </PORT>
       <INTC>
-        <r_cg_intc.c UserName="r_cg_intc.c" LibName=".c" InUse="0">
+        <r_cg_intc.c UserName="r_cg_intc.c" LibName=".c" InUse="1">
           <Type R_INTC_Create="void R_INTC_Create(void)" R_INTCn_Start="void R_INTCn_Start(void)" R_INTCn_Stop="void R_INTCn_Stop(void)" R_KEY_Create="void R_KEY_Create(void)" R_KEY_Start="void R_KEY_Start(void)" R_KEY_Stop="void R_KEY_Stop(void)" />
           <INTP>
-            <R_INTC_Create UserName="R_INTC_Create" LibName="R_INTC_Create" InUse="0" Init="2" InitMode="" />
+            <R_INTC_Create UserName="R_INTC_Create" LibName="R_INTC_Create" InUse="1" Init="2" InitMode="" />
             <INTP0>
-              <R_INTC0_Start UserName="R_INTC0_Start" LibName="R_INTCn_Start" InUse="0" />
-              <R_INTC0_Stop UserName="R_INTC0_Stop" LibName="R_INTCn_Stop" InUse="0" />
+              <R_INTC0_Start UserName="R_INTC0_Start" LibName="R_INTCn_Start" InUse="1" />
+              <R_INTC0_Stop UserName="R_INTC0_Stop" LibName="R_INTCn_Stop" InUse="1" />
             </INTP0>
             <INTP1>
               <R_INTC1_Start UserName="R_INTC1_Start" LibName="R_INTCn_Start" InUse="0" />
@@ -650,11 +650,11 @@
             </INTP5>
           </INTP>
         </r_cg_intc.c>
-        <r_cg_intc_user.c UserName="r_cg_intc_user.c" LibName="_user.c" InUse="0">
+        <r_cg_intc_user.c UserName="r_cg_intc_user.c" LibName="_user.c" InUse="1">
           <Type R_INTC_Create_UserInit="void R_INTC_Create_UserInit(void)" R_INTC0_Interrupt="__interrupt static void r_intc0_interrupt(void)" R_INTC1_Interrupt="__interrupt static void r_intc1_interrupt(void)" R_INTC2_Interrupt="__interrupt static void r_intc2_interrupt(void)" R_INTC3_Interrupt="__interrupt static void r_intc3_interrupt(void)" R_INTC4_Interrupt="__interrupt static void r_intc4_interrupt(void)" R_INTC5_Interrupt="__interrupt static void r_intc5_interrupt(void)" R_INTC6_Interrupt="__interrupt static void r_intc6_interrupt(void)" R_INTC7_Interrupt="__interrupt static void r_intc7_interrupt(void)" R_INTC8_Interrupt="__interrupt static void r_intc8_interrupt(void)" R_INTC9_Interrupt="__interrupt static void r_intc9_interrupt(void)" R_INTC10_Interrupt="__interrupt static void r_intc10_interrupt(void)" R_INTC11_Interrupt="__interrupt static void r_intc11_interrupt(void)" R_KEY_Create_UserInit="void R_KEY_Create_UserInit(void)" R_KEY_Interrupt="__interrupt static void r_key_interrupt(void)" />
           <INTP>
             <R_INTC_Create_UserInit UserName="R_INTC_Create_UserInit" LibName="R_INTC_Create_UserInit" InUse="0" />
-            <r_intc0_interrupt UserName="r_intc0_interrupt" LibName="R_INTC0_Interrupt" INTHandle="" InUse="0" />
+            <r_intc0_interrupt UserName="r_intc0_interrupt" LibName="R_INTC0_Interrupt" INTHandle="" InUse="1" />
             <r_intc1_interrupt UserName="r_intc1_interrupt" LibName="R_INTC1_Interrupt" INTHandle="" InUse="0" />
             <r_intc2_interrupt UserName="r_intc2_interrupt" LibName="R_INTC2_Interrupt" INTHandle="" InUse="0" />
             <r_intc3_interrupt UserName="r_intc3_interrupt" LibName="R_INTC3_Interrupt" INTHandle="" InUse="0" />
@@ -662,7 +662,7 @@
             <r_intc5_interrupt UserName="r_intc5_interrupt" LibName="R_INTC5_Interrupt" INTHandle="" InUse="0" />
           </INTP>
         </r_cg_intc_user.c>
-        <r_cg_intc.h UserName="r_cg_intc.h" LibName=".h" InUse="0" />
+        <r_cg_intc.h UserName="r_cg_intc.h" LibName=".h" InUse="1" />
       </INTC>
       <Serial>
         <r_cg_serial.c UserName="r_cg_serial.c" LibName=".c" InUse="1">
@@ -1265,8 +1265,8 @@
     <PORT Prepared="true" HelpID="port" SetFlag="True" NeedRefresh="False">
       <PORT SetFlag="True" MacroName="PORT" />
     </PORT>
-    <INTC SetFlag="False" HelpID="int" NeedRefresh="False">
-      <INTP Accelerate="No" MacroName="INTP" SetFlag="False" />
+    <INTC SetFlag="True" HelpID="int" NeedRefresh="False">
+      <INTP Accelerate="No" MacroName="INTP" SetFlag="True" />
     </INTC>
     <Serial SetFlag="True" HelpID="serial" NeedRefresh="False">
       <SAU0 Accelerate="No" MacroName="SAU" Channel="0" SetFlag="True" TabEnable="True">
@@ -1830,7 +1830,7 @@
     <INTP>
       <INTP0>
         <setting name="Valid_edge" value="falling" />
-        <setting name="Operation" value="unused" />
+        <setting name="Operation" value="used" />
         <setting name="ValidEdge" value="0" />
         <setting name="Interrupt_priority" value="3" />
         <setting name="pinsel" value="-1" />
