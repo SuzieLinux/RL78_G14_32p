@@ -39,7 +39,7 @@ inline void uart_time_delay(void)
     NOP();
 }
 
-#define Tx_Pin P0.bit.no1
+#define Tx_Pin P0_bit.no1
 
 void uart_tx_bit_bang(unsigned char val)
 {
