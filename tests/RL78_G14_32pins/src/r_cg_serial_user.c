@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file implements device driver for Serial module.
-* Creation Date: 2/4/2022
+* Creation Date: 2/9/2022
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -38,134 +38,73 @@ Includes
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-extern uint8_t   g_iic20_master_status_flag;  /* iic20 start flag for send address check by master mode */
-extern uint8_t * gp_iic20_tx_address;         /* iic20 send data pointer by master mode */
-extern uint16_t  g_iic20_tx_count;            /* iic20 send data size by master mode */
-extern uint8_t * gp_iic20_rx_address;         /* iic20 receive data pointer by master mode */
-extern uint16_t  g_iic20_rx_count;            /* iic20 receive data size by master mode */
-extern uint16_t  g_iic20_rx_length;           /* iic20 receive data length by master mode */
+extern uint8_t * gp_csi11_rx_address;         /* csi11 receive buffer address */
+extern uint16_t  g_csi11_rx_length;           /* csi11 receive data length */
+extern uint16_t  g_csi11_rx_count;            /* csi11 receive data count */
+extern uint8_t * gp_csi11_tx_address;         /* csi11 send buffer address */
+extern uint16_t  g_csi11_send_length;         /* csi11 send data length */
+extern uint16_t  g_csi11_tx_count;            /* csi11 send data count */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: r_iic20_interrupt
-* Description  : This function is INTIIC20 interrupt service routine.
+* Function Name: r_csi11_interrupt
+* Description  : This function is INTCSI11 interrupt service routine.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-#pragma vector = INTIIC20_vect
-__interrupt static void r_iic20_interrupt(void)
+#pragma vector = INTCSI11_vect
+__interrupt static void r_csi11_interrupt(void)
 {
-    volatile uint16_t w_count;
+    volatile uint8_t err_type;
 
-    for (w_count = 0U; w_count <= IIC20_WAITTIME_2; w_count++)
-    {
-        NOP();
-    }
+    err_type = (uint8_t)(SSR03 & _0001_SAU_OVERRUN_ERROR);
+    SIR03 = (uint16_t)err_type;
 
-    if (((SSR10 & _0002_SAU_PARITY_ERROR) == 0x0002U) && (g_iic20_tx_count != 0U))
+    if (1U == err_type)
     {
-        r_iic20_callback_master_error(MD_NACK);
-    }
-    else if(((SSR10 & _0001_SAU_OVERRUN_ERROR) == 0x0001U) && (g_iic20_tx_count != 0U))
-    {
-        r_iic20_callback_master_error(MD_OVERRUN);
+        r_csi11_callback_error(err_type);    /* overrun error occurs */
     }
     else
     {
-        /* Control for master send */
-        if ((g_iic20_master_status_flag & _01_SAU_IIC_SEND_FLAG) == 1U)
+        if (g_csi11_rx_count < g_csi11_rx_length)
         {
-            if (g_iic20_tx_count > 0U)
+            *gp_csi11_rx_address = SIO11;
+            gp_csi11_rx_address++;
+            g_csi11_rx_count++;
+
+            if (g_csi11_rx_count == g_csi11_rx_length)
             {
-                SIO20 = *gp_iic20_tx_address;
-                gp_iic20_tx_address++;
-                g_iic20_tx_count--;
+                r_csi11_callback_receiveend();    /* complete receive */
             }
             else
             {
-                /* IIC master transmission finishes and a callback function can be called here. */
-                r_iic20_callback_master_sendend();
-            }
-        }
-        /* Control for master receive */
-        else 
-        {
-            if ((g_iic20_master_status_flag & _04_SAU_IIC_SENDED_ADDRESS_FLAG) == 0U)
-            {
-                ST1 |= _0001_SAU_CH0_STOP_TRG_ON;
-                SCR10 &= ~_C000_SAU_RECEPTION_TRANSMISSION;
-                SCR10 |= _4000_SAU_RECEPTION;
-                SS1 |= _0001_SAU_CH0_START_TRG_ON;
-                g_iic20_master_status_flag |= _04_SAU_IIC_SENDED_ADDRESS_FLAG;
-                
-                if (g_iic20_rx_length == 1U)
-                {
-                    SOE1 &= ~_0001_SAU_CH0_OUTPUT_ENABLE;    /* disable IIC20 out */
-                }
-                
-                SIO20 = 0xFFU;
-            }
-            else
-            {
-                if (g_iic20_rx_count < g_iic20_rx_length)
-                {
-                    *gp_iic20_rx_address = SIO20;
-                    gp_iic20_rx_address++;
-                    g_iic20_rx_count++;
-                    
-                    if (g_iic20_rx_count == (g_iic20_rx_length - 1U))
-                    {
-                        SOE1 &= ~_0001_SAU_CH0_OUTPUT_ENABLE;    /* disable IIC20 out */
-                        SIO20 = 0xFFU;
-                    }
-                    else if (g_iic20_rx_count == g_iic20_rx_length)
-                    {
-                        /* IIC master reception finishes and a callback function can be called here. */
-                        r_iic20_callback_master_receiveend();
-                    }
-                    else
-                    {
-                        SIO20 = 0xFFU;
-                    }
-                }
+                SIO11 = 0xFFU;    /* write dummy */
             }
         }
     }
 }
 
 /***********************************************************************************************************************
-* Function Name: r_iic20_callback_master_error
-* Description  : This function is a callback function when IIC20 master error occurs.
-* Arguments    : flag -
-*                    status flag
+* Function Name: r_csi11_callback_receiveend
+* Description  : This function is a callback function when CSI11 finishes reception.
+* Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_iic20_callback_master_error(MD_STATUS flag)
+static void r_csi11_callback_receiveend(void)
 {
     /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
-* Function Name: r_iic20_callback_master_receiveend
-* Description  : This function is a callback function when IIC20 finishes master reception.
-* Arguments    : None
+* Function Name: r_csi11_callback_error
+* Description  : This function is a callback function when CSI11 reception error occurs.
+* Arguments    : err_type -
+*                    error type value
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_iic20_callback_master_receiveend(void)
-{
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_iic20_callback_master_sendend
-* Description  : This function is a callback function when IIC20 finishes master transmission.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void r_iic20_callback_master_sendend(void)
+static void r_csi11_callback_error(uint8_t err_type)
 {
     /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
