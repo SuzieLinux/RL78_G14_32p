@@ -36,6 +36,7 @@ Includes
 #include "r_cg_serial.h"
 #include "r_cg_timer.h"
 #include "r_cg_rtc.h"
+#include "r_cg_it.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -69,6 +70,7 @@ void R_Systeminit(void)
     R_SAU0_Create();
     R_TAU0_Create();
     R_RTC_Create();
+    R_IT_Create();
     R_INTC_Create();
     IAWCTL = 0x00U;
     /* Start data flash control */

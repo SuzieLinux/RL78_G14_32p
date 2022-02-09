@@ -528,7 +528,7 @@
         <INTRTC InUse="1" ISR="r_rtc_interrupt" />
       </RTC>
       <IT>
-        <INTIT InUse="0" ISR="r_it_interrupt" />
+        <INTIT InUse="1" ISR="r_it_interrupt" />
       </IT>
       <COMP Chip="R5F104AF,R5F104AG,R5F104BF,R5F104BG,R5F104CF,R5F104CG,R5F104EF,R5F104EG,R5F104EH,R5F104FF,R5F104FG,R5F104FH,R5F104FJ,R5F104GF,R5F104GG,R5F104GH,R5F104GJ,R5F104JF,R5F104JG,R5F104JH,R5F104JJ,R5F104LF,R5F104LG,R5F104LH,R5F104LJ,R5F104MF,R5F104MG,R5F104MH,R5F104MJ,R5F104PF,R5F104PG,R5F104PH,R5F104PJ,R5F104GK,R5F104GL,R5F104JK,R5F104JL,R5F104LK,R5F104LL,R5F104MK,R5F104ML,R5F104PK,R5F104PL,">
         <INTCMP0 InUse="0" ISR="r_comp0_interrupt" />
@@ -1029,19 +1029,19 @@
         <r_cg_rtc.h UserName="r_cg_rtc.h" LibName=".h" InUse="1" />
       </RTC>
       <IT>
-        <r_cg_it.c UserName="r_cg_it.c" LibName=".c" InUse="0">
+        <r_cg_it.c UserName="r_cg_it.c" LibName=".c" InUse="1">
           <Type R_IT_Create="void R_IT_Create(void)" R_IT_Start="void R_IT_Start(void)" R_IT_Stop="void R_IT_Stop(void)" R_IT_Set_PowerOff="void R_IT_Set_PowerOff(void)" />
-          <R_IT_Create UserName="R_IT_Create" LibName="R_IT_Create" InUse="0" Init="1" InitMode="" />
-          <R_IT_Start UserName="R_IT_Start" LibName="R_IT_Start" InUse="0" />
-          <R_IT_Stop UserName="R_IT_Stop" LibName="R_IT_Stop" InUse="0" />
+          <R_IT_Create UserName="R_IT_Create" LibName="R_IT_Create" InUse="1" Init="1" InitMode="" />
+          <R_IT_Start UserName="R_IT_Start" LibName="R_IT_Start" InUse="1" />
+          <R_IT_Stop UserName="R_IT_Stop" LibName="R_IT_Stop" InUse="1" />
           <R_IT_Set_PowerOff UserName="R_IT_Set_PowerOff" LibName="R_IT_Set_PowerOff" InUse="0" />
         </r_cg_it.c>
-        <r_cg_it_user.c UserName="r_cg_it_user.c" LibName="_user.c" InUse="0">
+        <r_cg_it_user.c UserName="r_cg_it_user.c" LibName="_user.c" InUse="1">
           <Type R_IT_Create_UserInit="void R_IT_Create_UserInit(void)" r_it_interrupt="__interrupt static void r_it_interrupt(void)" />
           <R_IT_Create_UserInit UserName="R_IT_Create_UserInit" LibName="R_IT_Create_UserInit" InUse="0" />
-          <r_it_interrupt UserName="r_it_interrupt" INTHandle="" LibName="r_it_interrupt" InUse="0" />
+          <r_it_interrupt UserName="r_it_interrupt" INTHandle="" LibName="r_it_interrupt" InUse="1" />
         </r_cg_it_user.c>
-        <r_cg_it.h UserName="r_cg_it.h" LibName=".h" InUse="0" />
+        <r_cg_it.h UserName="r_cg_it.h" LibName=".h" InUse="1" />
       </IT>
       <COMP Chip="R5F104AF,R5F104AG,R5F104BF,R5F104BG,R5F104CF,R5F104CG,R5F104EF,R5F104EG,R5F104EH,R5F104FF,R5F104FG,R5F104FH,R5F104FJ,R5F104GF,R5F104GG,R5F104GH,R5F104GJ,R5F104JF,R5F104JG,R5F104JH,R5F104JJ,R5F104LF,R5F104LG,R5F104LH,R5F104LJ,R5F104MF,R5F104MG,R5F104MH,R5F104MJ,R5F104PF,R5F104PG,R5F104PH,R5F104PJ,R5F104GK,R5F104GL,R5F104JK,R5F104JL,R5F104LK,R5F104LL,R5F104MK,R5F104ML,R5F104PK,R5F104PL">
         <r_cg_comp.c UserName="r_cg_comp.c" LibName=".c" InUse="">
@@ -1300,8 +1300,8 @@
     <RTC SetFlag="True" HelpID="rtc" NeedRefresh="False">
       <RTC MacroName="RTC" SetFlag="True" />
     </RTC>
-    <IT SetFlag="False" HelpID="intervaltimer" NeedRefresh="False">
-      <IT MacroName="IntervalTM" SetFlag="False" />
+    <IT SetFlag="True" HelpID="intervaltimer" NeedRefresh="False">
+      <IT MacroName="IntervalTM" SetFlag="True" />
     </IT>
     <COMP SetFlag="" Chip="R5F104AF,R5F104AG,R5F104BF,R5F104BG,R5F104CF,R5F104CG,R5F104EF,R5F104EG,R5F104EH,R5F104FF,R5F104FG,R5F104FH,R5F104FJ,R5F104GF,R5F104GG,R5F104GH,R5F104GJ,R5F104JF,R5F104JG,R5F104JH,R5F104JJ,R5F104LF,R5F104LG,R5F104LH,R5F104LJ,R5F104MF,R5F104MG,R5F104MH,R5F104MJ,R5F104PF,R5F104PG,R5F104PH,R5F104PJ,R5F104GK,R5F104GL,R5F104JK,R5F104JL,R5F104LK,R5F104LL,R5F104MK,R5F104ML,R5F104PK,R5F104PL,R5F104GK,R5F104GL,R5F104JK,R5F104JL,R5F104LK,R5F104LL,R5F104MK,R5F104ML,R5F104PK,R5F104PL" HelpID="comparator" NeedRefresh="False">
       <COMP SetFlag="" MacroName="COMP" />
@@ -2023,9 +2023,9 @@
       <setting name="AD_interrupt" value="used" />
     </ADC>
     <IT>
-      <setting name="IntervalValue" value="100" />
-      <setting name="ValueScale" value="1" />
-      <setting name="Operation" value="disable" />
+      <setting name="IntervalValue" value="10" />
+      <setting name="ValueScale" value="0" />
+      <setting name="Operation" value="enable" />
       <setting name="INTTIT_priority" value="3" />
       <setting name="INTITUse" value="true" />
     </IT>
