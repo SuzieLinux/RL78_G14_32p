@@ -40,18 +40,33 @@ Includes
 
 void uart_tx_bit_bang(uint8_t val)
 {
-    uint8_t i;
     Tx_Pin = 0;                         // Start bit
     uart_time_delay();
-    for (i = 0; i < 8; i++)
-    {
-        if (val & 1) Tx_Pin = 1;   // Begin with LSB
-        else         Tx_Pin = 0;
-        val >>= 1;
-        uart_time_delay();
-    }
-    Tx_Pin = 1;                         // Stop bit
+    if (val & 1) Tx_Pin = 1;   // Begin with LSB
+    else         Tx_Pin = 0;
     uart_time_delay();
+    if (val & 2) Tx_Pin = 1;
+    else         Tx_Pin = 0;
+    uart_time_delay();
+    if (val & 4) Tx_Pin = 1;
+    else         Tx_Pin = 0;
+    uart_time_delay();
+    if (val & 8) Tx_Pin = 1;
+    else         Tx_Pin = 0;
+    uart_time_delay();
+    if (val & 0x10) Tx_Pin = 1;
+    else         Tx_Pin = 0;
+    uart_time_delay();
+    if (val & 0x20) Tx_Pin = 1;
+    else         Tx_Pin = 0;
+    uart_time_delay();
+    if (val & 0x40) Tx_Pin = 1;
+    else         Tx_Pin = 0;
+    uart_time_delay();
+    if (val & 0x80) Tx_Pin = 1;
+    else         Tx_Pin = 0;
+    uart_time_delay();
+    Tx_Pin = 1;                         // Stop bit
 }
 
 
