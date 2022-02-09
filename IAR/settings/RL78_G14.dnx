@@ -49,7 +49,7 @@
         <FreqHi>0</FreqHi>
     </Simulator>
     <DebugChecksum>
-        <Checksum>1101119341</Checksum>
+        <Checksum>878008281</Checksum>
     </DebugChecksum>
     <E2Lite>
         <Map0>0,0,16383,16384</Map0>
@@ -221,8 +221,10 @@
         <ShowSource>1</ShowSource>
     </TraceHelper>
     <Breakpoints>
-        <Bp0>_ "STD_CODE" "{$PROJ_DIR$\src\base\r_main.c}.85.9" 1 0 0 0 "" 0 ""</Bp0>
-        <Count>1</Count>
+        <Bp0>_ "STD_CODE" "{$PROJ_DIR$\src\base\r_main.c}.80.1" 0 0 0 0 "" 0 ""</Bp0>
+        <Bp1>_ "STD_CODE" "{$PROJ_DIR$\src\serial\r_cg_serial_user.c}.387.17" 1 0 0 0 "" 0 ""</Bp1>
+        <Bp2>_ "STD_CODE" "{$PROJ_DIR$\src\serial\r_cg_serial_user.c}.394.17" 1 0 0 0 "" 0 ""</Bp2>
+        <Count>3</Count>
     </Breakpoints>
     <Monitor_Execution>
         <Leave_target_running>0</Leave_target_running>

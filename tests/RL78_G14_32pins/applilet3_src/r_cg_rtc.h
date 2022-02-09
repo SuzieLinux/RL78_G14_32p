@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file implements device driver for RTC module.
-* Creation Date: 2/4/2022
+* Creation Date: 2/9/2022
 ***********************************************************************************************************************/
 
 #ifndef RTC_H

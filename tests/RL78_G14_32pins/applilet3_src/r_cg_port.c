@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file implements device driver for PORT module.
-* Creation Date: 1/16/2022
+* Creation Date: 2/9/2022
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -49,10 +49,12 @@ Global variables and functions
 ***********************************************************************************************************************/
 void R_PORT_Create(void)
 {
+    P0 = _00_Pn1_OUTPUT_0;
     P1 = _00_Pn2_OUTPUT_0;
     P6 = _00_Pn0_OUTPUT_0 | _00_Pn1_OUTPUT_0 | _00_Pn2_OUTPUT_0;
-    POM1 = _10_POMn4_NCH_ON | _20_POMn5_NCH_ON;
+    PMC0 = _00_PMCn0_DI_ON | _00_PMCn1_DI_ON | _FC_PMC0_DEFAULT;
     PMC1 = _00_PMCn2_DI_ON | _08_PMCn3_NOT_USE | _40_PMCn6_NOT_USE | _80_PMCn7_NOT_USE;
+    PM0 = _01_PMn0_MODE_INPUT | _00_PMn1_MODE_OUTPUT | _FC_PM0_DEFAULT;
     PM1 = _01_PMn0_NOT_USE | _02_PMn1_NOT_USE | _00_PMn2_MODE_OUTPUT | _08_PMn3_NOT_USE | _10_PMn4_NOT_USE |
           _20_PMn5_NOT_USE | _40_PMn6_NOT_USE | _80_PMn7_NOT_USE;
     PM6 = _00_PMn0_MODE_OUTPUT | _00_PMn1_MODE_OUTPUT | _00_PMn2_MODE_OUTPUT | _F8_PM6_DEFAULT;

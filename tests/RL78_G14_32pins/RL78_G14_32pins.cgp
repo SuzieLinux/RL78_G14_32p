@@ -135,7 +135,7 @@
     <TRD1_INTP0 Name="TRD1_INTP0" Value="0" />
     <ELC_TARGET8 Name="ELC_TARGET8" Text="disable" />
     <ProjectName Name="PrjName" Text="RL78_G14_32pins" />
-    <ProjectPath Name="PrjPath" Text="C:\Users\miche\Documents\RL78_G14_32pins" />
+    <ProjectPath Name="PrjPath" Text="C:\Users\miche\Documents\RL78_G14_32p\tests\RL78_G14_32pins" />
     <ProjectKind Name="PrjKind" Text="Project78K0R" />
     <DeviceName Name="DeviceName" Fixed="" Text="RL78G14" />
     <CPUCoreType Name="CPUCoreType" Fixed="" Text="1" />
@@ -220,8 +220,8 @@
       </CGC>
       <PORT>
         <Port0 Chip="RL78G14_30pin,RL78G14_32pin" DIN="true" Pullup="true">
-          <P00 Name="P00/ANI17/TI00/TxD1/TRGCLKA" Nch="true" AltFunc="" Point="I/O" />
-          <P01 Name="P01/ANI16/TO00/RxD1/TRGCLKB/TRJIO0" TTL="true" AltFunc="" Point="I/O" />
+          <P00 Name="P00/ANI17/TI00/TxD1/TRGCLKA" Nch="true" AltFunc="P00" Point="I/O" />
+          <P01 Name="P01/ANI16/TO00/RxD1/TRGCLKB/TRJIO0" TTL="true" AltFunc="P01" Point="I/O" />
         </Port0>
         <Port1 Pullup="true">
           <P10 Name="P10/_SCK11/SCL11" Nch="true" TTL="true" AltFunc="SCK11" Point="I/O" />
@@ -1234,19 +1234,19 @@
         <cg_security7 Name="cg_security7" Value="00" />
         <pior1_value Name="pior1_value" Value="00" />
         <cg_security5 Name="cg_security5" Value="00" />
-        <ocdstart Name="ocdstart" Value="1FE00" />
+        <cg_crc_area Name="cg_crc_area" Value="00" />
+        <rrm Name="rrm" Value="1FE00" />
         <cg_security3 Name="cg_security3" Value="00" />
         <cg_security0 Name="cg_security0" Value="00" />
         <cg_security1 Name="cg_security1" Value="00" />
         <cg_ocd_ram_size Name="cg_ocd_ram_size" Value="512" />
-        <cg_crc_area Name="cg_crc_area" Value="00" />
         <clock_option Name="clock_option" Value="F8" />
         <dataflash_use Name="dataflash_use" Value="" />
         <pior_value Name="pior_value" Value="00" />
         <cg_option Name="cg_option" Value="85" />
         <cg_security8 Name="cg_security8" Value="00" />
         <df_waittime Name="df_waittime" Value="13" />
-        <cg_security4 Name="cg_security4" Value="00" />
+        <ocdstart Name="ocdstart" Value="1FE00" />
         <cg_pms_value Name="cg_pms_value" Value="00" />
         <cg_onchip Name="cg_onchip" Value="" />
         <cg_security2 Name="cg_security2" Value="00" />
@@ -1254,7 +1254,7 @@
         <lvi_option Name="lvi_option" Value="FF" />
         <wdt_option Name="wdt_option" Value="EF" />
         <cg_security6 Name="cg_security6" Value="00" />
-        <rrm Name="rrm" Value="1FE00" />
+        <cg_security4 Name="cg_security4" Value="00" />
       </GlobleUserTag>
     </TAG>
   </DIR>
@@ -1374,14 +1374,14 @@
     <PORT>
       <PortP0>
         <P00>
-          <setting name="Operation" value="unused" />
+          <setting name="Operation" value="input" />
           <setting name="Pull_up" value="unused" />
           <setting name="TTL_buffer" value="unused" />
           <setting name="N-ch_open-drain" value="unused" />
           <setting name="Output_value" value="0" />
         </P00>
         <P01>
-          <setting name="Operation" value="unused" />
+          <setting name="Operation" value="output" />
           <setting name="Pull_up" value="unused" />
           <setting name="TTL_buffer" value="unused" />
           <setting name="N-ch_open-drain" value="unused" />
@@ -1742,13 +1742,6 @@
       <Channel3>
         <setting name="Channel_function_-i" value="2" />
         <setting name="Detail_function_-i" value="0" />
-        <IIC11>
-          <setting name="TransferSpeed" value="100000" />
-          <setting name="Interrupt_priority" value="3" />
-          <setting name="Master_receive_end_callback_function" value="generated" />
-          <setting name="Master_transmit_end_callback_function" value="generated" />
-          <setting name="Master_error_callback_function" value="generated" />
-        </IIC11>
         <Receive_CSI11>
           <setting name="Transfer_mode" value="single" />
           <setting name="Data_length" value="8 bits" />
@@ -1762,6 +1755,13 @@
           <setting name="Receive_error_callback_function" value="generated" />
           <setting name="Interrupt_priority" value="3" />
         </Receive_CSI11>
+        <IIC11>
+          <setting name="TransferSpeed" value="100000" />
+          <setting name="Interrupt_priority" value="3" />
+          <setting name="Master_receive_end_callback_function" value="generated" />
+          <setting name="Master_transmit_end_callback_function" value="generated" />
+          <setting name="Master_error_callback_function" value="generated" />
+        </IIC11>
       </Channel3>
       <IIC11 />
       <CSI11 />

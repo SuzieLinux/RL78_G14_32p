@@ -23,7 +23,7 @@
 * Device(s)    : R5F104BG
 * Tool-Chain   : IAR Systems iccrl78
 * Description  : This file includes user definition.
-* Creation Date: 1/16/2022
+* Creation Date: 2/9/2022
 ***********************************************************************************************************************/
 
 #ifndef _USER_DEF_H
