@@ -52,14 +52,12 @@ void uart_tx_bit_bang(uint8_t val)
         NOP();
         NOP();
         NOP();
-        NOP();
     }
 
     if (val & 2) Tx_Pin = 1;
     else
     {
         Tx_Pin = 0;
-        NOP();
         NOP();
         NOP();
         NOP();
@@ -76,14 +74,12 @@ void uart_tx_bit_bang(uint8_t val)
         NOP();
         NOP();
         NOP();
-        NOP();
     }
 
     if (val & 8) Tx_Pin = 1;
     else
     {
         Tx_Pin = 0;
-        NOP();
         NOP();
         NOP();
         NOP();
@@ -100,14 +96,12 @@ void uart_tx_bit_bang(uint8_t val)
         NOP();
         NOP();
         NOP();
-        NOP();
     }
 
     if (val & 0x20) Tx_Pin = 1;
     else
     {
         Tx_Pin = 0;
-        NOP();
         NOP();
         NOP();
         NOP();
@@ -124,14 +118,12 @@ void uart_tx_bit_bang(uint8_t val)
         NOP();
         NOP();
         NOP();
-        NOP();
     }
 
     if (val & 0x80) Tx_Pin = 1;
     else
     {
         Tx_Pin = 0;
-        NOP();
         NOP();
         NOP();
         NOP();
