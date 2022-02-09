@@ -35,13 +35,15 @@ Includes
 
 
 #define Tx_Pin P0_bit.no1
-uint8_t CountLow = 20;
+uint8_t CountLow = 18;
 uint8_t CountHigh = 15;
 
 void uart_tx_bit_bang(uint8_t val)
 {
+    uint8_t i;
+    
     Tx_Pin = 0;                         // Start bit
-    for (i = 0; i < CountLow; i++);
+    for (i = 0; i < 17; i++);
     if (val & 1)    // Begin with LSB
     {
         Tx_Pin = 1;
