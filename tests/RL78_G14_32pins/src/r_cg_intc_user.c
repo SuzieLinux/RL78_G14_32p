@@ -47,5 +47,5 @@ __interrupt static void r_intc0_interrupt(void)
 {
     uart_tx_bit_bang('M');
 }
-}
+
 
