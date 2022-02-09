@@ -36,6 +36,7 @@ Includes
 #include "r_cg_serial.h"
 #include "r_cg_timer.h"
 #include "r_cg_rtc.h"
+#include "r_cg_it.h"
 #include "r_cg_userdefine.h"
 
 /***********************************************************************************************************************
@@ -71,9 +72,16 @@ void main(void)
     R_INTC0_Start();
     EI();
 
+    uint8_t uci;
+
+    uint8_t *test = "UART Bit bang test "
+
     while (1U)
     {
-        ;
+        for (uci = 0; uci < 19; uci++)
+        {
+            uart_tx_bit_bang(test[uci]);
+        }
     }
 }
 

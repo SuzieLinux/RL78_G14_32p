@@ -60,6 +60,8 @@
             <F N="src/r_cg_cgc_user.c"/>
             <F N="src/r_cg_intc.c"/>
             <F N="src/r_cg_intc_user.c"/>
+            <F N="src/r_cg_it.c"/>
+            <F N="src/r_cg_it_user.c"/>
             <F N="src/r_cg_port.c"/>
             <F N="src/r_cg_port_user.c"/>
             <F N="src/r_cg_rtc.c"/>
@@ -78,6 +80,7 @@
             <F N="src/r_cg_adc.h"/>
             <F N="src/r_cg_cgc.h"/>
             <F N="src/r_cg_intc.h"/>
+            <F N="src/r_cg_it.h"/>
             <F N="src/r_cg_macrodriver.h"/>
             <F N="src/r_cg_port.h"/>
             <F N="src/r_cg_rtc.h"/>

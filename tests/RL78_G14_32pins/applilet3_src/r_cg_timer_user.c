@@ -51,20 +51,6 @@ volatile uint8_t Time_to_toggle = 0;
 #pragma vector = INTTM00_vect
 __interrupt static void r_tau0_channel0_interrupt(void)
 {
-    /* Start user code. Do not edit comment generated here */
-	if (Time_to_toggle) {
-		Time_to_toggle = 0;
-        P6_bit.no0 = 0;
-        P6_bit.no1 = 0;
-        P6_bit.no2 = 0;
-	}   		  
-	else {
-		Time_to_toggle = 1;
-        P6_bit.no0 = 1;
-        P6_bit.no1 = 1;
-        P6_bit.no2 = 1;
-	}
-	/* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */
