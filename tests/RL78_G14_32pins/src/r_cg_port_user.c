@@ -35,107 +35,101 @@ Includes
 
 
 #define Tx_Pin P0_bit.no1
+uint8_t CountLow = 20;
+uint8_t CountHigh = 15;
 
 void uart_tx_bit_bang(uint8_t val)
 {
     Tx_Pin = 0;                         // Start bit
-    NOP();
-    NOP();
-    NOP();
-    NOP();
-    if (val & 1) Tx_Pin = 1;   // Begin with LSB
+    for (i = 0; i < CountLow; i++);
+    if (val & 1)    // Begin with LSB
+    {
+        Tx_Pin = 1;
+        for (i = 0; i < CountHigh; i++);
+    }
     else
     {
         Tx_Pin = 0;
-        NOP();
-        NOP();
-        NOP();
-        NOP();
-        NOP();
+        for (i = 0; i < CountLow; i++);
     }
 
-    if (val & 2) Tx_Pin = 1;
+    if (val & 2)
+    {
+        Tx_Pin = 1;
+        for (i = 0; i < CountHigh; i++);
+    }
     else
     {
         Tx_Pin = 0;
-        NOP();
-        NOP();
-        NOP();
-        NOP();
-        NOP();
+        for (i = 0; i < CountLow; i++);
     }
 
-    if (val & 4) Tx_Pin = 1;
+    if (val & 4)
+    {
+        Tx_Pin = 1;
+        for (i = 0; i < CountHigh; i++);
+    }
     else
     {
         Tx_Pin = 0;
-        NOP();
-        NOP();
-        NOP();
-        NOP();
-        NOP();
+        for (i = 0; i < CountLow; i++);
     }
 
-    if (val & 8) Tx_Pin = 1;
+    if (val & 8)
+    {
+        Tx_Pin = 1;
+        for (i = 0; i < CountHigh; i++);
+    }
     else
     {
         Tx_Pin = 0;
-        NOP();
-        NOP();
-        NOP();
-        NOP();
-        NOP();
+        for (i = 0; i < CountLow; i++);
     }
 
-    if (val & 0x10) Tx_Pin = 1;
+    if (val & 0x10)
+    {
+        Tx_Pin = 1;
+        for (i = 0; i < CountHigh; i++);
+    }
     else
     {
         Tx_Pin = 0;
-        NOP();
-        NOP();
-        NOP();
-        NOP();
-        NOP();
+        for (i = 0; i < CountLow; i++);
     }
 
-    if (val & 0x20) Tx_Pin = 1;
+    if (val & 0x20)
+    {
+        Tx_Pin = 1;
+        for (i = 0; i < CountHigh; i++);
+    }
     else
     {
         Tx_Pin = 0;
-        NOP();
-        NOP();
-        NOP();
-        NOP();
-        NOP();
+        for (i = 0; i < CountLow; i++);
     }
 
-    if (val & 0x40) Tx_Pin = 1;
+    if (val & 0x40)
+    {
+        Tx_Pin = 1;
+        for (i = 0; i < CountHigh; i++);
+    }
     else
     {
         Tx_Pin = 0;
-        NOP();
-        NOP();
-        NOP();
-        NOP();
-        NOP();
+        for (i = 0; i < CountLow; i++);
     }
 
-    if (val & 0x80) Tx_Pin = 1;
+    if (val & 0x80)
+    {
+        Tx_Pin = 1;
+        for (i = 0; i < CountHigh; i++);
+    }
     else
     {
         Tx_Pin = 0;
-        NOP();
-        NOP();
-        NOP();
-        NOP();
-        NOP();
+        for (i = 0; i < CountLow; i++);
     }
-    NOP();
-    NOP();
-    NOP();
-    NOP();
-    NOP();
-    NOP();
+    for (i = 0; i < CountLow; i++);
     Tx_Pin = 1;                         // Stop bit
 }
 
