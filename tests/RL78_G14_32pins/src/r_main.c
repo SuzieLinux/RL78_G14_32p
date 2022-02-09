@@ -35,8 +35,7 @@ Includes
 #include "r_cg_serial.h"
 #include "r_cg_timer.h"
 #include "r_cg_rtc.h"
-/* Start user code for include. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+#include "r_cg_intc.h"
 #include "r_cg_userdefine.h"
 
 /***********************************************************************************************************************
@@ -60,8 +59,6 @@ __root const uint8_t opbyte3 = 0x85U;
 __root const uint8_t secuid[10] =
     {0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U};
 
-void R_MAIN_UserInit(void);
-
 /***********************************************************************************************************************
 * Function Name: main
 * Description  : This function implements main function.
@@ -70,30 +67,13 @@ void R_MAIN_UserInit(void);
 ***********************************************************************************************************************/
 void main(void)
 {
-    R_MAIN_UserInit();
-    /* Start user code. Do not edit comment generated here */
+    R_TAU0_Channel0_Start();
+    R_INTC0_Start();
+    EI();
+
     while (1U)
     {
         ;
     }
-    /* End user code. Do not edit comment generated here */
 }
 
-
-/***********************************************************************************************************************
-* Function Name: R_MAIN_UserInit
-* Description  : This function adds user code before implementing main function.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_MAIN_UserInit(void)
-{
-    /* Start user code. Do not edit comment generated here */
-    R_TAU0_Channel0_Start();
-    R_INTC0_Start();
-    EI();
-    /* End user code. Do not edit comment generated here */
-}
-
-/* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
